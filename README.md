@@ -1,19 +1,17 @@
-# Project Repository
+# Concerts.io
 
-This repository will be used for team projects.
+## Product Vision Statement
+- Concerts.io: A web application to provide users with concert information in their area relevant to their music listening habits. 
+- Concerts.io MVP will be a web application with a react front-end and express back-end communications with mongodb to compare a user-defined list of music artists to a locally defined database of concerts. It will require at minimum some communication with the Spotify API, Apple Music API, and Last.fm API. To start, users will have concerts recommended to them solely based on whether or not they have listened to them or if they follow the artist, and they will be able to save concerts and follow artists. 
 
-Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
+## Team Members
+- [Harry Minsky](https://github.com/hminsky2002)
+- [Joshua Forlenza](https://github.com/joshforlenza)
+- [Mindy Wu](https://github.com/mindyjwu)
+- [Lianna Poblete](https://github.com/liannnaa)
 
-1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+## History of the Project
+Concerts.io is a website that shows you nearby concerts based on your music taste. Users will receive weekly newsletter updates of shows happening nearby and also recently announced shows taking place in the future. Through the website, you will be able to see important details about each concert such as the date and time of the show, ticket prices, age requirement, and a link to purchase. Users will be able to save shows they want to go to and receive reminders of upcoming shows they have tickets for. Concerts.io makes the concert-going experience easy for all users, freeing them from the hassle and worry of missing out on their favorite band's show.
 
-1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-0c-project-setup.md)
-
-1. See the [Sprint Planning instructions](instructions-0d-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
-
-1. See the [Front-End Development instructions](./instructions-1-front-end.md) for the requirements of the initial Front-End Development.
-
-1. See the [Back-End Development instructions](./instructions-2-back-end.md) for the requirements of the initial Back-End Development.
-
-1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
-
-1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+## Additional Resources
+[Concert.io Proposal](https://github.com/agiledev-students-spring-2023/project-proposal-team1234)
