@@ -1,0 +1,22 @@
+.Concert {
+    text-align: center;
+}
+   
+   
+.Concert-header {
+    background-color: #282c34;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+
+.Concert-link {
+    margin: 20px;
+}
+
+.Concert-button {
+    margin: 20px;
+}
