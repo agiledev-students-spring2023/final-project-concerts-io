@@ -1,0 +1,18 @@
+
+/* THIS IS THE GODSEND ALIGNMENT  */
+.menu-wrapper{
+    overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+
+}
+
+.menu-box{
+    background-color: aquamarine;
+    padding: 5%;
+}

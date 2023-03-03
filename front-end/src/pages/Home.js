@@ -5,6 +5,7 @@ const Home = () => {
         <div className="Home">
             <h1> Concerts.io</h1>
         </div>
+        
     )
 };
 

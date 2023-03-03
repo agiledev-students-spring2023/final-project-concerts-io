@@ -1,6 +1,7 @@
 import './App.css';
 import Home from './pages/Home.js'
 import {BrowserRouter,Routes,Route} from "react-router-dom";
+import Menu from './components/Menu';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
                    />
           </Routes>
         </div>
-        </BrowserRouter>
+    <Menu/>
+    </BrowserRouter>
     </div>
     
   );
