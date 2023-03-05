@@ -1,13 +1,13 @@
 import './App.css';
 import React from "react"
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom" 
-import Home from "./Home"
-import Profile from "./Profile"
-import SavedConcerts from "./SavedConcerts"
-import ConcertStandalone from "./ConcertStandalone"
-import FavoriteArtists from "./FavoriteArtists"
-import ArtistStandalone from "./ArtistStandalone"
-import About from "./About"
+import Home from ".//pages/Home"
+import Profile from ".//pages/Profile"
+import SavedConcerts from ".//pages/SavedConcerts"
+import Concert from ".//pages/Concert"
+import FavoriteArtists from ".//pages/FavoriteArtists"
+import Artist from ".//pages/Artist"
+import About from ".//pages/About"
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
             {/* a route for just a single concert, where the id of the desired concert is passed as a parameter */}
             <Route
                 path="/concerts/:concertId"
-                element={<ConcertStandalone />}
+                element={<Concert />}
               />
 
             {/* a route to the favorite artists screen */}
@@ -35,7 +35,7 @@ function App() {
             {/* a route for just a single artist, where the id of the desired concert is passed as a parameter */}
             <Route
                 path="/artists/:artistId"
-                element={<ArtistStandalone />}
+                element={<Artist />}
               />
 
             {/* a route to the about us screen */}
