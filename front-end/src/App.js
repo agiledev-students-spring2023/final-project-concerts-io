@@ -8,6 +8,7 @@ import Concert from ".//pages/Concert"
 import FavoriteArtists from ".//pages/FavoriteArtists"
 import Artist from ".//pages/Artist"
 import About from ".//pages/About"
+import Menu from ".//components/Menu"
 
 function App() {
   return (
