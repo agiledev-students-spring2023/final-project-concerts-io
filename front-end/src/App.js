@@ -19,9 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
 
             {/* a route to the profile screen */}
-            <Route 
-                path="/profile" 
-                element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
 
             {/* a route to the saved concerts screen */}
             <Route path="/saved-concerts" element={<SavedConcerts />} />
@@ -42,12 +40,11 @@ function App() {
               />
 
             {/* a route to the about us screen */}
-            <Route 
-                path="/about" 
-                element={<About />} />
+            <Route path="/about" element={<About />} />
 
           </Routes>
-        </BrowserRouter>
+          <Menu/>
+      </BrowserRouter>
     </div>
     
   );

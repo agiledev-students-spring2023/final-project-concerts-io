@@ -1,12 +1,12 @@
-.link {/* class name */
+/* .link {
     text-decoration: underline;
     margin: auto;
 }
 .flex-container {
     display: flex;
     flex-direction: row;
-}
-h2 { /* html element */
+} */
+h2 { 
     display: flex;
     flex-direction: column;
     margin-bottom: 250px;
