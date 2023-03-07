@@ -5,6 +5,7 @@ import "./FavoriteArtists.css"
 const FavoriteArtists = props => {
     return (
       <div className="FavoriteArtists">
+        <p></p>
       </div>
     )
   }

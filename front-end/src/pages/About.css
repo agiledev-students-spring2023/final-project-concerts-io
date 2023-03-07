@@ -1,0 +1,13 @@
+.link {/* class name */
+    text-decoration: underline;
+    margin: auto;
+}
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+h2 { /* html element */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 250px;
+}
