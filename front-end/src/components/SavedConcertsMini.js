@@ -2,6 +2,7 @@ import React,  { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './SavedConcertsMini.css'
 import ConcertComponent from "./ConcertComponent";
+import axios from 'axios'
 const demoUser = {
     proPic: "default",
     username: "averageConcertEnjoyer",
@@ -9,76 +10,45 @@ const demoUser = {
 }
 
 const SavedConcertsMini = () =>{
-    const savedConcertsInfo = [
-    {
-      id: 1,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/1',
-    },
-    {
-      id: 2,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/2',
-    },
-    {
-      id: 3,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/3',
-    },
-    {
-      id: 4,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/4',
-    },
-    {
-      id: 5,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/5',
-    },
-    {
-      id: 6,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/6',
-    },
-    {
-      id: 7,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/7',
-    },
-  ];
+  const [savedConcerts, setSavedConcerts] = useState([])
+  useEffect(() => {
+    axios("https://my.api.mockaroo.com/concerts.json?key=54687d90")
+     .then(response => {
+       setSavedConcerts(response.data)
+     })
+     .catch(err => {
+       console.log(`Get Nae Naed--No Data For you`)
+       console.error(err)
+       const backupData = [
+        {
+          id: 1,
+          name: "John Smith live at the Purple Lounge",
+          artist: "John Smith",
+          date: "September 22, 2040",
+          description: "John Smith debuts his new record for the first time live",
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          ticketLink: 'https://example.com/tickets',
+        },
+        {
+          id: 2,
+          name: "Barry Ken live at the Red Lounge",
+          artist: "Barry Ken",
+          date: "August 15, 2040",
+          description: "The legendary Barry Ken returns for his first performace in years",
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          ticketLink: 'https://example.com/tickets',
+        },
+       ]
+       setSavedConcerts(backupData)
+     })
+ }, []) 
     return(
         <div id="SavedConcertsMini">
             <Link to="/saved-concerts"><h3>{demoUser.username}'s' Saved Concerts</h3></Link>
             <div id="mini-concerts-container">
-              {savedConcertsInfo.map(concert => (
+              {savedConcerts.map(concert => (
                 <ConcertComponent key = {concert.id} details = {concert} />
               ))}
             </div>

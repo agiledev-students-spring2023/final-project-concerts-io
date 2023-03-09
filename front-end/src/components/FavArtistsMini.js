@@ -18,12 +18,11 @@ const exampleArtists = [
     }]
 
 const FavArtistsMini = () =>{
-
     const [favArtists, setFavArtists] = useState([])
     useEffect(() => {
         setFavArtists(exampleArtists)
     }, []) 
-
+    
 
     return(
         <div className="favorite-artists">

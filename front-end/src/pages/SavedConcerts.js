@@ -1,72 +1,86 @@
-import React from "react"
+import React, {useState,useEffect} from "react"
 import "./SavedConcerts.css"
+import axios from "axios";
 
 const SavedConcerts = () => {
-  const savedConcertsInfo = [
-    {
-      id: 1,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/1',
-    },
-    {
-      id: 2,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/2',
-    },
-    {
-      id: 3,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/3',
-    },
-    {
-      id: 4,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/4',
-    },
-    {
-      id: 5,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/5',
-    },
-    {
-      id: 6,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/6',
-    },
-    {
-      id: 7,
-      name: 'Example Concert',
-      artist: 'Example Artist',
-      date: 'Example Date',
-      location: 'Example Venue',
-      image: 'https://example.com/image.jpg',
-      link: 'http://localhost:3000/concerts/7',
-    },
-  ];
+  const [savedConcerts, setSavedConcerts] = useState([])
+  useEffect(() => {
+    axios("https://my.api.mockaroo.com/concerts.json?key=54687d90")
+     .then(response => {
+       setSavedConcerts(response.data)
+     })
+     .catch(err => {
+       console.log(`Get Nae Naed--No Data For you`)
+       console.error(err)
+       const backupData = [
+        {
+          id: 1,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/1',
+        },
+        {
+          id: 2,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/2',
+        },
+        {
+          id: 3,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/3',
+        },
+        {
+          id: 4,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/4',
+        },
+        {
+          id: 5,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/5',
+        },
+        {
+          id: 6,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/6',
+        },
+        {
+          id: 7,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          link: 'http://localhost:3000/concerts/7',
+        }
+       ]
+       setSavedConcerts(backupData)
+     })
+    }, []) 
+
 
   return (
     <div className="SavedConcerts">
@@ -76,7 +90,7 @@ const SavedConcerts = () => {
       </header>
       <div className="concerts-container">
         <div className="savedConcerts-container">
-          {savedConcertsInfo.map(concert => (
+          {savedConcerts.map(concert => (
             <div key={concert.id} className="saved-concert">
               <img src={concert.imageUrl} alt={concert.artist} />
               <div className="concert-details">
