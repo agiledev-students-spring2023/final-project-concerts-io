@@ -1,20 +1,23 @@
 .menu-box {
     text-decoration: underline;
     margin: auto;
+    /* margin-bottom: 20px; */
+    margin-top: 20px;
     margin-bottom: 20px;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     padding: 0% 1% 0% 1%;
     height: 75px;
   }
 .menu-wrapper {
-    width: 500px;
+    /* width: 500px; */
     display: flex;
-    left : 50%;
-    margin-left: -250px; 
+    /* left : 50%; */
+    /* margin-left: -250px;  */
     flex-direction: row;
     position: fixed;
     bottom: 0px;
-
+    width: 100%;
+    background-color: white;
     justify-content: center;
 } 
 /* THIS IS THE GODSEND ALIGNMENT */

@@ -11,3 +11,11 @@ h2 {
     flex-direction: column;
     margin-bottom: 250px;
 }
+
+p.paragraph {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: justify;
+    text-align: center;
+    margin-bottom: 50%;
+}
