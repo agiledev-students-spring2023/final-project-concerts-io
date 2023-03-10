@@ -28,7 +28,7 @@ const FavArtistsMini = () =>{
     return(
         <div className="favorite-artists">
            <div className="FavoriteArtists">
-           <Link to="/favorite-concerts"> <h3>{demoUser.username}'s' Favorite Artists</h3></Link>
+           <Link to="/favorite-artists"> <h3>{demoUser.username}'s' Favorite Artists</h3></Link>
             <section>
             {favArtists.map(x => (
                 <ArtistComponent key = {x.id} details = {x} />
