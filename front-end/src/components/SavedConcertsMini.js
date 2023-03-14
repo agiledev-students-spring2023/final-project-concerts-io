@@ -1,10 +1,15 @@
-import React from "react"
-import { Link, Navigate} from "react-router-dom"
-import "./SavedConcerts.css"
+import React,  { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import './SavedConcertsMini.css'
+import ConcertComponent from "./ConcertComponent";
+const demoUser = {
+    proPic: "default",
+    username: "averageConcertEnjoyer",
+    email: "averageConcertEnjoyer@gmail.com"
+}
 
-
-const SavedConcerts = (props) => {
-  const savedConcertsInfo = [
+const SavedConcertsMini = () =>{
+    const savedConcertsInfo = [
     {
       id: 1,
       name: 'Example Concert',
@@ -69,35 +74,16 @@ const SavedConcerts = (props) => {
       link: 'http://localhost:3000/concerts/7',
     },
   ];
-
-  // if the user is not logged in, redirect them to the login route
-  if (!props.user || !props.user.success) {
-    return <Navigate to="/login?error=protected" />
-  }
-
-  return (
-    <div className="SavedConcerts">
-      <header className="header">
-        <h1 className="savedConcerts-header">Concerts.io</h1>
-        <h2>Saved Concerts</h2>
-      </header>
-      <div className="concerts-container">
-        <div className="savedConcerts-container">
-          {savedConcertsInfo.map(concert => (
-            <div key={concert.id} className="saved-concert">
-              <img src={concert.imageUrl} alt={concert.artist} />
-              <div className="concert-details">
-                <h3>{concert.artist}</h3>
-                <p>{concert.date}</p>
-                <p>{concert.location}</p>
-                <a href={concert.link}>Link</a>
-              </div>
+    return(
+        <div id="SavedConcertsMini">
+            <Link to="/saved-concerts"><h3>{demoUser.username}'s' Saved Concerts</h3></Link>
+            <div id="mini-concerts-container">
+              {savedConcertsInfo.map(concert => (
+                <ConcertComponent key = {concert.id} details = {concert} />
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+          </div>
+    );
+}
 
-export default SavedConcerts;
+export default SavedConcertsMini
