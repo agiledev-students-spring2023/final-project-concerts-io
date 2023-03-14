@@ -8,7 +8,7 @@ const demoUser = {
     email: "averageConcertEnjoyer@gmail.com"
 }
 
-const SavedConcertsMini = () =>{
+const SavedConcertsMini = (props) =>{
     const savedConcertsInfo = [
     {
       id: 1,
@@ -76,7 +76,7 @@ const SavedConcertsMini = () =>{
   ];
     return(
         <div id="SavedConcertsMini">
-            <Link to="/saved-concerts"><h3>{demoUser.username}'s' Saved Concerts</h3></Link>
+            <Link to="/saved-concerts"><h3>{props.details.username}'s' Saved Concerts</h3></Link>
             <div id="mini-concerts-container">
               {savedConcertsInfo.map(concert => (
                 <ConcertComponent key = {concert.id} details = {concert} />

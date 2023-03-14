@@ -19,10 +19,10 @@ const Profile = props => {
   }
     return (
       <div className="Profile">
-      <User/>
-      <FavArtistsMini/>
-      <SavedConcertsMini/>
+      <User details={props.user}/>
       {logInOutComponent}
+      <FavArtistsMini details={props.user}/>
+      <SavedConcertsMini details={props.user}/>
       </div>
       
     )
