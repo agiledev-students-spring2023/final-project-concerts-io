@@ -8,6 +8,7 @@ import Concert from ".//pages/Concert"
 import FavoriteArtists from ".//pages/FavoriteArtists"
 import Artist from ".//pages/Artist"
 import About from ".//pages/About"
+import Recommended from ".//pages/Recommended"
 import Menu from ".//components/Menu"
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
 
             {/* a route to the about us screen */}
             <Route path="/about" element={<About />} />
+
+          {/* a route to the recommended concerts screen */}
+          <Route path="/recommended" element={<Recommended />} />
 
           </Routes>
           <Menu/>
