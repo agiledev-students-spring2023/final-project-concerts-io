@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, Navigate } from "react-router-dom"
 import "./Artist.css"
 import ConcertComponent from "../components/ConcertComponent"
 
@@ -37,6 +37,7 @@ const Artist = props => {
   const [concerts, setConcerts] = useState([])
   const [artist, setArtist] = useState([])
 
+
   const { artistId } = useParams() // get any params passed to this component from the router
 
   useEffect(() => {
@@ -44,6 +45,11 @@ const Artist = props => {
     setArtist(foundArtist)
     setConcerts(exampleConcerts.filter(x => {return x.artist==foundArtist.name}))
   }, []) //will run only once
+
+    // if the user is not logged in, redirect them to the login route
+    if (!props.user || !props.user.success) {
+      return <Navigate to="/login?error=protected" />
+    }
   
     return (
       <div className="Artist">

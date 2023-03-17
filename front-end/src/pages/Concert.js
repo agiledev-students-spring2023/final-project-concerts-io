@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, Navigate } from "react-router-dom"
 import './Concert.css';
 
 
@@ -35,18 +35,24 @@ const exampleConcerts = [
 }]
 
 
-function Concert() {
+function Concert(props) {
     const [concert, setConcert] = useState([])
 
     const { concertId } = useParams() // get any params passed to this component from the router
-  
+
     useEffect(() => {
-    const foundConcert = exampleConcerts.filter(x =>{return x.id==concertId})[0]
-    setConcert(foundConcert)
+        const foundConcert = exampleConcerts.filter(x =>{return x.id==concertId})[0]
+        setConcert(foundConcert)
     },[])
+    
 
     const handleClick = () => {
         alert("Added to favorites");
+    }
+
+    // if the user is not logged in, redirect them to the login route
+    if (!props.user || !props.user.success) {
+        return <Navigate to="/login?error=protected" />
     }
 
     return (
