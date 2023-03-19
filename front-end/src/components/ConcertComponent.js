@@ -5,9 +5,15 @@ import "./ConcertComponent.css"
 const ConcertComponent = props => {
     return (
       <div className="ConcertComponent">
-        <h2>{props.details.artist}</h2>
-        <h3>{props.details.date}</h3>
-        <Link to={`/concerts/${props.details.id}`}>Link to concert</Link>
+        <div className="concert">
+              <img src={props.details.image} alt={props.details.artist} />
+              <div className="concert-details">
+                <h3>{props.details.artist}</h3>
+                <p>{props.details.date}</p>
+                <p>{props.details.location}</p>
+                <Link to={`/concerts/${props.details.id}`}>Link</Link>
+              </div>
+            </div>
       </div>
     )
   }

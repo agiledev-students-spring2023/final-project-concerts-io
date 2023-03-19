@@ -32,7 +32,64 @@ const exampleConcerts = [
       location: 'Example Venue',
       image: 'https://example.com/image.jpg',
       ticketLink: 'https://example.com/tickets',
-}]
+    
+},
+{
+    id: 3,
+    name: 'Example Concert',
+    artist: 'Example Artist',
+    date: 'Example Date',
+    location: 'Example Venue',
+    description: "Example Description",
+    location: 'Example Venue',
+    image: 'https://example.com/image.jpg',
+    ticketLink: 'https://example.com/tickets'
+  },
+  {
+    id: 4,
+    name: 'Example Concert',
+    artist: 'Example Artist',
+    date: 'Example Date',
+    location: 'Example Venue',
+    description: "Example Description",
+    location: 'Example Venue',
+    image: 'https://example.com/image.jpg',
+    ticketLink: 'https://example.com/tickets'
+  },
+  {
+    id: 5,
+    name: 'Example Concert',
+    artist: 'Example Artist',
+    date: 'Example Date',
+    location: 'Example Venue',
+    description: "Example Description",
+    location: 'Example Venue',
+    image: 'https://example.com/image.jpg',
+    ticketLink: 'https://example.com/tickets'
+  },
+  {
+    id: 6,
+    name: 'Example Concert',
+    artist: 'Example Artist',
+    date: 'Example Date',
+    location: 'Example Venue',
+    description: "Example Description",
+    location: 'Example Venue',
+    image: 'https://example.com/image.jpg',
+    ticketLink: 'https://example.com/tickets'
+  },
+  {
+    id: 7,
+    name: 'Example Concert',
+    artist: 'Example Artist',
+    date: 'Example Date',
+    location: 'Example Venue',
+    description: "Example Description",
+    location: 'Example Venue',
+    image: 'https://example.com/image.jpg',
+    ticketLink: 'https://example.com/tickets'
+  },
+]
 
 
 function Concert(props) {

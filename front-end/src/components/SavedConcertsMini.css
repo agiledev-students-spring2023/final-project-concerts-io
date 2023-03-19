@@ -1,8 +1,14 @@
 #SavedConcertsMini{
     max-height: 400px;
+    top: 10vh;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
 }
 
 #mini-concerts-container{
     max-height: 300px;
     overflow: auto;
+    
 }

@@ -13,8 +13,7 @@ const exampleArtists = [
       name: "Barry Ken",
     }]
 
-    const FavArtistsMini = (props) =>{
-    
+  const FavArtistsMini = (props) =>{
       const [favArtists, setFavArtists] = useState([])
       useEffect(() => {
          axios("https://my.api.mockaroo.com/artists.json?key=54687d90")
@@ -39,7 +38,6 @@ const exampleArtists = [
           })
       }, []) 
     
-
         return(
             <div className="favorite-artists">
                <div className="FavoriteArtists">
