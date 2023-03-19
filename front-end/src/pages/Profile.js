@@ -12,15 +12,15 @@ const Profile = props => {
   let logInOutComponent;
   if (props.user.success){
     logInOutComponent = (
-      <>
+      <div className="logOut">
         <Link to="/logout">Logout {props.user.username}</Link>
-      </>
+      </div>
     )
   }
     return (
       <div className="Profile">
-      <User details={props.user}/>
-      {logInOutComponent}
+      <User details={props.user} login={logInOutComponent}/>
+      
       <FavArtistsMini details={props.user}/>
       <SavedConcertsMini details={props.user}/>
       </div>

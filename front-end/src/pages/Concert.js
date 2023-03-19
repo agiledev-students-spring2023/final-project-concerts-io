@@ -93,7 +93,7 @@ const exampleConcerts = [
 ]
 
 
-function Concert() {
+function Concert(props) {
   const [concert, setConcert] = useState([])
 
   useEffect(() => {

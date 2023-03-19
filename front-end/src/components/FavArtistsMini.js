@@ -1,6 +1,7 @@
 import React,  { useState, useEffect } from "react";
 import ArtistComponent from "./ArtistComponent";
 import { Link } from "react-router-dom";
+import "./FavArtistsMini.css" 
 import axios from "axios"
 
 const exampleArtists = [

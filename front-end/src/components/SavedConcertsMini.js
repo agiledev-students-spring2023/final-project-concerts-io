@@ -41,7 +41,7 @@ const SavedConcertsMini = (props) =>{
  }, []) 
     return(
       <div>
-        <Link to="/saved-concerts"><h3>{props.details.username}'s' Saved Concerts</h3></Link>
+        <Link to="/saved-concerts"><h2>{props.details.username}'s' Saved Concerts</h2></Link>
         <div id="SavedConcertsMini">
             <div id="mini-concerts-container">
               {savedConcerts.map(concert => (
