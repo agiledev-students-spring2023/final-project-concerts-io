@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams, Link, Navigate } from "react-router-dom"
+import axios from "axios"
 import './Concert.css';
 
 
@@ -92,16 +93,32 @@ const exampleConcerts = [
 ]
 
 
-function Concert(props) {
-    const [concert, setConcert] = useState([])
+function Concert() {
+  const [concert, setConcert] = useState([])
 
-    const { concertId } = useParams() // get any params passed to this component from the router
-
-    useEffect(() => {
-        const foundConcert = exampleConcerts.filter(x =>{return x.id==concertId})[0]
-        setConcert(foundConcert)
-    },[])
-    
+  useEffect(() => {
+    axios("https://my.api.mockaroo.com/concerts/123.json?key=54687d90")
+     .then(response => {
+       setConcert(response.data)
+     })
+     .catch(err => {
+       console.log(`Get Nae Naed--No Data For you`)
+       console.error(err)
+       const backupData = [
+        {
+          id: 1,
+          name: "John Smith live at the Purple Lounge",
+          artist: "John Smith",
+          date: "September 22, 2040",
+          description: "John Smith debuts his new record for the first time live",
+          location: 'Example Venue',
+          image: 'https://example.com/image.jpg',
+          ticketLink: 'https://example.com/tickets',
+        }
+       ]
+       setConcert(backupData)
+     })
+ }, []) 
 
     const handleClick = () => {
         alert("Added to favorites");
