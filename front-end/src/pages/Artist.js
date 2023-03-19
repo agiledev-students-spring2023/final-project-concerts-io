@@ -49,9 +49,14 @@ const Artist = props => {
       <div className="Artist">
         <h1>{artist.name}</h1>
         <h2>Upcoming Concerts</h2>
-        {concerts.map(x => (
-          <ConcertComponent key = {x.id} details = {x} />
-        ))}
+        <div className = "concerts-container">
+          <div className="artistConcerts-container">
+            {concerts.map(x => (
+              <ConcertComponent key = {x.id} details = {x} />
+            ))}
+          </div>
+        </div>
+
       </div>
     )
   }
