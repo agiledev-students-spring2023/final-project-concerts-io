@@ -9,11 +9,12 @@ const User = (props) =>{
                 <img src={proPic} alt="Profile"></img>
             </div>
             <div id="username">
-                <h2>Username: {props.details.username}</h2>
+                <h3>Username: {props.details.username}</h3>
             </div>
             <div id="email">
-                <h2>Email: {props.details.email}</h2>
+                <h3>Email: {props.details.email}</h3>
             </div>
+            {props.login}
         </div>
     )
 }

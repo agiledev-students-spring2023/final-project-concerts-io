@@ -23,13 +23,6 @@ const About = props => {
           <p className="paragraph">
             concert_io@nyu.edu
           </p>
-
-        {/* <div className="flex-container">
-          <div className="link">About</div>
-          <div className="link">Home</div>
-          <div className="link">Profile</div>
-        </div> */} 
-        {/* command + / */}
       </div>
     )
   }

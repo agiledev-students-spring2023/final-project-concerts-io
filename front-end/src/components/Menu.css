@@ -1,11 +1,10 @@
 .menu-box {
     text-decoration: underline;
-    margin: auto;
     /* margin-bottom: 20px; */
     margin-top: 20px;
     margin-bottom: 20px;
     /* background-color: aquamarine; */
-    padding: 0% 1% 0% 1%;
+    padding: 0% 10% 0% 10%;
     height: 75px;
   }
 .menu-wrapper {
