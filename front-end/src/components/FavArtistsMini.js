@@ -1,6 +1,7 @@
 import React,  { useState, useEffect } from "react";
 import ArtistComponent from "./ArtistComponent";
 import { Link } from "react-router-dom";
+import axios from "axios"
 
 const exampleArtists = [
     {
@@ -12,26 +13,48 @@ const exampleArtists = [
       name: "Barry Ken",
     }]
 
-const FavArtistsMini = (props) =>{
+    const FavArtistsMini = (props) =>{
+    
+      const [favArtists, setFavArtists] = useState([])
+      useEffect(() => {
+         axios("https://my.api.mockaroo.com/artists.json?key=54687d90")
+          .then(response => {
+            setFavArtists(response.data)
+          })
+          .catch(err => {
+            console.log(`Get Nae Naed--No Data For you`)
+            console.error(err)
+            const backupData = [
+              {
+                id: 1,
+                name: "Josh Minksy",
+        
+              },
+              {
+                id: 2,
+                title: "Mindy Wu",
+              },
+            ]
+            setFavArtists(backupData)
+          })
+      }, []) 
+    
 
-    const [favArtists, setFavArtists] = useState([])
-    useEffect(() => {
-        setFavArtists(exampleArtists)
-    }, []) 
-
-
-    return(
-        <div className="favorite-artists">
-           <div className="FavoriteArtists">
-           <Link to="/favorite-artists"> <h3>{props.details.username}'s' Favorite Artists</h3></Link>
-            <section>
-            {favArtists.map(x => (
-                <ArtistComponent key = {x.id} details = {x} />
-            ))}
-        </section>
-      </div>
-        </div>
-    )
-}
+        return(
+            <div className="favorite-artists">
+               <div className="FavoriteArtists">
+               <Link to="/favorite-artists"> <h3>{props.details.username}'s' Favorite Artists</h3></Link>
+                <section>
+                {console.log(favArtists)}
+                {
+                    favArtists.map(x => (
+                    <ArtistComponent key = {x.id} details = {x} />
+                ))}
+                
+            </section>
+          </div>
+            </div>
+        )
+    }
 
 export default FavArtistsMini
