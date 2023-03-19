@@ -1,5 +1,6 @@
 import React  from 'react';
 import "./Home.css"
+import ConcertComponent from "../components/ConcertComponent"
 
 const Home = () => {
     const recommendedConcerts = [
@@ -42,13 +43,7 @@ const Home = () => {
                 <div className="recommendedConcerts-container">
                 {recommendedConcerts.map(concert => (
                     <div key={concert.id} className="recommended-concert">
-                    <img src={concert.imageUrl} alt={concert.artist} />
-                    <div className="concert-details">
-                        <h3>{concert.artist}</h3>
-                        <p>{concert.date}</p>
-                        <p>{concert.location}</p>
-                        <a href={concert.link}>Link</a>
-                    </div>
+                    <ConcertComponent key = {concert.id} details = {concert} />
                     </div>
                 ))}
                 </div>
