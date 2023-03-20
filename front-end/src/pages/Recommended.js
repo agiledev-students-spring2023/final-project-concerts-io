@@ -1,10 +1,21 @@
-import React  from 'react';
+import {React,useEffect,useState}  from 'react';
 import {Navigate } from "react-router-dom"
 import ConcertComponent from "../components/ConcertComponent"
 import "./Recommended.css"
+import axios from "axios"
 
 const Recommended = (props) => {
-    const recommendedConcerts = [
+  const [recommendedConcerts, setRecommendedConcerts] = useState([])  
+
+  useEffect(() => {
+    axios("https://my.api.mockaroo.com/concerts.json?key=54687d90")
+     .then(response => {
+      setRecommendedConcerts(response.data)
+     })
+     .catch(err => {
+       console.log(`Get Nae Naed--No Data For you`)
+       console.error(err)
+       const backupData = [
         {
           id: 1,
           name: 'Example Concert',
@@ -33,6 +44,9 @@ const Recommended = (props) => {
           link: 'http://localhost:3000/concerts/3',
         },
     ];
+      setRecommendedConcerts(backupData)
+     })
+ }, []) 
     // if the user is not logged in, redirect them to the login route
     if (!props.user || !props.user.success) {
         return <Navigate to="/login?error=protected" />

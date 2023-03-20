@@ -104,7 +104,7 @@ function Concert(props) {
      .catch(err => {
        console.log(`Get Nae Naed--No Data For you`)
        console.error(err)
-       const backupData = [
+       const backupData = 
         {
           id: 1,
           name: "John Smith live at the Purple Lounge",
@@ -115,7 +115,6 @@ function Concert(props) {
           image: 'https://example.com/image.jpg',
           ticketLink: 'https://example.com/tickets',
         }
-       ]
        setConcert(backupData)
      })
  }, []) 

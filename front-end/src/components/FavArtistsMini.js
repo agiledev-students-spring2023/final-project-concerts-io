@@ -27,13 +27,17 @@ const exampleArtists = [
             const backupData = [
               {
                 id: 1,
-                name: "Josh Minksy",
+                name: "Example Artist 1",
         
               },
               {
                 id: 2,
-                title: "Mindy Wu",
+                title: "Example Artist 2",
               },
+              {
+                id: 3,
+                title: "Example Artist 3",
+              }
             ]
             setFavArtists(backupData)
           })
@@ -44,7 +48,6 @@ const exampleArtists = [
                <div className="FavoriteArtists">
                <Link to="/favorite-artists"> <h3>{props.details.username}'s' Favorite Artists</h3></Link>
                 <section>
-                {console.log(favArtists)}
                 {
                     favArtists.map(x => (
                     <ArtistComponent key = {x.id} details = {x} />

@@ -26,7 +26,7 @@ const FavoriteArtists = props => {
          {
            id: 2,
            title: "Mindy Wu",
-         },
+         }
        ]
        setFavArtists(backupData)
      })
