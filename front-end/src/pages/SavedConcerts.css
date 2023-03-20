@@ -28,6 +28,9 @@
     height: calc(100vh - 120px);
     margin-top: 10vh;
     overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .saved-concert {
