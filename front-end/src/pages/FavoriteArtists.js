@@ -18,25 +18,26 @@ const FavoriteArtists = (props) => {
 
   useEffect(() => {
     axios("https://my.api.mockaroo.com/artists.json?key=54687d90")
-      .then((response) => {
-        setFavArtists(response.data);
-      })
-      .catch((err) => {
-        console.log(`Get Nae Naed--No Data For you`);
-        console.error(err);
-        const backupData = [
-          {
-            id: 1,
-            name: "Josh Minksy",
-          },
-          {
-            id: 2,
-            name: "Mindy Wu",
-          },
-        ];
-        setFavArtists(backupData);
-      });
-  }, []);
+      .then(response => {
+       setFavArtists(response.data)
+     })
+     .catch(err => {
+       console.log(`Get Nae Naed--No Data For you`)
+       console.error(err)
+       const backupData = [
+         {
+           id: 1,
+           name: "Josh Minksy",
+   
+         },
+         {
+           id: 2,
+           title: "Mindy Wu",
+         }
+       ]
+       setFavArtists(backupData)
+     })
+ }, []) 
 
   useEffect(() => {
     filterArtists(favArtists, searchQuery);
