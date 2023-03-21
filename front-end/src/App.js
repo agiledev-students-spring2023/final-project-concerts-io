@@ -12,6 +12,7 @@ import Recommended from ".//pages/Recommended"
 import Login from ".//pages/Login"
 import Logout from ".//pages/Logout"
 import Menu from ".//components/Menu"
+import Connection from ".//pages/Connection"
 
 function App() {
   const [user, setUser] = useState({}) // a state variable that stores the logged-in user, if any
@@ -27,6 +28,9 @@ function App() {
 
             {/* a route to the saved concerts screen */}
             <Route path="/saved-concerts" element={<SavedConcerts user={user} />} />
+
+            {/* a route to the connection to music service screen */}
+            <Route path="/connection" element={<Connection user={user} />} />
 
             {/* a route for just a single concert, where the id of the desired concert is passed as a parameter */}
             <Route
