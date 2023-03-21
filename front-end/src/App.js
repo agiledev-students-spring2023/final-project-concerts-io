@@ -3,6 +3,7 @@ import React, { useState} from "react"
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom" 
 import Home from ".//pages/Home"
 import Profile from ".//pages/Profile"
+import EditProfile from ".//pages/EditProfile"
 import SavedConcerts from ".//pages/SavedConcerts"
 import Concert from ".//pages/Concert"
 import FavoriteArtists from ".//pages/FavoriteArtists"
@@ -11,6 +12,7 @@ import About from ".//pages/About"
 import Recommended from ".//pages/Recommended"
 import Login from ".//pages/Login"
 import Logout from ".//pages/Logout"
+import Register from ".//pages/Register"
 import Menu from ".//components/Menu"
 import Connection from ".//pages/Connection"
 
@@ -25,6 +27,9 @@ function App() {
 
             {/* a route to the profile screen */}
             <Route path="/profile" element={<Profile user={user} />} />
+
+            {/* a route to edit your profile*/}
+            <Route path="/edit-profile" element={<EditProfile user={user} setuser={setUser} />} />
 
             {/* a route to the saved concerts screen */}
             <Route path="/saved-concerts" element={<SavedConcerts user={user} />} />
@@ -57,6 +62,8 @@ function App() {
             <Route path="/login" element={<Login user={user} setuser={setUser} />} />
             {/* a route to logout */}
             <Route path="/logout" element={<Logout user={user} setuser={setUser} />} />
+            {/* a route to register*/}
+            <Route path="/register" element={<Register user={user} setuser={setUser} />} />
 
           </Routes>
           <Menu user={user} setuser={setUser} />

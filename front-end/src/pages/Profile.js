@@ -9,17 +9,19 @@ const Profile = props => {
   if (!props.user || !props.user.success) {
     return <Navigate to="/login?error=protected" />
   }
-  let logInOutComponent;
+  let logOutAndEditComponent;
   if (props.user.success){
-    logInOutComponent = (
+    logOutAndEditComponent = (
       <div className="logOut">
         <Link to="/logout">Logout {props.user.username}</Link>
+        <br />
+        <Link to="/edit-profile">Edit Profile {props.user.username}</Link>
       </div>
     )
   }
     return (
       <div className="Profile">
-      <User details={props.user} login={logInOutComponent}/>
+      <User details={props.user} login={logOutAndEditComponent}/>
       
       <FavArtistsMini details={props.user}/>
       <SavedConcertsMini details={props.user}/>
