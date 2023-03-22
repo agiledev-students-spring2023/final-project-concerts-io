@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Navigate, useSearchParams } from "react-router-dom"
+import { Navigate, useSearchParams, Link } from "react-router-dom"
 import "./Login.css"
 
 const Login = props => {
@@ -18,7 +18,7 @@ const Login = props => {
       )
   }, [])
 
-  // if the user's logged-in status changes, call the setuser function that was passed to this component from the PrimaryNav component.
+  // if the user's logged-in status changes, call the setuser function that was passed to this component from the Menu component.
   useEffect(() => {
     // if the login was a success, call the setuser function that was passed to this component as a prop
     if (status.success) {
@@ -28,22 +28,16 @@ const Login = props => {
   }, [status])
 
   const handleSubmit = async e => {
-    // prevent the HTML form from actually submitting... we use React's javascript code instead
+    // prevent the HTML form from actually submitting
     e.preventDefault()
 
     try {
-      // create an object with the data we want to send to the server
-      const requestData = {
-        username: e.target.username.value, // gets the value of the field in the submitted form with name='username'
-        password: e.target.password.value, // gets the value of the field in the submitted form with name='password',
-      }
-
       // send the request to the server api to authenticate
       const response = await fetch("https://my.api.mockaroo.com/users.json" , {
         headers: {"X-API-Key": "7da41420", Accept: "application/json"}
         })
       // store the response data into the data state variable
-      const data = await response.json()
+      const data = await response.json() //data returned will not be the original login info provided by user
       console.log(data)
       setStatus(data)
     } catch (err) {
@@ -58,11 +52,8 @@ const Login = props => {
       <div className="Login">
         <h1>Log in</h1>
         {errorMessage ? <p className="error">{errorMessage}</p> : ""}
-        <section className="main-content">
+        <section className="login">
           <form onSubmit={handleSubmit}>
-            {
-              //handle error condition
-            }
             <label>Username: </label>
             <input type="text" name="username" placeholder="username" />
             <br />
@@ -73,6 +64,12 @@ const Login = props => {
             <br />
             <input type="submit" value="Log In" />
           </form>
+        </section>
+        <section className="register">
+          <br />
+            Not yet Registered?
+            <br />
+            <Link to="/register">Register</Link>
         </section>
       </div>
     )
