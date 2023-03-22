@@ -5,9 +5,9 @@ import "./Recommended.css"
 import axios from "axios"
 
 const Recommended = (props) => {
-  const [recommendedConcerts, setRecommendedConcerts] = useState([])  
+    const [recommendedConcerts, setRecommendedConcerts] = useState([])  
 
-  useEffect(() => {
+    useEffect(() => {
     axios("https://my.api.mockaroo.com/concerts.json?key=54687d90")
      .then(response => {
       setRecommendedConcerts(response.data)
@@ -22,7 +22,7 @@ const Recommended = (props) => {
           artist: 'Example Artist',
           date: 'Example Date',
           location: 'Example Venue',
-          image: 'https://example.com/image.jpg',
+          image: 'https://dummyimage.com/250x100',
           link: 'http://localhost:3000/concerts/1',
         },
         {
@@ -31,7 +31,7 @@ const Recommended = (props) => {
           artist: 'Example Artist',
           date: 'Example Date',
           location: 'Example Venue',
-          image: 'https://example.com/image.jpg',
+          image: 'https://dummyimage.com/250x100',
           link: 'http://localhost:3000/concerts/2',
         },
         {
@@ -40,7 +40,7 @@ const Recommended = (props) => {
           artist: 'Example Artist',
           date: 'Example Date',
           location: 'Example Venue',
-          image: 'https://example.com/image.jpg',
+          image: 'https://dummyimage.com/250x100',
           link: 'http://localhost:3000/concerts/3',
         },
     ];

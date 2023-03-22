@@ -1,20 +1,25 @@
 import React from "react";
 import proPic from "../img/demoUser.png"
 import './User.css'
+import {Link} from 'react-router-dom';
+
 
 const User = (props) =>{
+
     return(
         <div className="user-wrapper">
-            <div id="proPic">
+            <div id="profile">
                 <img src={proPic} alt="Profile"></img>
-            </div>
-            <div id="username">
                 <h3>Username: {props.details.username}</h3>
             </div>
-            <div id="email">
+            <div id="details">
                 <h3>Email: {props.details.email}</h3>
+                {props.login}
+                <Link to="/connection" style={{ textDecoration: 'none' }}>
+                    <span>Connect Streaming Services</span>
+                </Link>
             </div>
-            {props.login}
+            
         </div>
     )
 }

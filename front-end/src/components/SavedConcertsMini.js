@@ -42,10 +42,12 @@ const SavedConcertsMini = (props) =>{
     return(
       <div>
         <Link to="/saved-concerts"><h2>{props.details.username}'s' Saved Concerts</h2></Link>
-        <div id="SavedConcertsMini">
-            <div id="mini-concerts-container">
+        <div id="concerts-container">
+            <div id="saved-Concerts-mini-containerr">
               {savedConcerts.map(concert => (
-                <ConcertComponent key = {concert.id} details = {concert} />
+                <div key={concert.id} className="mini-concert">
+                <Link to="/concerts/:1">{concert.name}</Link>
+                </div>
               ))}
             </div>
           
