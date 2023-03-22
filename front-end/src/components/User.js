@@ -9,7 +9,7 @@ const User = (props) =>{
     return(
         <div className="user-wrapper">
             <div id="profile">
-                <img src={proPic} alt="Profile"></img>
+                <img src={props.details.propic || proPic} alt="Profile"></img>
                 <h3>Username: {props.details.username}</h3>
             </div>
             <div id="details">
