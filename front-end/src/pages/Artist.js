@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, Link, Navigate } from "react-router-dom"
 import "./Artist.css"
+import axios from "axios"
 import ConcertComponent from "../components/ConcertComponent"
 
 const exampleArtists = [
@@ -41,10 +42,19 @@ const Artist = props => {
   const { artistId } = useParams() // get any params passed to this component from the router
 
   useEffect(() => {
-    const foundArtist = exampleArtists.filter(x => {return x.id==artistId})[0]
-    setArtist(foundArtist)
-    setConcerts(exampleConcerts.filter(x => {return x.artist==foundArtist.name}))
-  }, []) //will run only once
+    axios("https://my.api.mockaroo.com/artists.json?key=54687d90")
+     .then(response => {
+       setArtist(response.data)
+       axios("https://my.api.mockaroo.com/concerts/123.json?key=54687d90").then(response => {
+          setConcerts(response.data)
+       })
+     })
+     .catch(err => {
+      const foundArtist = exampleArtists.filter(x => {return x.id==artistId})[0]
+      setArtist(foundArtist)
+      setConcerts(exampleConcerts.filter(x => {return x.artist==foundArtist.name}))
+     })
+    }, []) //will run only once
 
     // if the user is not logged in, redirect them to the login route
     if (!props.user || !props.user.success) {

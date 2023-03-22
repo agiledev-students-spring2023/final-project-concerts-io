@@ -1,24 +1,44 @@
-.menu-box {
-    text-decoration: underline;
-    /* margin-bottom: 20px; */
-    margin-top: 20px;
-    margin-bottom: 20px;
-    /* background-color: aquamarine; */
-    padding: 0% 10% 0% 10%;
-    height: 75px;
-  }
 .menu-wrapper {
-    /* width: 500px; */
-    display: flex;
-    /* left : 50%; */
-    /* margin-left: -250px;  */
-    flex-direction: row;
-    position: fixed;
-    bottom: 0px;
+  position: fixed;
+    bottom: 0;
     width: 100%;
-    background-color: white;
-    justify-content: center;
+    height: 80px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    display: flex;
+    overflow-x: auto;
 } 
+
+.menu-box {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    min-width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1px;
+    color: #444444;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+  }
+.menu-box img{
+  height: 50%;
+  width: auto;
+}
+.menu-box:hover {
+    background-color: #eeeeee;
+}
+
+.menu-box::after {
+  color: #3bdbbb;
+}
+
+.menu-box{
+  font-size: 18px;
+}
 /* THIS IS THE GODSEND ALIGNMENT */
 /* .menu-wrapper{
     overflow: hidden;

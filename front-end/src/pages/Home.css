@@ -49,3 +49,8 @@
 .concert-details a {
     margin-top: auto;
 }
+
+.home-header img{
+    width: 30%;
+    max-width: 400px;
+}
