@@ -8,7 +8,7 @@ const Connection = (props) => {
             <h1>Connecting to my Music Account</h1>
             <div className="platform">
                 <h2>Spotify</h2>
-                <a href="https://open.spotify.com/"> Connect Spotify</a>
+                <a href="http://localhost:3000/spotifyconnect"> Connect Spotify</a>
             </div>
             <div className="platform">
                 <h2>Apple Music</h2>
