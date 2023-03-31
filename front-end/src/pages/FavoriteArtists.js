@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "./FavoriteArtists.css";
 import ArtistComponent from "../components/ArtistComponent";
-import axios from "axios";
 
 const FavoriteArtists = (props) => {
   const [favArtists, setFavArtists] = useState([]);
@@ -10,41 +9,29 @@ const FavoriteArtists = (props) => {
   const [filteredArtists, setFilteredArtists] = useState([]);
 
   const filterArtists = (artists, query) => {
-    const filtered = artists.filter((artist) =>
-      artist.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredArtists(filtered);
+    if (artists) {
+      const filtered = artists.filter((artist) =>
+        artist.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredArtists(filtered);
+    }
   };
 
   useEffect(() => {
-    axios("https://my.api.mockaroo.com/artists.json?key=54687d90")
-      .then(response => {
-       setFavArtists(response.data)
-     })
-     .catch(err => {
-       console.log(`Get Nae Naed--No Data For you`)
-       console.error(err)
-       const backupData = [
-         {
-           id: 1,
-           name: "Josh Minksy",
-   
-         },
-         {
-           id: 2,
-           name: "Mindy Wu",
-         }
-       ]
-       setFavArtists(backupData)
-     })
- }, []) 
-
-  useEffect(() => {
-    filterArtists(favArtists, searchQuery);
-  }, [searchQuery, favArtists]);
+    fetch("http://localhost:3000/FavoriteArtists")
+      .then((res) => res.json())
+      .then((data) => {
+        setFavArtists(data.FavoriteArtists);
+        filterArtists(data.FavoriteArtists, searchQuery);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [searchQuery]);
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
+    filterArtists(favArtists, e.target.value);
   };
 
   // if the user is not logged in, redirect them to the login route

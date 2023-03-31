@@ -11,6 +11,7 @@ const morgan = require("morgan")
 
 const cors = require('cors')
 const SavedConcertsRoute = require('./routes/SavedConcerts')
+const FavoriteArtistsRoute = require('./routes/FavoriteArtists')
 
 // Middleware
 
@@ -27,6 +28,7 @@ app.use("/static", express.static("public"))
 app.use(cors())
 
 app.use("/SavedConcerts", SavedConcertsRoute)
+app.use("/FavoriteArtists", FavoriteArtistsRoute)
 
 // Routes
 
