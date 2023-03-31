@@ -9,6 +9,9 @@ const axios = require("axios")
 require("dotenv").config({ silent: true })
 const morgan = require("morgan") 
 
+const cors = require('cors')
+const SavedConcertsRoute = require('./routes/SavedConcerts')
+
 // Middleware
 
 // use the morgan middleware to log all incoming http requests
@@ -20,6 +23,10 @@ app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming P
 
 // make 'public' directory publicly readable with static content
 app.use("/static", express.static("public"))
+
+app.use(cors())
+
+app.use("/SavedConcerts", SavedConcertsRoute)
 
 // Routes
 
