@@ -19,8 +19,8 @@ const SavedConcerts = (props) => {
     fetch("http://localhost:3000/SavedConcerts")
       .then((res) => res.json())
       .then((data) => {
-        setSavedConcerts(data.SavedConcerts);
-        filterConcerts(data.SavedConcerts, searchQuery);
+        setSavedConcerts(data);
+        filterConcerts(data, searchQuery);
       })
       .catch((error) => {
         console.log(error);

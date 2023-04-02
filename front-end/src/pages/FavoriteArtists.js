@@ -19,8 +19,8 @@ const FavoriteArtists = (props) => {
     fetch("http://localhost:3000/FavoriteArtists")
       .then((res) => res.json())
       .then((data) => {
-        setFavArtists(data.FavoriteArtists);
-        filterArtists(data.FavoriteArtists, searchQuery);
+        setFavArtists(data);
+        filterArtists(data, searchQuery);
       })
       .catch((error) => {
         console.log(error);
