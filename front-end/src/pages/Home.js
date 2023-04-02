@@ -9,45 +9,20 @@ const Home = (props) => {
   const [recommendedConcerts, setRecommendedConcerts] = useState([]);
 
   useEffect(() => {
-    axios('https://my.api.mockaroo.com/concerts.json?key=54687d90')
-      .then((response) => {
-        setRecommendedConcerts(response.data);
-      })
-      .catch((err) => {
-        console.log(`Get Nae Naed--No Data For you`);
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/recommended');
+        const data = await response.json();
+        console.log(data);
+        setRecommendedConcerts(data);
+      } catch (err) {
+        // throw an error
         console.error(err);
-        const backupData = [
-          {
-            id: 1,
-            name: 'Example Concert',
-            artist: 'Example Artist',
-            date: 'Example Date',
-            location: 'Example Venue',
-            image: 'https://dummyimage.com/250x100',
-            link: 'http://localhost:3000/concerts/1',
-          },
-          {
-            id: 2,
-            name: 'Example Concert',
-            artist: 'Example Artist',
-            date: 'Example Date',
-            location: 'Example Venue',
-            image: 'https://dummyimage.com/250x100',
-            link: 'http://localhost:3000/concerts/2',
-          },
-          {
-            id: 3,
-            name: 'Example Concert',
-            artist: 'Example Artist',
-            date: 'Example Date',
-            location: 'Example Venue',
-            image: 'https://dummyimage.com/250x100',
-            link: 'http://localhost:3000/concerts/3',
-          },
-        ];
-        setRecommendedConcerts(backupData);
-      });
+      }
+    }
+    fetchData();
   }, []);
+
   // if the user is not logged in, redirect them to the login route
   if (!props.user || !props.user.success) {
     return <Navigate to="/login?error=protected" />;
