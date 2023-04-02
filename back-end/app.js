@@ -2,6 +2,7 @@ const express = require('express');
 
 const path = require('path');
 
+const cors = require('cors');
 const multer = require('multer');
 const axios = require('axios');
 require('dotenv').config({ silent: true });
