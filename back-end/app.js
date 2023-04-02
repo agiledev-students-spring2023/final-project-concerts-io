@@ -8,8 +8,13 @@ const axios = require('axios');
 require('dotenv').config({ silent: true });
 const morgan = require('morgan');
 const helpers = require('./helperFunctions');
+const ConcertRouter = require('./routes/Concert')
+const ArtistRouter = require('./routes/Artist')
 
 const app = express();
+
+const SavedConcertsRoute = require('./routes/SavedConcerts')
+const FavoriteArtistsRoute = require('./routes/FavoriteArtists')
 
 // Middleware
 
@@ -23,6 +28,11 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 
 // make 'public' directory publicly readable with static content
 app.use('/static', express.static('public'));
+
+app.use(cors())
+
+app.use("/SavedConcerts", SavedConcertsRoute)
+app.use("/FavoriteArtists", FavoriteArtistsRoute)
 
 // Routes
 
@@ -139,5 +149,10 @@ app.get('/recommended', async (req, res) => {
       res.json(backupData);
     });
 });
+
+app.use("/concert",ConcertRouter)
+app.use("/artist",ArtistRouter)
+
+
 
 module.exports = app;
