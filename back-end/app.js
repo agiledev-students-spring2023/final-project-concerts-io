@@ -7,6 +7,9 @@ const axios = require('axios');
 require('dotenv').config({ silent: true });
 const morgan = require('morgan');
 const helpers = require('./helperFunctions');
+const { getSeatGeekConcerts } = require('./controllers/seatgeekcontroller');
+
+const seatGeekApi = require('./routes/SeatGeekApi.js')
 
 const app = express();
 
@@ -75,5 +78,7 @@ app.get('/spotifycallback', async (req, res) => {
     res.redirect('http://localhost:3001/profile');
   }
 });
+
+app.use('/seatGeek',seatGeekApi);
 
 module.exports = app;
