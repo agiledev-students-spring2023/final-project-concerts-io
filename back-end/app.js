@@ -2,6 +2,7 @@ const express = require('express');
 
 const path = require('path');
 
+const cors = require('cors');
 const multer = require('multer');
 const axios = require('axios');
 require('dotenv').config({ silent: true });
@@ -12,6 +13,7 @@ const app = express();
 
 // Middleware
 
+app.use(cors());
 // use the morgan middleware to log all incoming http requests
 app.use(morgan('dev')); //
 
@@ -62,17 +64,39 @@ app.get('/spotifycallback', async (req, res) => {
       code,
       process.env.REDIRECT_URI
     );
-    const { accessToken } = data;
-    const { refreshToken } = data;
+    const { access_token } = data;
+    const { refresh_token } = data;
 
     // get favorite artists
     const response = await helpers.useAccessToken(
       'https://api.spotify.com/v1/me/top/artists',
-      accessToken
+      access_token
     );
     const favArtists = response.items;
     console.log(favArtists);
     res.redirect('http://localhost:3001/profile');
+  }
+});
+
+app.get('/login', async (req, res) => {
+  try {
+    // send the request to the server api to authenticate
+    const response = await axios('https://my.api.mockaroo.com/users.json', {
+      headers: { 'X-API-Key': '7da41420', Accept: 'application/json' },
+    });
+    // store the response data into the data state variable
+    const { data } = response; // data returned will not be the original login info provided by user
+    console.log(data);
+    res.json(data);
+  } catch (err) {
+    // throw an error
+    console.error(err);
+    const backupUser = {
+      username: 'backupUser',
+      password: 'backupPass',
+      success: 1,
+    };
+    res.json(backupUser);
   }
 });
 
