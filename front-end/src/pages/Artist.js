@@ -16,9 +16,9 @@ const Artist = (props) => {
     fetch("http://localhost:3000/artist/:id")
       .then((res) => res.json()).then((data) => {
         setArtist(data);
-        fetch("http://localhost:3000/concert/:id").then((res) =>{
-          setConcerts(res.data)
-        });
+        fetch(`http://localhost:3000/concert/${data.id}`).then((res) => res.json()).then((data =>{
+          setConcerts(data)
+        }));
       })
       .catch((error) => {
         console.log(error);        
