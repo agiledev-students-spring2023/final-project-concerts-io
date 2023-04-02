@@ -11,6 +11,9 @@ const helpers = require('./helperFunctions');
 
 const app = express();
 
+const SavedConcertsRoute = require('./routes/SavedConcerts')
+const FavoriteArtistsRoute = require('./routes/FavoriteArtists')
+
 // Middleware
 
 app.use(cors());
@@ -23,6 +26,11 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 
 // make 'public' directory publicly readable with static content
 app.use('/static', express.static('public'));
+
+app.use(cors())
+
+app.use("/SavedConcerts", SavedConcertsRoute)
+app.use("/FavoriteArtists", FavoriteArtistsRoute)
 
 // Routes
 
