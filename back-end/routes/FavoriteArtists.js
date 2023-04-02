@@ -23,7 +23,9 @@ FavoriteArtistsRouter.get("/", morgan("dev"),(req, res, next) => {
            id: 2,
            name: "Mindy Wu",
          }
-    ]})
+    ]
+    res.json(backupData);
+  })
 
     
 });

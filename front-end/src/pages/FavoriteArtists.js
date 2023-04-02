@@ -9,12 +9,10 @@ const FavoriteArtists = (props) => {
   const [filteredArtists, setFilteredArtists] = useState([]);
 
   const filterArtists = (artists, query) => {
-    if (artists) {
-      const filtered = artists.filter((artist) =>
-        artist.name.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredArtists(filtered);
-    }
+    const filtered = artists.filter((artist) =>
+      artist.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredArtists(filtered);
   };
 
   useEffect(() => {
@@ -28,10 +26,13 @@ const FavoriteArtists = (props) => {
         console.log(error);
       });
   }, [searchQuery]);
+  
+  useEffect(() => {
+    filterArtists(favArtists, searchQuery);
+  }, [searchQuery, favArtists]);
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
-    filterArtists(favArtists, e.target.value);
   };
 
   // if the user is not logged in, redirect them to the login route
