@@ -77,7 +77,9 @@ SavedConcertsRouter.get("/", morgan("dev"),(req, res, next) => {
         image: 'https://example.com/image.jpg',
         link: 'http://localhost:3000/concerts/7',
       }
-    ]})
+    ]
+      res.json(backupData);
+    })
 
     
 });
