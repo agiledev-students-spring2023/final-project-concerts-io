@@ -8,6 +8,8 @@ const axios = require('axios');
 require('dotenv').config({ silent: true });
 const morgan = require('morgan');
 const helpers = require('./helperFunctions');
+const ConcertRouter = require('./routes/Concert')
+const ArtistRouter = require('./routes/Artist')
 
 const app = express();
 
@@ -107,5 +109,9 @@ app.get('/login', async (req, res) => {
     res.json(backupUser);
   }
 });
+
+app.use("/concert",ConcertRouter)
+app.use("/artist",ArtistRouter)
+
 
 module.exports = app;
