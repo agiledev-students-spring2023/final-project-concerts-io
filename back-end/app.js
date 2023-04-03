@@ -110,8 +110,49 @@ app.get('/login', async (req, res) => {
   }
 });
 
+app.get('/recommended', async (req, res) => {
+  axios('https://my.api.mockaroo.com/concerts.json?key=54687d90')
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((err) => {
+      console.error(err);
+      const backupData = [
+        {
+          id: 1,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://dummyimage.com/250x100',
+          link: 'http://localhost:3000/concerts/1',
+        },
+        {
+          id: 2,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://dummyimage.com/250x100',
+          link: 'http://localhost:3000/concerts/2',
+        },
+        {
+          id: 3,
+          name: 'Example Concert',
+          artist: 'Example Artist',
+          date: 'Example Date',
+          location: 'Example Venue',
+          image: 'https://dummyimage.com/250x100',
+          link: 'http://localhost:3000/concerts/3',
+        },
+      ];
+      res.json(backupData);
+    });
+});
+
 app.use("/concert",ConcertRouter)
 app.use("/artist",ArtistRouter)
+
 
 
 module.exports = app;
