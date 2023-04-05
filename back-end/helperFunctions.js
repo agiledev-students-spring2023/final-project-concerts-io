@@ -16,40 +16,60 @@ const generateRandomString = function (length) {
 };
 
 const getToken = async (client_id, client_secret, code, redirect_uri) => {
-  const result = await axios({
-    url: 'https://accounts.spotify.com/api/token',
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
-    },
-    data: new URLSearchParams({
-      grant_type: 'authorization_code',
-      code,
-      redirect_uri,
-    }),
-  });
+  try {
+    const result = await axios.post(
+      'https://accounts.spotify.com/api/token',
+      {
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
+        },
+      }
+    );
 
-  const { data } = result;
-  return data;
+    if (result.status !== 200) {
+      return 'error';
+    }
+
+    const { data } = result;
+    return data;
+  } catch (err) {
+    console.error(err);
+    return 'error';
+  }
 };
 
 const getTokenWithRefresh = async (client_id, client_secret, refresh_token) => {
-  const result = await axios({
-    url: 'https://accounts.spotify.com/api/token',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
-    },
-    data: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token,
-    }),
-  });
+  try {
+    const result = await axios.post(
+      'https://accounts.spotify.com/api/token',
+      {
+        grant_type: 'refresh_token',
+        refresh_token,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
+        },
+      }
+    );
 
-  const { data } = result;
-  return data;
+    if (result.status !== 200) {
+      return 'error';
+    }
+
+    const { data } = result;
+    return data;
+  } catch (err) {
+    console.error(err);
+    return 'error';
+  }
 };
 
 const useAccessToken = async (url, access_token) => {
