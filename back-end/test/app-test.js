@@ -1,6 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const sinon = require('sinon');
+// const sinon = require('sinon');
+const sandbox = require('sinon').createSandbox();
 const server = require('../app');
 const helpers = require('../helperFunctions');
 require('dotenv').config({ silent: true });
@@ -12,15 +13,6 @@ chai.use(chaiHttp);
 
 let getTokenStub;
 let useAccessTokenStub;
-
-before(() => {
-  getTokenStub = sinon.stub(helpers, 'getToken');
-  useAccessTokenStub = sinon.stub(helpers, 'useAccessToken');
-});
-after(() => {
-  getTokenStub.restore();
-  useAccessTokenStub.restore();
-});
 
 describe('GET request to /spotifyconnect route', () => {
   it('it should redirect to spotify login', (done) => {
@@ -36,6 +28,14 @@ describe('GET request to /spotifyconnect route', () => {
 });
 
 describe('GET request to /spotifycallback route', () => {
+  beforeEach(() => {
+    getTokenStub = sandbox.stub(helpers, 'getToken');
+    useAccessTokenStub = sandbox.stub(helpers, 'useAccessToken');
+  });
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('it should respond with an HTTP 302 status code when successful', (done) => {
     const getTokenArgs = [
       process.env.CLIENT_ID,
