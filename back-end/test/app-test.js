@@ -1,7 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
-const axios = require('axios');
 const server = require('../app');
 const helpers = require('../helperFunctions');
 require('dotenv').config({ silent: true });
@@ -13,36 +12,31 @@ chai.use(chaiHttp);
 
 let getTokenStub;
 let useAccessTokenStub;
-let generateRandomStringStub;
 
 before(() => {
   getTokenStub = sinon.stub(helpers, 'getToken');
   useAccessTokenStub = sinon.stub(helpers, 'useAccessToken');
-  generateRandomStringStub = sinon.stub(helpers, 'generateRandomString');
 });
 after(() => {
   getTokenStub.restore();
   useAccessTokenStub.restore();
-  generateRandomStringStub.restore();
 });
 
 describe('GET request to /spotifyconnect route', () => {
   it('it should redirect to spotify login', (done) => {
-    generateRandomStringStub();
     chai
       .request(server)
       .get('/spotifyconnect')
+      .redirects(0)
       .end((err, res) => {
-        expect(res).to.redirect;
-        // res.should.redirectTo('https://accounts.spotify.com/authorize?');
-        // check redirect url
+        res.should.have.status(302);
         done();
       });
   });
 });
 
 describe('GET request to /spotifycallback route', () => {
-  it('it should respond with an HTTP 200 status code and an object in the response body', (done) => {
+  it('it should respond with an HTTP 302 status code when successful', (done) => {
     const getTokenArgs = [
       process.env.CLIENT_ID,
       process.env.CLIENT_SECRET,
@@ -62,19 +56,19 @@ describe('GET request to /spotifycallback route', () => {
       .request(server)
       .get('/spotifycallback')
       .query({ code: 'fakeCode', state: 'abcd1234' })
+      .redirects(0)
       .end((err, res) => {
-        // res.should.redirectTo('http://localhost:3001/profile');
-        // expect(res).to.redirect;
+        res.should.have.status(302);
         done();
       });
   });
-  it("it should redirect with an 'authentication' error query", (done) => {
+  it('it should redirect with a 401 status code when authentication fails', (done) => {
     chai
       .request(server)
       .get('/spotifycallback')
+      .redirects(0)
       .end((err, res) => {
-        // res.should.have.status(200);
-        // expect(res).to.redirect;
+        res.should.have.status(401);
         done();
       });
   });

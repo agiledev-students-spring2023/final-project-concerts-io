@@ -11,6 +11,7 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
   console.log(code, state);
   if (state === null) {
     res.redirect(
+      401,
       `http://localhost:3001/connection?${new URLSearchParams({
         error: 'authentication',
       }).toString()}`
