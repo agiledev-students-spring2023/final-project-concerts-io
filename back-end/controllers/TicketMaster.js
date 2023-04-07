@@ -4,8 +4,10 @@ const TicketMasterRouter = express.Router();
 const axios = require("axios");
 const morgan = require("morgan") 
 
-TicketMasterRouter.get("/", morgan("dev"),(req, res, next) => {
-    axios("https://app.ticketmaster.com/discovery/v2/events.json?apikey=8TyzvIJo1qYOzAkLo8ytUqpOsj2evcPb&keyword=ethel")
+// get single concert from ticket master api
+TicketMasterRouter.get("/:id", morgan("dev"),(req, res, next) => {
+    // dummy place holder query that gets an ethel cain concert
+    axios(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=8TyzvIJo1qYOzAkLo8ytUqpOsj2evcPb&id=${req.params.id}`)
     .then(apiResponse => {
         const concert = {
                 id: apiResponse.data["_embedded"].events[0].id,
@@ -30,5 +32,8 @@ TicketMasterRouter.get("/", morgan("dev"),(req, res, next) => {
 
     
 });
+
+
+
 
 module.exports = TicketMasterRouter;
