@@ -9,7 +9,7 @@ function Concert(props) {
   const [concert, setConcert] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:3000/concert/:id")
+    fetch("http://localhost:3000/ticketmaster/")
       .then((res) => res.json())
       .then((data) => {
         setConcert(data);
