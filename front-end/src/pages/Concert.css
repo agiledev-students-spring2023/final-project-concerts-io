@@ -20,3 +20,7 @@
 .Concert-button {
     margin: 20px;
 }
+
+img{
+    max-width: 500px;
+}

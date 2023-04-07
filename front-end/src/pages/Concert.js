@@ -7,9 +7,9 @@ import './Concert.css';
 
 function Concert(props) {
   const [concert, setConcert] = useState([])
-
+  const id  = window.location.pathname.substring(10)
   useEffect(() => {
-    fetch("http://localhost:3000/concert/:id")
+    fetch(`http://localhost:3000/ticketmaster/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setConcert(data);
