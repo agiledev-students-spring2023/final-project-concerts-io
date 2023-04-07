@@ -9,7 +9,7 @@ const Recommended = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/recommended');
+        const response = await fetch('http://localhost:3000/ticketmastermany/');
         const data = await response.json();
         console.log(data);
         setRecommendedConcerts(data);
