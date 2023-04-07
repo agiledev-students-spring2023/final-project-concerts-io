@@ -16,6 +16,7 @@ const generateRandomString = function (length) {
 };
 
 const getToken = async (client_id, client_secret, code, redirect_uri) => {
+  console.log('run');
   try {
     const result = await axios.post(
       'https://accounts.spotify.com/api/token',
@@ -31,7 +32,7 @@ const getToken = async (client_id, client_secret, code, redirect_uri) => {
         },
       }
     );
-
+    console.log(result);
     if (result.status !== 200) {
       return 'error';
     }

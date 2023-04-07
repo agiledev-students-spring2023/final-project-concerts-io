@@ -1,6 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const sinon = require('sinon');
+// const sinon = require('sinon');
+const sandbox = require('sinon').createSandbox();
 const axios = require('axios');
 const helpers = require('../helperFunctions');
 
@@ -11,15 +12,6 @@ chai.use(chaiHttp);
 
 let getStub;
 let postStub;
-
-before(() => {
-  getStub = sinon.stub(axios, 'get');
-  postStub = sinon.stub(axios, 'post');
-});
-after(() => {
-  getStub.restore();
-  postStub.restore();
-});
 
 describe('generateRandomString', () => {
   it('returns a random string of the desired length', () => {
@@ -35,6 +27,15 @@ describe('generateRandomString', () => {
 });
 
 describe('getToken', () => {
+  beforeEach(() => {
+    getStub = sandbox.stub(axios, 'get');
+    postStub = sandbox.stub(axios, 'post');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('returns the data from the response if successful', async () => {
     const stubData = {
       grant_type: 'authorization_code',
@@ -77,6 +78,15 @@ describe('getToken', () => {
 });
 
 describe('getTokenWithRefresh', () => {
+  beforeEach(() => {
+    getStub = sandbox.stub(axios, 'get');
+    postStub = sandbox.stub(axios, 'post');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('returns the data from the response if successful', async () => {
     const stubData = {
       grant_type: 'refresh_token',
@@ -117,6 +127,15 @@ describe('getTokenWithRefresh', () => {
 });
 
 describe('useAccessToken', () => {
+  beforeEach(() => {
+    getStub = sandbox.stub(axios, 'get');
+    postStub = sandbox.stub(axios, 'post');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
   it('returns the data from the response if successful', async () => {
     const stubArgs = {
       headers: { Authorization: 'Bearer 123' },
