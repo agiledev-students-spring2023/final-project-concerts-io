@@ -1,87 +1,40 @@
-const express = require('express');
+const express = require("express");
+const axios = require("axios");
+
 const SavedConcertsRouter = express.Router();
 
-const axios = require("axios");
-const morgan = require("morgan") 
+const API_URL = "https://my.api.mockaroo.com/concerts.json?key=54687d90";
 
+const backupData = [
+  {
+    id: 1,
+    name: "Example Concert 1",
+    artist: "Example Artist 1",
+    date: "Example Date 1",
+    location: "Example Venue 1",
+    image: "https://example.com/image1.jpg",
+    link: "http://localhost:3000/concerts/1",
+  },
+  {
+    id: 2,
+    name: "Example Concert 2",
+    artist: "Example Artist 2",
+    date: "Example Date 2",
+    location: "Example Venue 2",
+    image: "https://example.com/image2.jpg",
+    link: "http://localhost:3000/concerts/2",
+  },
+];
 
-
-SavedConcertsRouter.get("/", morgan("dev"),(req, res, next) => {
-    // use axios to make a request to an API for concert data
-    axios("https://my.api.mockaroo.com/concerts.json?key=54687d90")
-    .then(apiResponse => res.json(apiResponse.data))
-   .catch(err => {
-     console.log(`Get Nae Naed--No Data For you`)
-     console.error(err)
-     const backupData = [
-      {
-        id: 1,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/1',
-      },
-      {
-        id: 2,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/2',
-      },
-      {
-        id: 3,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/3',
-      },
-      {
-        id: 4,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/4',
-      },
-      {
-        id: 5,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/5',
-      },
-      {
-        id: 6,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/6',
-      },
-      {
-        id: 7,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        link: 'http://localhost:3000/concerts/7',
-      }
-    ]
-      res.json(backupData);
-    })
-
-    
+SavedConcertsRouter.get("/", async (req, res) => {
+  try {
+    const response = await axios.get(API_URL);
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error("Error from API: ", error.message);
+    res.status(500).json(backupData);
+  }
 });
 
 module.exports = SavedConcertsRouter;
+
