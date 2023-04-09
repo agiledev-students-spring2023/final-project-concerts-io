@@ -4,7 +4,7 @@
   "description": "back-end for concerts.io",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "nyc mocha"
   },
   "author": "",
   "license": "ISC",
