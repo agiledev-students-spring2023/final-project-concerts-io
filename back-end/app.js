@@ -23,6 +23,7 @@ const SpotifyCallbackRouter = require('./routes/SpotifyCallback');
 const LoginRouter = require('./routes/Login');
 const RegisterRouter = require('./routes/Register');
 const EditProfileRouter = require('./routes/EditProfile');
+const TicketmasterSearchRouter = require('./routes/TicketmasterSearch');
 
 // Middleware
 
@@ -45,6 +46,7 @@ app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
+app.use('/', TicketmasterSearchRouter);
 app.use('/login', LoginRouter);
 app.use('/register', RegisterRouter);
 app.use('/edit-profile', EditProfileRouter);
