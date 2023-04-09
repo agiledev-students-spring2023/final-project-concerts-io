@@ -22,6 +22,7 @@ const SpotifyConnectRouter = require('./routes/SpotifyConnnect');
 const SpotifyCallbackRouter = require('./routes/SpotifyCallback');
 const LoginRouter = require('./routes/Login');
 const RegisterRouter = require('./routes/Register');
+const EditProfileRouter = require('./routes/EditProfile');
 
 // Middleware
 
@@ -46,6 +47,7 @@ app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
 app.use('/login', LoginRouter);
 app.use('/register', RegisterRouter);
+app.use('/edit-profile', EditProfileRouter);
 
 app.get('/recommended', async (req, res) => {
   axios('https://my.api.mockaroo.com/concerts.json?key=54687d90')
