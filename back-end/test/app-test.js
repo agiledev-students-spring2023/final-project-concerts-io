@@ -192,3 +192,49 @@ describe('POST request to /edit-profile route', () => {
       });
   });
 });
+
+describe('GET request to /recommended route', () => {
+  beforeEach(() => {
+    axiosStub = sandbox.stub(axios, 'get');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+  it('it should respond with JSON data', (done) => {
+    const stubResponse = {
+      status: 200,
+      statusText: 'OK',
+      data: [
+        { id: 1, artist: 'fakeArtist1' },
+        { id: 2, artist: 'fakeArtist2' },
+      ],
+    };
+    axiosStub
+      .withArgs(`https://my.api.mockaroo.com/concerts.json?key=${process.env.CONCERTS_API_KEY}`)
+      .returns(Promise.resolve(stubResponse));
+
+    chai
+      .request(server)
+      .get('/recommended')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+  it('it should respond with backup JSON data when an error occurs', (done) => {
+    axiosStub
+      .withArgs(`https://my.api.mockaroo.com/concerts.json?key=${process.env.CONCERTS_API_KEY}`)
+      .throws(new TypeError());
+
+    chai
+      .request(server)
+      .get('/recommended')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+});
