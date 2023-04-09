@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import "./EditProfile.css";
+import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import './EditProfile.css';
 
 const EditProfile = (props) => {
   const [submit, setSubmit] = useState({});
@@ -12,27 +12,38 @@ const EditProfile = (props) => {
     }
   }, [submit]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // prevent the HTML form from actually submitting
     e.preventDefault();
+
     try {
       const formData = {
         email: e.target.email.value,
         username: e.target.username.value,
         password: e.target.password.value,
-      }; //get form data
+      };
+      // send the request to the backend
+      const response = await fetch('http://localhost:3000/edit-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      // store the response data into the data state variable
+      const data = await response.json(); //data returned will not be the original login info provided by user
+      console.log(data);
 
       const editedUser = {
-        email: formData.email,
-        username: formData.username,
-        password: formData.password,
+        email: data.email,
+        username: data.username,
+        password: data.password,
         success: 1,
       };
-
       setSubmit(editedUser);
     } catch (err) {
       // throw an error
-      throw new Error(err);
+      console.error(err);
     }
   };
   // if the user is not logged in, redirect them to the login route
@@ -52,11 +63,7 @@ const EditProfile = (props) => {
             <br />
             <br />
             <label>Username: </label>
-            <input
-              type="text"
-              name="username"
-              defaultValue={props.user.username}
-            />
+            <input type="text" name="username" defaultValue={props.user.username} />
             <br />
             <br />
             <label>Password: </label>

@@ -20,6 +20,7 @@ const SavedConcertsRoute = require('./routes/SavedConcerts');
 const FavoriteArtistsRoute = require('./routes/FavoriteArtists');
 const SpotifyConnectRouter = require('./routes/SpotifyConnnect');
 const SpotifyCallbackRouter = require('./routes/SpotifyCallback');
+const EditProfileRouter = require('./routes/EditProfile');
 
 // Middleware
 
@@ -42,6 +43,7 @@ app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
+app.use('/edit-profile', EditProfileRouter);
 
 app.get('/login', async (req, res) => {
   try {
