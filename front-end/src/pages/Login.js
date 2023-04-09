@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useSearchParams, Link } from "react-router-dom";
-import "./Login.css";
+import React, { useState, useEffect } from 'react';
+import { Navigate, useSearchParams, Link } from 'react-router-dom';
+import './Login.css';
 
 const Login = (props) => {
   let [urlSearchParams] = useSearchParams(); // get access to the URL query string parameters
@@ -11,9 +11,8 @@ const Login = (props) => {
 
   // if the user got here by trying to access our Protected page, there will be a query string parameter called 'error' with the value 'protected'
   useEffect(() => {
-    const qsError = urlSearchParams.get("error"); // get any 'error' field in the URL query string
-    if (qsError === "protected")
-      setErrorMessage("Please log in to access our website.");
+    const qsError = urlSearchParams.get('error'); // get any 'error' field in the URL query string
+    if (qsError === 'protected') setErrorMessage('Please log in to access our website.');
   }, []);
 
   // if the user's logged-in status changes, call the setuser function that was passed to this component from the Menu component.
@@ -28,9 +27,21 @@ const Login = (props) => {
   const handleSubmit = async (e) => {
     // prevent the HTML form from actually submitting
     e.preventDefault();
+
+    const formData = {
+      username: e.target.username.value,
+      password: e.target.password.value,
+    };
+
     try {
       // send the request to the server api to authenticate
-      const response = await fetch("http://localhost:3000/login");
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       // store the response data into the data state variable
       const data = await response.json(); //data returned will not be the original login info provided by user
       console.log(data);
@@ -38,7 +49,6 @@ const Login = (props) => {
     } catch (err) {
       // throw an error
       console.error(err);
-      setErrorMessage("Error: Could not authenticate");
     }
   };
 
@@ -47,7 +57,7 @@ const Login = (props) => {
     return (
       <div className="Login">
         <h1>Log in</h1>
-        {errorMessage ? <p className="error">{errorMessage}</p> : ""}
+        {errorMessage ? <p className="error">{errorMessage}</p> : ''}
         <section className="login">
           <form onSubmit={handleSubmit}>
             <label>Username: </label>

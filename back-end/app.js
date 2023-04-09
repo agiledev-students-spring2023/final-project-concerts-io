@@ -20,6 +20,8 @@ const SavedConcertsRoute = require('./routes/SavedConcerts');
 const FavoriteArtistsRoute = require('./routes/FavoriteArtists');
 const SpotifyConnectRouter = require('./routes/SpotifyConnnect');
 const SpotifyCallbackRouter = require('./routes/SpotifyCallback');
+const LoginRouter = require('./routes/Login');
+const RegisterRouter = require('./routes/Register');
 const EditProfileRouter = require('./routes/EditProfile');
 
 // Middleware
@@ -43,29 +45,9 @@ app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
+app.use('/login', LoginRouter);
+app.use('/register', RegisterRouter);
 app.use('/edit-profile', EditProfileRouter);
-
-app.get('/login', async (req, res) => {
-  try {
-    // send the request to the server api to authenticate
-    const response = await axios('https://my.api.mockaroo.com/users.json', {
-      headers: { 'X-API-Key': '7da41420', Accept: 'application/json' },
-    });
-    // store the response data into the data state variable
-    const { data } = response; // data returned will not be the original login info provided by user
-    console.log(data);
-    res.json(data);
-  } catch (err) {
-    // throw an error
-    console.error(err);
-    const backupUser = {
-      username: 'backupUser',
-      password: 'backupPass',
-      success: 1,
-    };
-    res.json(backupUser);
-  }
-});
 
 app.get('/recommended', async (req, res) => {
   axios('https://my.api.mockaroo.com/concerts.json?key=54687d90')
