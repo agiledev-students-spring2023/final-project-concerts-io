@@ -381,38 +381,3 @@ describe('GET request to /ticketmaster/:id route', () => {
       });
   });
 });
-
-// describe('GET request to /ticketmastermany/ route', () => {
-
-//   beforeEach(() => {
-//     axiosStub = sandbox.stub(axios, 'get');
-//   });
-
-//   afterEach(() => {
-//     sandbox.restore();
-//   });
-
-//   it('API should respond with a JSON data of multiple concerts', (done) => {
-//     const stubResponse = {
-//       status: 200,
-//       statusText: 'OK',
-//       data:[
-//         { 
-//           _links: {}, 
-//           page: {}
-//         }
-//       ]
-//     }; 
-//     axiosStub
-//     .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}`)
-//     .returns(Promise.resolve(stubResponse));
-//     chai
-//       .request(server)
-//       .get(`/ticketmastermany/`)
-//       .end((err, res) => {
-//         res.should.have.status(200);
-//         expect(res).to.be.json;
-//         done();
-//       });
-//   });
-// });
