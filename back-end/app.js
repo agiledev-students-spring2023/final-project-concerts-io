@@ -9,8 +9,8 @@ require('dotenv').config({ silent: true });
 const morgan = require('morgan');
 const helpers = require('./helperFunctions');
 const ConcertRouter = require('./routes/Concert');
-const TicketMasterRouter = require('./controllers/TicketMaster');
-const TicketMasterManyRouter = require('./controllers/TicketMasterMany');
+const TicketMasterRouter = require('./routes/TicketMaster');
+const TicketMasterManyRouter = require('./routes/TicketMasterMany');
 
 const ArtistRouter = require('./routes/Artist');
 
@@ -47,7 +47,7 @@ app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
-app.use('/', TicketmasterSearchRouter);
+app.use('/ticketmastersearch', TicketmasterSearchRouter);
 app.use('/login', LoginRouter);
 app.use('/register', RegisterRouter);
 app.use('/edit-profile', EditProfileRouter);
