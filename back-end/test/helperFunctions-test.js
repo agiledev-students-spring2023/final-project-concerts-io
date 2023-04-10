@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 // const sinon = require('sinon');
 const sandbox = require('sinon').createSandbox();
 const axios = require('axios');
-const helpers = require('../helperFunctions');
+const helpers = require('../spotifyHelperFunctions');
 
 const { assert } = chai;
 const { expect } = chai;
