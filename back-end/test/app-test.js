@@ -4,7 +4,7 @@ const axios = require('axios');
 // const sinon = require('sinon');
 const sandbox = require('sinon').createSandbox();
 const server = require('../app');
-const helpers = require('../helperFunctions');
+const helpers = require('../spotifyHelperFunctions');
 require('dotenv').config({ silent: true });
 
 const { assert } = chai;

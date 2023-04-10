@@ -7,7 +7,7 @@ const multer = require('multer');
 const axios = require('axios');
 require('dotenv').config({ silent: true });
 const morgan = require('morgan');
-const helpers = require('./helperFunctions');
+const helpers = require('./spotifyHelperFunctions');
 const ConcertRouter = require('./routes/Concert');
 const TicketMasterRouter = require('./controllers/TicketMaster');
 const TicketMasterManyRouter = require('./controllers/TicketMasterMany');
@@ -25,6 +25,8 @@ const RegisterRouter = require('./routes/Register');
 const EditProfileRouter = require('./routes/EditProfile');
 const RecommendedRouter = require('./routes/Recommended');
 const TicketmasterSearchRouter = require('./routes/TicketmasterSearch');
+const LastFmConnectRouter = require('./routes/LastFmConnect');
+const LastFmCallbackRouter = require('./routes/LastFmCallback');
 
 // Middleware
 
@@ -47,12 +49,14 @@ app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
-app.use('/', TicketmasterSearchRouter);
+app.use('/ticketmastersearch', TicketmasterSearchRouter);
 app.use('/login', LoginRouter);
 app.use('/register', RegisterRouter);
 app.use('/edit-profile', EditProfileRouter);
 app.use('/concert', ConcertRouter);
 app.use('/artist', ArtistRouter);
 app.use('/recommended', RecommendedRouter);
+app.use('/lastfmconnect', LastFmConnectRouter);
+app.use('/lastfmcallback', LastFmCallbackRouter);
 
 module.exports = app;

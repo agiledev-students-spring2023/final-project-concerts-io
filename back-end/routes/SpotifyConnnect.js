@@ -1,5 +1,5 @@
 const express = require('express');
-const helpers = require('../helperFunctions');
+const helpers = require('../spotifyHelperFunctions');
 
 const SpotifyConnectRouter = express.Router();
 
