@@ -12,13 +12,14 @@ TicketmasterSearchRouter.get('/:artist', async (req, res) => {
       // Call the Ticketmaster API with search criteria
       const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
         params: {
-          apikey: '8TyzvIJo1qYOzAkLo8ytUqpOsj2evcPb',
+          apikey: process.env.TICKETMASTER_API_KEY,
           keyword: artist,
         },
       });
   
       // Filter and format API response
       const events = response.data._embedded.events;
+      
       const formattedEvents = events.map(concert => ({
         id: concert.id ?? " ",
         name: concert.name ?? " ",

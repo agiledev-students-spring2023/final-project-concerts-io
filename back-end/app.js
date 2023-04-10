@@ -9,8 +9,8 @@ require('dotenv').config({ silent: true });
 const morgan = require('morgan');
 const helpers = require('./spotifyHelperFunctions');
 const ConcertRouter = require('./routes/Concert');
-const TicketMasterRouter = require('./controllers/TicketMaster');
-const TicketMasterManyRouter = require('./controllers/TicketMasterMany');
+const TicketMasterRouter = require('./routes/TicketMaster');
+const TicketMasterManyRouter = require('./routes/TicketMasterMany');
 
 const ArtistRouter = require('./routes/Artist');
 
