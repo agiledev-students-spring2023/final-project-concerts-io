@@ -20,14 +20,8 @@ const Connection = (props) => {
         <a href="http://localhost:3000/spotifyconnect"> Connect Spotify</a>
       </div>
       <div className="platform">
-        <h2>Apple Music</h2>
-        <a href="https://music.apple.com/subscribe"> Connect Apple Music</a>
-      </div>
-      <div className="platform">
-        <h2>SoundCloud</h2>
-        <span>
-          <a href="https://soundcloud.com/"> Connect SoundCloud</a>
-        </span>
+        <h2>Last Fm</h2>
+        <a href="http://localhost:3000/lastfmconnect"> Last Fm</a>
       </div>
     </div>
   );
