@@ -8,7 +8,6 @@ const LastFmCallbackRouter = express.Router();
 
 LastFmCallbackRouter.get('/', async (req, res, next) => {
 //   application requests refresh and access tokens
-//   after checking the state parameter
   const token = req.query.token || null
   if (token === null) {
     res.redirect(
