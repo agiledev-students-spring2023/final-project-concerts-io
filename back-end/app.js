@@ -1,3 +1,4 @@
+require('./db');
 const express = require('express');
 
 const path = require('path');
@@ -5,6 +6,7 @@ const path = require('path');
 const cors = require('cors');
 const multer = require('multer');
 const axios = require('axios');
+const mongoose = require('mongoose');
 require('dotenv').config({ silent: true });
 const morgan = require('morgan');
 const helpers = require('./spotifyHelperFunctions');
