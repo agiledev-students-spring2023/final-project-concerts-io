@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const concertSchema = new mongoose.Schema({
     id: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     name: {
         type: String,
@@ -18,15 +19,14 @@ const concertSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: Date,
-        required: false
+        type: String
     },
     location: {
         type: String,
         required: true
     },
     image: {
-        type: Image,
+        type: String,
         required: true
     },
     ticketLink: {
