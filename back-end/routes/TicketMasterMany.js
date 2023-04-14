@@ -4,21 +4,29 @@ const TicketMasterManyRouter = express.Router();
 const axios = require("axios");
 const morgan = require("morgan") 
 
+const dummyUser = {
+    topArtists: ['Lana Del Ray', 'Ethel Cain', 'Weezer']
+}
 
 // get multiple concerts from ticket master api
 TicketMasterManyRouter.get("/", morgan("dev"), async (req, res, next) => {
     // dummy place holder query that gets multiple concerts
     try {
-      const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
-        params: {
-          apikey: process.env.TICKETMASTER_API_KEY,
-          segmentName: 'Music'
-        },
-      })
+      const responses = await Promise.all(
+        dummyUser.topArtists.map(async name => {
+            const res = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
+              params: {
+                apikey: process.env.TICKETMASTER_API_KEY,
+                segmentName: 'Music',
+                keyword: name
+              },
+            })
+        })
+       );
+    console.log(responses)
+    const allevents = responses.map(response => response.data["_embedded"].events);
 
-     const events = response.data["_embedded"].events;
-
-     const eventsMapped = events.map(concert => (
+     const alleventsmapped = allevents.map(events => events.map(concert => (
             { 
                id: concert.id ?? " ",
                name: concert.name ?? " ",
@@ -29,9 +37,9 @@ TicketMasterManyRouter.get("/", morgan("dev"), async (req, res, next) => {
                image: concert.images !== null ? concert.images[0].url : " ",
                ticketLink: concert.events !== null ? concert.url : " "
             }        
-        ))
+        )))
 
-        res.json(eventsMapped)
+        res.json(alleventsmapped)
     }
    catch (err){
      console.log(`Get Nae Naed--No Data For you`)
@@ -40,6 +48,7 @@ TicketMasterManyRouter.get("/", morgan("dev"), async (req, res, next) => {
 
     
 });
+
 
 
 module.exports = TicketMasterManyRouter;
