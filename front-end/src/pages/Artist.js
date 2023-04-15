@@ -14,7 +14,12 @@ const Artist = (props) => {
 
   useEffect(() => {
     fetch('http://localhost:3000/artist/:id', { headers: { Authorization: `JWT ${jwtToken}` } })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401) {
+          setIsLoggedIn(false);
+        }
+        return res.json();
+      })
       .then((data) => {
         setArtist(data);
         fetch(`http://localhost:3000/concert/${data.id}`)

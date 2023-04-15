@@ -23,7 +23,7 @@ const SavedConcerts = (props) => {
         if (res.status === 401) {
           return <Navigate to="/login?error=protected" />;
         }
-        res.json();
+        return res.json();
       })
       .then((data) => {
         setSavedConcerts(data);

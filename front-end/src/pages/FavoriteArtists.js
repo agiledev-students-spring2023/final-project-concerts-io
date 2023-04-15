@@ -25,8 +25,7 @@ const FavoriteArtists = (props) => {
         if (res.status === 401) {
           setIsLoggedIn(false);
         }
-        console.log(res);
-        res.json();
+        return res.json();
       })
       .then((data) => {
         console.log(data);

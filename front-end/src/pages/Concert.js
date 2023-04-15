@@ -16,7 +16,7 @@ function Concert(props) {
         if (res.status === 401) {
           setIsLoggedIn(false);
         }
-        res.json();
+        return res.json();
       })
       .then((data) => {
         setConcert(data);
