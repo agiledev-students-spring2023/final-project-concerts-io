@@ -92,16 +92,6 @@ const authenticationRouter = () => {
     }
   });
 
-  // a route to handle logging out requests to /auth/logout
-  router.get('/logout', (req, res) => {
-    // nothing really to do here... logging out with JWT authentication is handled entirely by the front-end by deleting the token from the browser's memory
-    res.json({
-      success: true,
-      message:
-        "There is actually nothing to do on the server side... you simply need to delete your token from the browser's local storage!",
-    });
-  });
-
   return router;
 };
 

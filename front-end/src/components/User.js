@@ -13,9 +13,9 @@ const User = (props) => {
       <div id="details">
         <h3>Email: {props.details.email}</h3>
         <div className="logOut">
-          <Link to="/logout">Logout {props.details.username}</Link>
+          <Link to="/logout">Logout</Link>
           <br />
-          <Link to="/edit-profile">Edit Profile {props.details.username}</Link>
+          <Link to="/edit-profile">Edit Profile</Link>
         </div>
         <Link to="/connection" style={{ textDecoration: 'none' }}>
           <span>Connect Streaming Services</span>
