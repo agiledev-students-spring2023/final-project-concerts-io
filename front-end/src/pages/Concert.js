@@ -4,11 +4,20 @@ import axios from 'axios';
 import './Concert.css';
 
 function Concert(props) {
+  const jwtToken = localStorage.getItem('token');
   const [concert, setConcert] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const id = window.location.pathname.substring(10);
   useEffect(() => {
-    fetch(`http://localhost:3000/ticketmaster/${id}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:3000/ticketmaster/${id}`, {
+      headers: { Authorization: `JWT ${jwtToken}` },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          setIsLoggedIn(false);
+        }
+        res.json();
+      })
       .then((data) => {
         setConcert(data);
       })
@@ -20,13 +29,9 @@ function Concert(props) {
   const handleClick = () => {
     alert('Added to favorites');
   };
-
-  // if the user is not logged in, redirect them to the login route
-  /*
-    if (!props.user || !props.user.success) {
-        return <Navigate to="/login?error=protected" />
-    }
-    */
+  if (!isLoggedIn) {
+    return <Navigate to="/login?error=protected" />;
+  }
 
   return (
     <div className="Concert">

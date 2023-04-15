@@ -4,6 +4,8 @@ import './SavedConcerts.css';
 import ConcertComponent from '../components/ConcertComponent';
 
 const SavedConcerts = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [savedConcerts, setSavedConcerts] = useState([]);
   const filterConcerts = (concerts, query) => {
     const filtered = concerts.filter(
@@ -16,8 +18,13 @@ const SavedConcerts = (props) => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:3000/SavedConcerts')
-      .then((res) => res.json())
+    fetch('http://localhost:3000/SavedConcerts', { headers: { Authorization: `JWT ${jwtToken}` } })
+      .then((res) => {
+        if (res.status === 401) {
+          return <Navigate to="/login?error=protected" />;
+        }
+        res.json();
+      })
       .then((data) => {
         setSavedConcerts(data);
         filterConcerts(data, searchQuery);
@@ -39,11 +46,9 @@ const SavedConcerts = (props) => {
   };
 
   // if the user is not logged in, redirect them to the login route
-  /*
-  if (!props.user || !props.user.success) {
+  if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }
-  */
 
   return (
     <div className="SavedConcerts">

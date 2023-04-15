@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import './EditProfile.css';
 
 const EditProfile = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [submit, setSubmit] = useState({});
 
   useEffect(() => {
@@ -26,10 +28,14 @@ const EditProfile = (props) => {
       const response = await fetch('http://localhost:3000/edit-profile', {
         method: 'POST',
         headers: {
+          Authorization: `JWT ${jwtToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
+      if (response.status === 401) {
+        setIsLoggedIn(false);
+      }
       // store the response data into the data state variable
       const data = await response.json(); //data returned will not be the original login info provided by user
       console.log(data);
@@ -47,11 +53,9 @@ const EditProfile = (props) => {
     }
   };
   // if the user is not logged in, redirect them to the login route
-  /*
-  if (!props.user || !props.user.success) {
+  if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }
-  */
 
   // if the user is not logged in, show the login form
   if (!submit.success)

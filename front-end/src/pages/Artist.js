@@ -5,13 +5,15 @@ import axios from 'axios';
 import ConcertComponent from '../components/ConcertComponent';
 
 const Artist = (props) => {
+  const jwtToken = localStorage.getItem('token');
   const [concerts, setConcerts] = useState([]);
   const [artist, setArtist] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
 
   const { artistId } = useParams(); // get any params passed to this component from the router
 
   useEffect(() => {
-    fetch('http://localhost:3000/artist/:id')
+    fetch('http://localhost:3000/artist/:id', { headers: { Authorization: `JWT ${jwtToken}` } })
       .then((res) => res.json())
       .then((data) => {
         setArtist(data);
@@ -27,11 +29,9 @@ const Artist = (props) => {
   }, []); //will run only once
 
   // if the user is not logged in, redirect them to the login route
-  /*
-  if (!props.user || !props.user.success) {
+  if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }
-  */
 
   return (
     <div className="Artist">

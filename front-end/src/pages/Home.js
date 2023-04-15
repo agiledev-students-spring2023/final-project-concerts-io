@@ -6,12 +6,19 @@ import ConcertComponent from '../components/ConcertComponent';
 import logo from '../img/SVG/logo.svg';
 
 const Home = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [recommendedConcerts, setRecommendedConcerts] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/ticketmastermany');
+        const response = await fetch('http://localhost:3000/ticketmastermany', {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        });
+        if (response.status === 401) {
+          setIsLoggedIn(false);
+        }
         const data = await response.json();
         console.log(data);
         setRecommendedConcerts(data);
@@ -24,11 +31,11 @@ const Home = (props) => {
   }, []);
 
   // if the user is not logged in, redirect them to the login route
-  /*
-  if (!props.user || !props.user.success) {
+
+  if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }
-  */
+
   return (
     <div className="Home">
       <div className="home-header">

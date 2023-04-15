@@ -1,20 +1,25 @@
-import { React, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import "./Connection.css";
+import { React, useEffect, useState } from 'react';
+import { useSearchParams, Navigate } from 'react-router-dom';
+import './Connection.css';
 
 const Connection = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   let [urlSearchParams] = useSearchParams(); // get access to the URL query string parameters
   const [errorMessage, setErrorMessage] = useState(``); // will contain any error message that explains why the user was redirected to this page.
   useEffect(() => {
-    const qsError = urlSearchParams.get("error"); // get any 'error' field in the URL query string
-    if (qsError === "authentication")
-      setErrorMessage("Authentication failed, please try again");
+    const qsError = urlSearchParams.get('error'); // get any 'error' field in the URL query string
+    if (qsError === 'authentication') setErrorMessage('Authentication failed, please try again');
   }, []);
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login?error=protected" />;
+  }
 
   return (
     <div className="Connection">
       <h1>Connecting to my Music Account</h1>
-      {errorMessage ? <p className="error">{errorMessage}</p> : ""}
+      {errorMessage ? <p className="error">{errorMessage}</p> : ''}
       <div className="platform">
         <h2>Spotify</h2>
         <a href="http://localhost:3000/spotifyconnect"> Connect Spotify</a>
