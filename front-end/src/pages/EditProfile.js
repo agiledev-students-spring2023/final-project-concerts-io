@@ -47,9 +47,11 @@ const EditProfile = (props) => {
     }
   };
   // if the user is not logged in, redirect them to the login route
+  /*
   if (!props.user || !props.user.success) {
     return <Navigate to="/login?error=protected" />;
   }
+  */
 
   // if the user is not logged in, show the login form
   if (!submit.success)

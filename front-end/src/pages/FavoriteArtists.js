@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import "./FavoriteArtists.css";
-import ArtistComponent from "../components/ArtistComponent";
+import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import './FavoriteArtists.css';
+import ArtistComponent from '../components/ArtistComponent';
 
 const FavoriteArtists = (props) => {
   const [favArtists, setFavArtists] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredArtists, setFilteredArtists] = useState([]);
 
   const filterArtists = (artists, query) => {
@@ -16,7 +16,7 @@ const FavoriteArtists = (props) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/FavoriteArtists")
+    fetch('http://localhost:3000/FavoriteArtists')
       .then((res) => res.json())
       .then((data) => {
         setFavArtists(data);
@@ -26,7 +26,7 @@ const FavoriteArtists = (props) => {
         console.log(error);
       });
   }, [searchQuery]);
-  
+
   useEffect(() => {
     filterArtists(favArtists, searchQuery);
   }, [searchQuery, favArtists]);
@@ -36,9 +36,11 @@ const FavoriteArtists = (props) => {
   };
 
   // if the user is not logged in, redirect them to the login route
+  /*
   if (!props.user || !props.user.success) {
     return <Navigate to="/login?error=protected" />;
   }
+  */
 
   return (
     <div className="FavoriteArtists">

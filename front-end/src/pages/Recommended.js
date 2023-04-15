@@ -22,9 +22,12 @@ const Recommended = (props) => {
   }, []);
 
   // if the user is not logged in, redirect them to the login route
+  /*
   if (!props.user || !props.user.success) {
     return <Navigate to="/login?error=protected" />;
   }
+  */
+
   return (
     <div className="Recommended">
       <div className="Recommended-header">
