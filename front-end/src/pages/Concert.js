@@ -5,8 +5,8 @@ import './Concert.css';
 
 function Concert(props) {
   const jwtToken = localStorage.getItem('token');
-  const [concert, setConcert] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
+  const [concert, setConcert] = useState([]);
   const id = window.location.pathname.substring(10);
   useEffect(() => {
     fetch(`http://localhost:3000/ticketmaster/${id}`, {
@@ -29,6 +29,8 @@ function Concert(props) {
   const handleClick = () => {
     alert('Added to favorites');
   };
+
+  // if the user is not logged in, redirect them to the login route
   if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }

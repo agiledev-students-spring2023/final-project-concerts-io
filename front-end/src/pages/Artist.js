@@ -13,7 +13,9 @@ const Artist = (props) => {
   const { artistId } = useParams(); // get any params passed to this component from the router
 
   useEffect(() => {
-    fetch('http://localhost:3000/artist/:id', { headers: { Authorization: `JWT ${jwtToken}` } })
+    fetch(`http://localhost:3000/artist/${artistId}`, {
+      headers: { Authorization: `JWT ${jwtToken}` },
+    })
       .then((res) => {
         if (res.status === 401) {
           setIsLoggedIn(false);
@@ -22,8 +24,15 @@ const Artist = (props) => {
       })
       .then((data) => {
         setArtist(data);
-        fetch(`http://localhost:3000/concert/${data.id}`)
-          .then((res) => res.json())
+        fetch(`http://localhost:3000/concert/${data[0].id}`, {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              setIsLoggedIn(false);
+            }
+            return res.json();
+          })
           .then((data) => {
             setConcerts(data);
           });
