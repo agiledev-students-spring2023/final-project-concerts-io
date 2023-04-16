@@ -9,6 +9,11 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 require('dotenv').config({ silent: true });
 const morgan = require('morgan');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const jwtStrategy = require('./config/jwt-config.js');
+// import setup options for using JWT in passport
+passport.use(jwtStrategy);
 const helpers = require('./spotifyHelperFunctions');
 const ConcertRouter = require('./routes/Concert');
 const TicketMasterRouter = require('./routes/TicketMaster');
@@ -22,16 +27,19 @@ const SavedConcertsRoute = require('./routes/SavedConcerts');
 const FavoriteArtistsRoute = require('./routes/FavoriteArtists');
 const SpotifyConnectRouter = require('./routes/SpotifyConnnect');
 const SpotifyCallbackRouter = require('./routes/SpotifyCallback');
-const LoginRouter = require('./routes/Login');
-const RegisterRouter = require('./routes/Register');
+const ProfileRouter = require('./routes/Profile');
 const EditProfileRouter = require('./routes/EditProfile');
 const RecommendedRouter = require('./routes/Recommended');
 const TicketmasterSearchRouter = require('./routes/TicketmasterSearch');
 const LastFmConnectRouter = require('./routes/LastFmConnect');
 const LastFmCallbackRouter = require('./routes/LastFmCallback');
+const AuthenticationRouter = require('./routes/Authentication');
+
+// models
+const User = require('./models/User.js');
 
 // Middleware
-
+app.use(passport.initialize());
 app.use(cors());
 // use the morgan middleware to log all incoming http requests
 app.use(morgan('dev')); //
@@ -43,7 +51,6 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 // make 'public' directory publicly readable with static content
 app.use('/static', express.static('public'));
 
-app.use(cors());
 app.use('/ticketmaster', TicketMasterRouter);
 app.use('/ticketmastermany', TicketMasterManyRouter);
 
@@ -52,13 +59,13 @@ app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
 app.use('/ticketmastersearch', TicketmasterSearchRouter);
-app.use('/login', LoginRouter);
-app.use('/register', RegisterRouter);
+app.use('/profile', ProfileRouter);
 app.use('/edit-profile', EditProfileRouter);
 app.use('/concert', ConcertRouter);
 app.use('/artist', ArtistRouter);
 app.use('/recommended', RecommendedRouter);
 app.use('/lastfmconnect', LastFmConnectRouter);
 app.use('/lastfmcallback', LastFmCallbackRouter);
+app.use('/auth', AuthenticationRouter());
 
 module.exports = app;

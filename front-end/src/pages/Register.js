@@ -11,7 +11,7 @@ const Register = (props) => {
     // if the login was a success, call the setuser function that was passed to this component as a prop
     if (status.success) {
       console.log(`User successfully logged in: ${status.username}`);
-      props.setuser(status);
+      localStorage.setItem('token', status.token); // store the token into localStorage
     }
   }, [status]);
 
@@ -26,7 +26,7 @@ const Register = (props) => {
 
     try {
       // send the request to the server api to authenticate
-      const response = await fetch('http://localhost:3000/register', {
+      const response = await fetch('http://localhost:3000/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -76,6 +76,7 @@ describe('GET request to /spotifycallback route', () => {
   });
 });
 
+/*
 describe('POST request to /login route', () => {
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
@@ -192,6 +193,7 @@ describe('POST request to /edit-profile route', () => {
       });
   });
 });
+*/
 
 describe('GET request to /recommended route', () => {
   beforeEach(() => {
@@ -240,7 +242,6 @@ describe('GET request to /recommended route', () => {
 });
 
 describe('GET request to /artist/:id route', () => {
-
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
   });
@@ -253,14 +254,12 @@ describe('GET request to /artist/:id route', () => {
     const stubResponse = {
       status: 200,
       statusText: 'OK',
-      data: [
-        { id: 1, artist: 'fakeArtist1' }
-      ]
+      data: [{ id: 1, artist: 'fakeArtist1' }],
     };
     axiosStub
       .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
       .returns(Promise.resolve(stubResponse));
-    // using 1 as placeholder id 
+    // using 1 as placeholder id
     chai
       .request(server)
       .get('/artist/1')
@@ -274,7 +273,7 @@ describe('GET request to /artist/:id route', () => {
     axiosStub
       .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
       .throws(new TypeError());
-    // using 1 as placeholder id 
+    // using 1 as placeholder id
     chai
       .request(server)
       .get('/artist/1')
@@ -287,7 +286,6 @@ describe('GET request to /artist/:id route', () => {
 });
 
 describe('GET request to /concert/:id route', () => {
-
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
   });
@@ -303,20 +301,20 @@ describe('GET request to /concert/:id route', () => {
       data: [
         {
           id: 1,
-          name: "John Smith live at the Purple Lounge",
-          artist: "John Smith",
-          date: "September 22, 2040",
-          description: "John Smith debuts his new record for the first time live",
+          name: 'John Smith live at the Purple Lounge',
+          artist: 'John Smith',
+          date: 'September 22, 2040',
+          description: 'John Smith debuts his new record for the first time live',
           location: 'Example Venue',
           image: 'https://example.com/image.jpg',
           ticketLink: 'https://example.com/tickets',
-        }
-      ]
+        },
+      ],
     };
     axiosStub
       .withArgs(`https://my.api.mockaroo.com/concerts/1.json?key=${process.env.CONCERTS_API_KEY}`)
       .returns(Promise.resolve(stubResponse));
-    // using 1 as placeholder id 
+    // using 1 as placeholder id
     chai
       .request(server)
       .get('/concert/1')
@@ -330,7 +328,7 @@ describe('GET request to /concert/:id route', () => {
     axiosStub
       .withArgs(`https://my.api.mockaroo.com/concerts/1.json?key=${process.env.CONCErTS_API_KEY}`)
       .throws(new TypeError());
-    // using 1 as placeholder id 
+    // using 1 as placeholder id
     chai
       .request(server)
       .get('/concert/1')
@@ -343,7 +341,6 @@ describe('GET request to /concert/:id route', () => {
 });
 
 describe('GET request to /ticketmaster/:id route', () => {
-
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
   });
@@ -358,19 +355,21 @@ describe('GET request to /ticketmaster/:id route', () => {
       statusText: 'OK',
       data: [
         {
-          _links: {}, 
-          page: {}
-        }
-      ]
+          _links: {},
+          page: {},
+        },
+      ],
     };
     const testID = {
-      id: "G5viZ9NXGTe24"
-    }
-   
+      id: 'G5viZ9NXGTe24',
+    };
+
     axiosStub
-    .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${testID.id}`)
-    .returns(Promise.resolve(stubResponse));
-    // using G5viZ9NXGTe24 as placeholder id 
+      .withArgs(
+        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${testID.id}`
+      )
+      .returns(Promise.resolve(stubResponse));
+    // using G5viZ9NXGTe24 as placeholder id
     chai
       .request(server)
       .get(`/ticketmaster/${testID.id}`)

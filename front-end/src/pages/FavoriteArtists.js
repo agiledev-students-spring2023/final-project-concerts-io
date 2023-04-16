@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import "./FavoriteArtists.css";
-import ArtistComponent from "../components/ArtistComponent";
+import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import './FavoriteArtists.css';
+import ArtistComponent from '../components/ArtistComponent';
 
 const FavoriteArtists = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [favArtists, setFavArtists] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredArtists, setFilteredArtists] = useState([]);
 
   const filterArtists = (artists, query) => {
@@ -16,9 +18,17 @@ const FavoriteArtists = (props) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/FavoriteArtists")
-      .then((res) => res.json())
+    fetch('http://localhost:3000/FavoriteArtists', {
+      headers: { Authorization: `JWT ${jwtToken}` },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          setIsLoggedIn(false);
+        }
+        return res.json();
+      })
       .then((data) => {
+        console.log(data);
         setFavArtists(data);
         filterArtists(data, searchQuery);
       })
@@ -26,7 +36,7 @@ const FavoriteArtists = (props) => {
         console.log(error);
       });
   }, [searchQuery]);
-  
+
   useEffect(() => {
     filterArtists(favArtists, searchQuery);
   }, [searchQuery, favArtists]);
@@ -36,7 +46,7 @@ const FavoriteArtists = (props) => {
   };
 
   // if the user is not logged in, redirect them to the login route
-  if (!props.user || !props.user.success) {
+  if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }
 

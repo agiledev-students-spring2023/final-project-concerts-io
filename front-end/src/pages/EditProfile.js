@@ -3,12 +3,36 @@ import { Navigate } from 'react-router-dom';
 import './EditProfile.css';
 
 const EditProfile = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [submit, setSubmit] = useState({});
+  const [user, setUser] = useState({});
+  const [errorMessage, setErrorMessage] = useState(``);
 
   useEffect(() => {
-    // if profile is edited, then update the user object
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/profile', {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        });
+        if (response.status === 401) {
+          return <Navigate to="/login?error=protected" />;
+        } else {
+          const data = await response.json();
+          console.log(data);
+          setUser(data);
+        }
+      } catch (err) {
+        // throw an error
+        setErrorMessage('Invalid entries, please try again ');
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     if (submit.success) {
-      props.setuser(submit);
     }
   }, [submit]);
 
@@ -26,28 +50,25 @@ const EditProfile = (props) => {
       const response = await fetch('http://localhost:3000/edit-profile', {
         method: 'POST',
         headers: {
+          Authorization: `JWT ${jwtToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-      // store the response data into the data state variable
-      const data = await response.json(); //data returned will not be the original login info provided by user
-      console.log(data);
-
-      const editedUser = {
-        email: data.email,
-        username: data.username,
-        password: data.password,
-        success: 1,
-      };
-      setSubmit(editedUser);
+      if (response.status === 401) {
+        setIsLoggedIn(false);
+      } else if (response.status === 406) {
+        setErrorMessage('Invalid entries, please try again ');
+      } else {
+        setSubmit({ success: 1 });
+      }
     } catch (err) {
       // throw an error
       console.error(err);
     }
   };
   // if the user is not logged in, redirect them to the login route
-  if (!props.user || !props.user.success) {
+  if (!isLoggedIn) {
     return <Navigate to="/login?error=protected" />;
   }
 
@@ -56,14 +77,15 @@ const EditProfile = (props) => {
     return (
       <div className="EditProfile">
         <h1>Edit Your Profile</h1>
+        {errorMessage ? <p className="error">{errorMessage}</p> : ''}
         <section className="edit-profile">
           <form onSubmit={handleSubmit}>
             <label>Email: </label>
-            <input type="text" name="email" defaultValue={props.user.email} />
+            <input type="text" name="email" defaultValue={user.email} />
             <br />
             <br />
             <label>Username: </label>
-            <input type="text" name="username" defaultValue={props.user.username} />
+            <input type="text" name="username" defaultValue={user.username} />
             <br />
             <br />
             <label>Password: </label>

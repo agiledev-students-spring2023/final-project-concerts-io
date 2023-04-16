@@ -1,33 +1,47 @@
-import React from "react"
-import { Link, Navigate } from "react-router-dom"
-import "./Profile.css"
-import User from "../components/User"
-import FavArtistsMini from "../components/FavArtistsMini"
-import SavedConcertsMini from "../components/SavedConcertsMini"
-const Profile = props => {
+import { React, useEffect, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import './Profile.css';
+import User from '../components/User';
+import FavArtistsMini from '../components/FavArtistsMini';
+import SavedConcertsMini from '../components/SavedConcertsMini';
+const Profile = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/profile', {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        });
+        if (response.status === 401) {
+          return <Navigate to="/login?error=protected" />;
+        }
+        const data = await response.json();
+        console.log(data);
+        setUser(data);
+      } catch (err) {
+        // throw an error
+        console.error(err);
+      }
+    }
+    fetchData();
+  }, []);
+
   // if the user is not logged in, redirect them to the login route
-  if (!props.user || !props.user.success) {
-    return <Navigate to="/login?error=protected" />
+  if (!isLoggedIn) {
+    return <Navigate to="/login?error=protected" />;
   }
-  let logOutAndEditComponent;
-  if (props.user.success){
-    logOutAndEditComponent = (
-      <div className="logOut">
-        <Link to="/logout">Logout {props.user.username}</Link>
-        <br />
-        <Link to="/edit-profile">Edit Profile {props.user.username}</Link>
-      </div>
-    )
-  }
-    return (
-      <div className="Profile">
-      <User details={props.user} login={logOutAndEditComponent}/>
-      
-      <FavArtistsMini details={props.user}/>
-      <SavedConcertsMini details={props.user}/>
-      </div>
-      
-    )
-  }
-  
-  export default Profile
+
+  return (
+    <div className="Profile">
+      <User details={user} />
+
+      <FavArtistsMini details={user} />
+      <SavedConcertsMini details={user} />
+    </div>
+  );
+};
+
+export default Profile;

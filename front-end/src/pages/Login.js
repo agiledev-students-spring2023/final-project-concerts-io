@@ -18,9 +18,9 @@ const Login = (props) => {
   // if the user's logged-in status changes, call the setuser function that was passed to this component from the Menu component.
   useEffect(() => {
     // if the login was a success, call the setuser function that was passed to this component as a prop
-    if (status.success) {
+    if (status.success && status.token) {
       console.log(`User successfully logged in: ${status.username}`);
-      props.setuser(status);
+      localStorage.setItem('token', status.token); // store the token into localStorage
     }
   }, [status]);
 
@@ -35,7 +35,7 @@ const Login = (props) => {
 
     try {
       // send the request to the server api to authenticate
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,6 +49,7 @@ const Login = (props) => {
     } catch (err) {
       // throw an error
       console.error(err);
+      setErrorMessage('Invalid username or password ');
     }
   };
 
