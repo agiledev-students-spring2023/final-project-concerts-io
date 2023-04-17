@@ -9,9 +9,7 @@ async function addFavoriteArtistsToUser(userId, artistIds) {
       throw new Error('User not found');
     }
 
-    const artistDocs = await Artist.find({ id: { $in: artistIds } });
-
-    user.favoriteArtists = artistDocs;
+    user.favoriteArtists = artistIds;
     await user.save();
 
     return {

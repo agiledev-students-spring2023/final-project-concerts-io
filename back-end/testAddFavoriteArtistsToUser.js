@@ -4,18 +4,16 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 const convertFavoriteArtistsToDocuments = require('./artistUtils');
 
-mongoose.connect(process.env.MONGODB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGODB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
 
     // Sample favorite artists data
-    const favoriteArtists = [
-      { id: 1, artistName: 'Artist One' },
-      { id: 2, artistName: 'Artist Two' },
-    ];
+    const favoriteArtists = [{ name: 'Artist One' }, { name: 'Artist Two' }];
 
     // Convert the sample data to Artist documents
-    const artistDocuments = convertFavoriteArtistsToDocuments(favoriteArtists);
+    const artistDocuments = await convertFavoriteArtistsToDocuments(favoriteArtists); // returns an array of artist ids
 
     // Find an existing user or create a new one
     const username = 'testUser';
