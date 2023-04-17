@@ -6,14 +6,17 @@ const axios = require('axios');
 
 const passport = require('passport');
 
+const User = require('../models/User');
+const Artist = require('../models/Artist');
+const Concert = require('../models/Concert');
+
 ArtistRouter.get('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
     // eslint-disable-next-line no-console
     console.log(req.params);
-    const response = await axios.get(
-      `https://my.api.mockaroo.com/artists/${req.params.id}.json?key=${process.env.ARTISTS_API_KEY}}`
-    );
-    res.json(response.data);
+    const artist = await Artist.findById(req.params.id);
+
+    res.json(artist);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
