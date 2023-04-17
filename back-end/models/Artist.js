@@ -12,6 +12,6 @@ const artistSchema = new mongoose.Schema({
     }
 });
 
-const Concert = mongoose.model('Artist', artistSchema);
+const Artist = mongoose.model('Artist', artistSchema);
 
-module.exports = Concert;
+module.exports = Artist;
