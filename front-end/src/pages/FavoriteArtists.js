@@ -64,7 +64,7 @@ const FavoriteArtists = (props) => {
       </div>
       <section>
         {filteredArtists.map((x) => (
-          <ArtistComponent key={x.id} details={x} />
+          <ArtistComponent key={x._id} details={x} />
         ))}
       </section>
     </div>

@@ -36,7 +36,9 @@ const LastFmCallbackRouter = require('./routes/LastFmCallback');
 const AuthenticationRouter = require('./routes/Authentication');
 
 // models
-const User = require('./models/User.js');
+const User = require('./models/User');
+const Artist = require('./models/Artist');
+const Concert = require('./models/Concert');
 
 // Middleware
 app.use(passport.initialize());

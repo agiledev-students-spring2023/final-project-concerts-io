@@ -1,10 +1,10 @@
 const express = require('express');
 const passport = require('passport');
+const User = require('../models/User');
+const Artist = require('../models/Artist');
+const Concert = require('../models/Concert');
 
 const FavoriteArtistsRouter = express.Router();
-const axios = require('axios');
-
-const API_URL = 'https://my.api.mockaroo.com/artists.json?key=54687d90';
 
 const backupData = [
   {
@@ -21,12 +21,13 @@ FavoriteArtistsRouter.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
+    const { user } = req; // get user
     try {
-      const response = await axios.get(API_URL);
-      console.log(response);
-      res.status(200).json(response.data);
+      await user.populate('favoriteArtists'); // populate favoriteArtists with actual artist docs
+      console.log(user.favoriteArtists);
+      res.status(200).json(user.favoriteArtists);
     } catch (error) {
-      console.error('Error from API: ', error.message);
+      console.error('Database Error: ', error.message);
       res.status(500).json(backupData);
     }
   }

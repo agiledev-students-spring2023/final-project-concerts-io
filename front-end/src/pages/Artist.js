@@ -24,7 +24,7 @@ const Artist = (props) => {
       })
       .then((data) => {
         setArtist(data);
-        fetch(`http://localhost:3000/concert/${data[0].id}`, {
+        fetch(`http://localhost:3000/concert/${1}`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         })
           .then((res) => {
