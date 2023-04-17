@@ -1,11 +1,10 @@
-const Artist = require('./models/artist');
+const Artist = require('./models/Artist');
 
 const convertFavoriteArtistsToDocuments = (favoriteArtists) =>
   favoriteArtists.map((artistData) =>
     new Artist({
       id: artistData.id,
-      name: artistData.name,
-      image: artistData.image,
+      artistName: artistData.artistName,
     })
   );
 

@@ -1,36 +1,29 @@
-const User = require('./models/user');
-const Artist = require('./models/artist');
-const convertFavoriteArtistsToDocuments = require('./artistUtils');
+const User = require('./models/User');
+const Artist = require('./models/Artist');
 
-async function addFavoriteArtistsToUser(userId, favoriteArtists) {
-  // Convert the favorite artists to artist documents
-  const artistDocuments = convertFavoriteArtistsToDocuments(favoriteArtists);
+async function addFavoriteArtistsToUser(userId, artistIds) {
+  try {
+    const user = await User.findById(userId);
 
-  // Save the artist documents to the database
-  const savedArtists = await Artist.insertMany(artistDocuments);
+    if (!user) {
+      throw new Error('User not found');
+    }
 
-  // Find the user by userId and update their favorite artists array
-  await User.findByIdAndUpdate(userId, {
-    $addToSet: { favoriteArtists: { $each: savedArtists.map(artist => artist._id) } },
-  });
+    const artistDocs = await Artist.find({ id: { $in: artistIds } });
 
-  // If necessary, return the updated user
-  const updatedUser = await User.findById(userId).populate('favoriteArtists');
-  return updatedUser;
+    user.favoriteArtists = artistDocs;
+    await user.save();
+
+    return {
+      success: true,
+      message: 'Favorite artists added successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
 }
 
-// Example usage:
-// const userId = 'your user id here';
-// const favoriteArtists = [
-//   {
-//     id: 1,
-//     name: 'Artist 1',
-//     image: 'artist1.jpg',
-//     // other fields
-//   },
-//   // other artists
-// ];
-
-// addFavoriteArtistsToUser(userId, favoriteArtists)
-//   .then(updatedUser => console.log(updatedUser))
-//   .catch(err => console.error(err));
+module.exports = addFavoriteArtistsToUser;
