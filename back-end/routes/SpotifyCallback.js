@@ -1,5 +1,6 @@
 const express = require('express');
 const helpers = require('../spotifyHelperFunctions');
+const passport = require('passport');
 
 const SpotifyCallbackRouter = express.Router();
 
@@ -24,12 +25,13 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
     );
     const { access_token } = data;
     const { refresh_token } = data;
-
+    
     // get favorite artists
     const response = await helpers.useAccessToken(
       'https://api.spotify.com/v1/me/top/artists',
       access_token
     );
+    
     const favArtists = response.items;
     console.log(favArtists);
     res.redirect('http://localhost:3001/profile');

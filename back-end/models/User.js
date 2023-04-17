@@ -20,6 +20,7 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
+  topArtists: [{ type: Object}],
   favoriteArtists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }],
   savedConcerts: [{ type: Schema.Types.ObjectId, ref: 'Concert' }],
 });
