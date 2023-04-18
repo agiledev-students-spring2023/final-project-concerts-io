@@ -4,44 +4,31 @@ import { Link } from "react-router-dom";
 import "./FavArtistsMini.css" 
 import axios from "axios"
 
-const exampleArtists = [
-    {
-      id: 1,
-      name: "John Smith",
-    },
-    {
-      id: 2,
-      name: "Barry Ken",
-    }]
 
   const FavArtistsMini = (props) =>{
-      const [favArtists, setFavArtists] = useState([])
+      const jwtToken = localStorage.getItem('token');
+      const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
+      const [favArtists, setFavArtists] = useState([]);
+  
+  
       useEffect(() => {
-         axios("https://my.api.mockaroo.com/artists.json?key=54687d90")
-          .then(response => {
-            setFavArtists(response.data)
+        fetch('http://localhost:3000/FavoriteArtists', {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              setIsLoggedIn(false);
+            }
+            return res.json();
           })
-          .catch(err => {
-            console.log(`Get Nae Naed--No Data For you`)
-            console.error(err)
-            const backupData = [
-              {
-                id: 1,
-                name: "Example Artist 1",
-        
-              },
-              {
-                id: 2,
-                title: "Example Artist 2",
-              },
-              {
-                id: 3,
-                title: "Example Artist 3",
-              }
-            ]
-            setFavArtists(backupData)
+          .then((data) => {
+            console.log(data);
+            setFavArtists(data);
           })
-      }, []) 
+          .catch((error) => {
+            console.log(error);
+          });
+      }, []);
     
         return(
             <div className="favorite-artists">

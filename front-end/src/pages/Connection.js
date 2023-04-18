@@ -7,7 +7,27 @@ const Connection = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   let [urlSearchParams] = useSearchParams(); // get access to the URL query string parameters
   const [errorMessage, setErrorMessage] = useState(``); // will contain any error message that explains why the user was redirected to this page.
+  const [user, setUser] = useState({});
+
+  console.log(localStorage)
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/connection', {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        });
+        if (response.status === 401) {
+          return <Navigate to="/login?error=protected" />;
+        }
+        const data = await response.json();
+        console.log(data);
+        setUser(data);
+      } catch (err) {
+        // throw an error
+        console.error(err);
+      }
+    }
+    fetchData();
     const qsError = urlSearchParams.get('error'); // get any 'error' field in the URL query string
     if (qsError === 'authentication') setErrorMessage('Authentication failed, please try again');
   }, []);
@@ -26,7 +46,7 @@ const Connection = (props) => {
       </div>
       <div className="platform">
         <h2>Last Fm</h2>
-        <a href="http://localhost:3000/lastfmconnect"> Last Fm</a>
+        <a href={`http://localhost:3000/lastfmconnect/?userid=${user.id}`}> Last Fm</a>
       </div>
     </div>
   );

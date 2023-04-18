@@ -8,7 +8,7 @@ ProfileRouter.get('/', passport.authenticate('jwt', { session: false }), async (
     email: req.user.email,
     username: req.user.username,
   };
-  console.log(req.user)
+  // console.log(req.user)
   try {
     res.json(profileInfo);
   } catch (err) {

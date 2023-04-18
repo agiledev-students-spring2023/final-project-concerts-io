@@ -3,7 +3,7 @@ const axios = require('axios');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const User = require('../models/User.js');
-
+const Artist = require('../models/Artist.js')
 const { getSession, getSignature } = require('../lastfmHelperFunctions');
 
 const LastFmCallbackRouter = express.Router();
@@ -32,10 +32,20 @@ LastFmCallbackRouter.get('/', async (req, res, next) => {
         format: 'json',
       },
     });
-    console.log(response)
-    const update = await User.findByIdAndUpdate(req.query.userid,{"favoriteArtists": response});
-    // solution #1, somehow in the callback, pass userID
-    // solution #2, put the userID in the cookie
+    const topartists = response.data.topartists.artist.slice(0,10)
+    const artistDocuments = topartists.map(artist =>{
+        const value =  new Artist({
+          name: artist.name
+        })
+        value.save()
+        return value
+    })
+
+
+    const user = await User.findOne({_id:new mongoose.Types.ObjectId(req.query.userid)});
+    user.favoriteArtists = artistDocuments
+    await user.save()
+    
 
     res.redirect(`http://localhost:3001/profile?sessionKey=${sessionKey}`);
   }
