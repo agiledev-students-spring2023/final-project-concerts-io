@@ -1,51 +1,29 @@
-import React,  { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import './SavedConcertsMini.css'
-import ConcertComponent from "./ConcertComponent";
-import axios from 'axios'
+import React,  { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './SavedConcertsMini.css';
 
-const SavedConcertsMini = (props) =>{
-  const [savedConcerts, setSavedConcerts] = useState([])
+const SavedConcertsMini = (props) => {
+  const jwtToken = localStorage.getItem('token');
+  const [savedConcerts, setSavedConcerts] = useState([]);
   useEffect(() => {
-    axios("https://my.api.mockaroo.com/concerts.json?key=54687d90")
-     .then(response => {
-       setSavedConcerts(response.data)
-     })
-     .catch(err => {
-       console.log(`Get Nae Naed--No Data For you`)
-       console.error(err)
-       const backupData = [
-        {
-          id: 1,
-          name: "John Smith live at the Purple Lounge",
-          artist: "John Smith",
-          date: "September 22, 2040",
-          description: "John Smith debuts his new record for the first time live",
-          location: 'Example Venue',
-          image: 'https://example.com/image.jpg',
-          ticketLink: 'https://example.com/tickets',
-        },
-        {
-          id: 2,
-          name: "Barry Ken live at the Red Lounge",
-          artist: "Barry Ken",
-          date: "August 15, 2040",
-          description: "The legendary Barry Ken returns for his first performace in years",
-          location: 'Example Venue',
-          image: 'https://example.com/image.jpg',
-          ticketLink: 'https://example.com/tickets',
-        },
-       ]
-       setSavedConcerts(backupData)
-     })
- }, []) 
+    fetch('http://localhost:3000/SavedConcerts', {
+      headers: { Authorization: `JWT ${jwtToken}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setSavedConcerts(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+}, []);
     return(
       <div>
         <Link to="/saved-concerts"><h2>{props.details.username}'s' Saved Concerts</h2></Link>
         <div id="concerts-container">
             <div id="saved-Concerts-mini-containerr">
               {savedConcerts.map(concert => (
-                <div key={concert.id} className="mini-concert">
+                <div key={concert._id} className="mini-concert">
                 <Link to="/concerts/:1">{concert.name}</Link>
                 </div>
               ))}
@@ -56,4 +34,4 @@ const SavedConcertsMini = (props) =>{
     );
 }
 
-export default SavedConcertsMini
+export default SavedConcertsMini;
