@@ -26,7 +26,6 @@ FavoriteArtistsRouter.get(
       // console.log(req.user)
       const response = await User.findOne({_id:new mongoose.Types.ObjectId(req.user._id)});
       const artists = await Artist.find({_id:response.favoriteArtists})
-      console.log(artists);
       res.send(artists)
     } catch (error) {
       console.error('Error from API: ', error.message);

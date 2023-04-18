@@ -42,7 +42,7 @@ const Connection = (props) => {
       {errorMessage ? <p className="error">{errorMessage}</p> : ''}
       <div className="platform">
         <h2>Spotify</h2>
-        <a href="http://localhost:3000/spotifyconnect"> Connect Spotify</a>
+        <a href={`http://localhost:3000/spotifyconnect`}> Connect Spotify</a>
       </div>
       <div className="platform">
         <h2>Last Fm</h2>

@@ -18,6 +18,7 @@ const helpers = require('./spotifyHelperFunctions');
 const ConcertRouter = require('./routes/Concert');
 const TicketMasterRouter = require('./routes/TicketMaster');
 const TicketMasterManyRouter = require('./routes/TicketMasterMany');
+const SpotifyMiddleRouter = require('./routes/SpotifyMiddleRoute')
 
 const ArtistRouter = require('./routes/Artist');
 
@@ -60,6 +61,8 @@ app.use('/connection', ConnectionRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
+app.use('/spotifymiddleroute', SpotifyCallbackRouter);
+
 app.use('/ticketmastersearch', TicketmasterSearchRouter);
 app.use('/profile', ProfileRouter);
 app.use('/edit-profile', EditProfileRouter);

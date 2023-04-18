@@ -25,16 +25,16 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
     );
     const { access_token } = data;
     const { refresh_token } = data;
-    
     // get favorite artists
     const response = await helpers.useAccessToken(
       'https://api.spotify.com/v1/me/top/artists',
       access_token
     );
-    
+    console.log(response)
+
     const favArtists = response.items;
     console.log(favArtists);
-    res.redirect('http://localhost:3001/profile');
+    res.redirect(`http://localhost:3001/profile/?access_token=${access_token}&refresh_token=${refresh_token}`);
   }
 });
 
