@@ -33,6 +33,7 @@ const RecommendedRouter = require('./routes/Recommended');
 const TicketmasterSearchRouter = require('./routes/TicketmasterSearch');
 const LastFmConnectRouter = require('./routes/LastFmConnect');
 const LastFmCallbackRouter = require('./routes/LastFmCallback');
+const SaveConcertRouter = require('./routes/SaveConcert')
 const AuthenticationRouter = require('./routes/Authentication');
 
 // models
@@ -57,6 +58,7 @@ app.use('/ticketmaster', TicketMasterRouter);
 app.use('/ticketmastermany', TicketMasterManyRouter);
 
 app.use('/SavedConcerts', SavedConcertsRoute);
+app.use('/SaveConcert', SaveConcertRouter);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);

@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 
 const ConcertSchema = new mongoose.Schema({
-  id: {
-    type: Number,
+  ticketmasterid: {
+    type: String,
     required: true,
-    unique: true,
   },
   name: {
     type: String,

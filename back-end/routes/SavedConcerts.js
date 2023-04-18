@@ -4,7 +4,6 @@ const passport = require('passport');
 
 const SavedConcertsRouter = express.Router();
 
-const API_URL = 'https://my.api.mockaroo.com/concerts.json?key=54687d90';
 
 const backupData = [
   {
@@ -28,13 +27,16 @@ const backupData = [
 ];
 
 SavedConcertsRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  try {
-    const response = await axios.get(API_URL);
-    res.status(200).json(response.data);
-  } catch (error) {
-    console.error('Error from API: ', error.message);
-    res.status(500).json(backupData);
-  }
-});
+      const { user } = req; // get user
+      try {
+        await user.populate('savedConcerts'); // populate favoriteArtists with actual artist docs
+        console.log(user.savedConcerts);
+        res.status(200).json(user.savedConcerts);
+      } catch (error) {
+        console.error('Database Error: ', error.message);
+        res.status(500).json(backupData);
+      }
+    }
+  );
 
 module.exports = SavedConcertsRouter;

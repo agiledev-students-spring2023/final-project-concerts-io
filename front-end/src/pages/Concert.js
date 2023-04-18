@@ -7,6 +7,8 @@ function Concert(props) {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [concert, setConcert] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(``); // will contain any error message that explains why the user was redirected to this page.
+
   const id = window.location.pathname.substring(10);
   useEffect(() => {
     fetch(`http://localhost:3000/ticketmaster/${id}`, {
@@ -26,8 +28,24 @@ function Concert(props) {
       });
   }, []);
 
-  const handleClick = () => {
-    alert('Added to favorites');
+  const handleClick = async () => {
+      try {
+        // send the request to the backend
+        const response = await fetch('http://localhost:3000/SaveConcert', {
+          method: 'POST',
+          headers: {
+            Authorization: `JWT ${jwtToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(concert),
+        });
+        alert("Concert Saved!")
+      } catch (err) {
+        // throw an error
+        console.error(err);
+        setErrorMessage(err)
+      }
+
   };
 
   // if the user is not logged in, redirect them to the login route
@@ -37,6 +55,7 @@ function Concert(props) {
 
   return (
     <div className="Concert">
+      {errorMessage ? <p className="error">{errorMessage}</p> : ''}
       <h1 className="Concert-header">Concerts.io</h1>
       <h2>{concert.name}</h2>
       <img src={concert.image} alt={concert.artist} />
