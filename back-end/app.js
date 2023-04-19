@@ -18,7 +18,6 @@ const helpers = require('./spotifyHelperFunctions');
 const ConcertRouter = require('./routes/Concert');
 const TicketMasterRouter = require('./routes/TicketMaster');
 const TicketMasterManyRouter = require('./routes/TicketMasterMany');
-const SpotifyMiddleRouter = require('./routes/SpotifyMiddleRoute');
 
 const ArtistRouter = require('./routes/Artist');
 
