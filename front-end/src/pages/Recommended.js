@@ -43,8 +43,8 @@ const Recommended = (props) => {
       <div className="concerts-container">
         <div className="recommendedConcerts-container">
           {recommendedConcerts.map((concert) => (
-            <div key={concert.id} className="recommended-concert">
-              <ConcertComponent key={concert.id} details={concert} />
+            <div key={concert.ticketmasterID} className="recommended-concert">
+              <ConcertComponent key={concert.ticketmasterID} details={concert} />
             </div>
           ))}
         </div>

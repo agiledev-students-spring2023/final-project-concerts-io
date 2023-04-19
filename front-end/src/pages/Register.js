@@ -67,8 +67,8 @@ const Register = (props) => {
         </section>
       </div>
     );
-  // otherwise, if the user has successfully registered, redirect them to the home page
-  else return <Navigate to="/" />;
+  // otherwise, if the user has successfully registered, redirect them to connection page
+  else return <Navigate to="/connection" />;
 };
 
 export default Register;

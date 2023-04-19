@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ConcertSchema = new mongoose.Schema({
-  ticketmasterid: {
+  ticketmasterID: {
     type: String,
     required: true,
   },
