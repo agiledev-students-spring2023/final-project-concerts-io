@@ -68,7 +68,7 @@ const SavedConcerts = (props) => {
       <div className="savedConcerts-container">
         {filteredConcerts.map((concert) => (
           <div key={concert.id} className="saved-concert">
-            <ConcertComponent key={concert.id} details={concert} />
+            <ConcertComponent key={concert._id} details={concert} />
           </div>
         ))}
       </div>
