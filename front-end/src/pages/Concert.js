@@ -29,23 +29,22 @@ function Concert(props) {
   }, []);
 
   const handleClick = async () => {
-      try {
-        // send the request to the backend
-        const response = await fetch('http://localhost:3000/SaveConcert', {
-          method: 'POST',
-          headers: {
-            Authorization: `JWT ${jwtToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(concert),
-        });
-        alert("Concert Saved!")
-      } catch (err) {
-        // throw an error
-        console.error(err);
-        setErrorMessage(err)
-      }
-
+    try {
+      // send the request to the backend
+      const response = await fetch('http://localhost:3000/SaveConcert', {
+        method: 'POST',
+        headers: {
+          Authorization: `JWT ${jwtToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(concert),
+      });
+      alert('Concert Saved!');
+    } catch (err) {
+      // throw an error
+      console.error(err);
+      setErrorMessage(err);
+    }
   };
 
   // if the user is not logged in, redirect them to the login route

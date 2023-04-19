@@ -24,7 +24,7 @@ TicketMasterManyRouter.get(
       const { events } = response.data._embedded;
 
       const eventsMapped = events.map((concert) => ({
-        id: concert.id ?? ' ',
+        ticketmasterID: concert.id ?? ' ',
         name: concert.name ?? ' ',
         artist: concert.name ?? ' ',
         date: concert.dates.start.localDate ?? ' ',
