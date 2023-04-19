@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 const Artist = require('../models/Artist');
 const Concert = require('../models/Concert');

@@ -18,6 +18,7 @@ const helpers = require('./spotifyHelperFunctions');
 const ConcertRouter = require('./routes/Concert');
 const TicketMasterRouter = require('./routes/TicketMaster');
 const TicketMasterManyRouter = require('./routes/TicketMasterMany');
+const SpotifyMiddleRouter = require('./routes/SpotifyMiddleRoute');
 
 const ArtistRouter = require('./routes/Artist');
 
@@ -33,7 +34,8 @@ const RecommendedRouter = require('./routes/Recommended');
 const TicketmasterSearchRouter = require('./routes/TicketmasterSearch');
 const LastFmConnectRouter = require('./routes/LastFmConnect');
 const LastFmCallbackRouter = require('./routes/LastFmCallback');
-const SaveConcertRouter = require('./routes/SaveConcert')
+const SaveConcertRouter = require('./routes/SaveConcert');
+const ConnectionRoute = require('./routes/ConnectionPage');
 const AuthenticationRouter = require('./routes/Authentication');
 
 // models
@@ -59,9 +61,12 @@ app.use('/ticketmastermany', TicketMasterManyRouter);
 
 app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/SaveConcert', SaveConcertRouter);
+app.use('/connection', ConnectionRoute);
 app.use('/FavoriteArtists', FavoriteArtistsRoute);
 app.use('/spotifyconnect', SpotifyConnectRouter);
 app.use('/spotifycallback', SpotifyCallbackRouter);
+app.use('/spotifymiddleroute', SpotifyCallbackRouter);
+
 app.use('/ticketmastersearch', TicketmasterSearchRouter);
 app.use('/profile', ProfileRouter);
 app.use('/edit-profile', EditProfileRouter);
