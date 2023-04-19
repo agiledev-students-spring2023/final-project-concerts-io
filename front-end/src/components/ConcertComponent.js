@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import "./ConcertComponent.css"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './ConcertComponent.css'
 
 const ConcertComponent = props => {
     return (
@@ -11,11 +11,11 @@ const ConcertComponent = props => {
                 <h3>{props.details.artist}</h3>
                 <p>{props.details.date}</p>
                 <p>{props.details.location}</p>
-                <Link to={`/concerts/${props.details.id}`}>Link</Link>
+                <Link to={`/concerts/${props.details._id}`}>Link</Link>
               </div>
             </div>
       </div>
     )
   }
   
-  export default ConcertComponent
+  export default ConcertComponent;

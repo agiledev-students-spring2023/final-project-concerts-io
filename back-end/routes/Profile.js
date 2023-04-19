@@ -4,10 +4,11 @@ const passport = require('passport');
 const ProfileRouter = express.Router();
 
 ProfileRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  console.log(req.user);
   const profileInfo = {
     email: req.user.email,
     username: req.user.username,
+    access_token: req.query.access_token || null,
+    refresh_token: req.query.refresh_token || null
   };
   try {
     res.json(profileInfo);
