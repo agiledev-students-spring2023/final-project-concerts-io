@@ -18,6 +18,7 @@ SpotifyConnectRouter.get('/', (req, res, next) => {
       state,
     }).toString()}`
   );
+  // pass user to state
 });
 
 module.exports = SpotifyConnectRouter;
