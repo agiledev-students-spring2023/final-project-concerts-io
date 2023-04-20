@@ -9,7 +9,7 @@ const Connection = (props) => {
   const [errorMessage, setErrorMessage] = useState(``); // will contain any error message that explains why the user was redirected to this page.
   const [user, setUser] = useState({});
 
-  console.log(localStorage)
+  console.log(localStorage);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -42,7 +42,7 @@ const Connection = (props) => {
       {errorMessage ? <p className="error">{errorMessage}</p> : ''}
       <div className="platform">
         <h2>Spotify</h2>
-        <a href={`http://localhost:3000/spotifyconnect`}> Connect Spotify</a>
+        <a href={`http://localhost:3000/spotifyconnect/?userid=${user.id}`}> Connect Spotify</a>
       </div>
       <div className="platform">
         <h2>Last Fm</h2>

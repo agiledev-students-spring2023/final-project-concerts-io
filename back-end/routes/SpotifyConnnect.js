@@ -4,7 +4,7 @@ const helpers = require('../spotifyHelperFunctions');
 const SpotifyConnectRouter = express.Router();
 
 SpotifyConnectRouter.get('/', (req, res, next) => {
-  const state = helpers.generateRandomString(16);
+  const state = req.query.userid;
 
   // requests authorization
   const scope =
@@ -18,6 +18,7 @@ SpotifyConnectRouter.get('/', (req, res, next) => {
       state,
     }).toString()}`
   );
+  // pass user to state
 });
 
 module.exports = SpotifyConnectRouter;
