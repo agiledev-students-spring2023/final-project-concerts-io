@@ -23,28 +23,33 @@ TicketmasterSearchRouter.get(
       });
 
       // Filter and format API response
-      const { events } = response.data._embedded;
-
-      const formattedEvents = events.map((concert) => ({
-        id: concert.id ?? ' ',
-        name: concert.name ?? ' ',
-        artist: concert.name ?? ' ',
-        date: concert.dates.start.localDate ?? ' ',
-        description: concert.info ?? ' ',
-        location: concert._embedded.venues[0].city.name ?? ' ',
-        image: concert.images !== null ? concert.images[0].url : ' ',
-        ticketLink: concert.events !== null ? concert.url : ' ',
-      }));
-
-      // Send formatted search results to the client
-      res.json(formattedEvents);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({
-        success: false,
-        message: 'Error finding artist data.',
-        error: err,
-      });
+      console.log(response)
+      let events = null
+      if(response.data._embedded !== undefined){
+        events = response.data._embedded.events
+        if (events !== null){
+          const formattedEvents = events.map((concert) => ({
+          id: concert.id ?? ' ',
+          name: concert.name ?? ' ',
+          artist: concert.name ?? ' ',
+          date: concert.dates.start.localDate ?? ' ',
+          description: concert.info ?? ' ',
+          location: concert._embedded.venues[0].city.name ?? ' ',
+          image: concert.images !== null ? concert.images[0].url : ' ',
+          ticketLink: concert.events !== null ? concert.url : ' ',
+          }));
+          console.log(formattedEvents)
+          res.json(formattedEvents);
+        }
+        
+      }
+      else{
+        res.json()
+      }
+       
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
     }
   }
 );

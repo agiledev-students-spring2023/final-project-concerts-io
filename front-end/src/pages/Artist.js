@@ -24,30 +24,20 @@ const Artist = (props) => {
         return res.json();
       })
       .then((data) => {
-        if (!data.success) {
-          setErrorMessage(data.message);
-        } else {
-          setArtist(data);
-          fetch(`http://localhost:3000/concert/${1}`, {
-            headers: { Authorization: `JWT ${jwtToken}` },
+        setArtist(data);
+        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              setIsLoggedIn(false);
+            }
+            return res.json();
           })
-            .then((res) => {
-              if (res.status === 401) {
-                setIsLoggedIn(false);
-              }
-              return res.json();
-            })
-            .then((data) => {
-              if (!data.success) {
-                setErrorMessage(data.message);
-              } else {
-                setConcerts(data);
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
+          .then((data) => {
+            console.log(data)
+            setConcerts(data);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -59,25 +49,23 @@ const Artist = (props) => {
     return <Navigate to="/login?error=protected" />;
   }
 
-  if (errorMessage) {
-    return (
-      <div className="Artist">
-        <p className="error">{errorMessage}</p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="Artist">
-        <h1>{artist.name}</h1>
-        <h2>Upcoming Concerts</h2>
-        <div className="concerts-container">
-          <div className="artistConcerts-container">
-            <ConcertComponent key={concerts.id} details={concerts} />
+  return (
+    <div className="Artist">
+      <h1>{artist.name}</h1>
+      <h2>Upcoming Concerts</h2>
+      <div className="concerts-container">
+        <div className="artistConcerts-container">
+        <div className="savedConcerts-container">
+          {concerts.map((concert) => (
+          <div key={concert.ticketmasterID} className="saved-concert">
+            <ConcertComponent key={concert.ticketmasterID} details={concert}/>
           </div>
+        ))}
+      </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Artist;
