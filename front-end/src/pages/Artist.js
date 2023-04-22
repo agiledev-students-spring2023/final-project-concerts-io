@@ -24,7 +24,7 @@ const Artist = (props) => {
       })
       .then((data) => {
         setArtist(data);
-        fetch(`http://localhost:3000/concert/${1}`, {
+        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         })
           .then((res) => {
@@ -34,6 +34,7 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
+            console.log(data)
             setConcerts(data);
           });
       })
@@ -53,7 +54,13 @@ const Artist = (props) => {
       <h2>Upcoming Concerts</h2>
       <div className="concerts-container">
         <div className="artistConcerts-container">
-          <ConcertComponent key={concerts.id} details={concerts} />
+        <div className="savedConcerts-container">
+          {concerts.map((concert) => (
+          <div key={concert.ticketmasterID} className="saved-concert">
+            <ConcertComponent key={concert.ticketmasterID} details={concert}/>
+          </div>
+        ))}
+      </div>
         </div>
       </div>
     </div>
