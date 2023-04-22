@@ -36,8 +36,12 @@ TicketMasterManyRouter.get(
 
       res.json(eventsMapped);
     } catch (err) {
-      console.log(`Get Nae Naed--No Data For you`);
       console.error(err);
+      return res.status(500).json({
+        success: false,
+        message: 'Error finding concert data.',
+        error: err,
+      });
     }
   }
 );

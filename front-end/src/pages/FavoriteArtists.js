@@ -9,6 +9,7 @@ const FavoriteArtists = (props) => {
   const [favArtists, setFavArtists] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredArtists, setFilteredArtists] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(``);
 
   const filterArtists = (artists, query) => {
     const filtered = artists.filter((artist) =>
@@ -28,9 +29,12 @@ const FavoriteArtists = (props) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
-        setFavArtists(data);
-        filterArtists(data, searchQuery);
+        if (data.error) {
+          setErrorMessage(data.message);
+        } else {
+          setFavArtists(data);
+          filterArtists(data, searchQuery);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -50,25 +54,36 @@ const FavoriteArtists = (props) => {
     return <Navigate to="/login?error=protected" />;
   }
 
-  return (
-    <div className="FavoriteArtists">
-      <h1>Your Favorite Artists</h1>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search concerts"
-          value={searchQuery}
-          onChange={handleInputChange}
-          className="search-input"
-        />
+  if (errorMessage) {
+    return (
+      <div className="FavoriteArtists">
+        <h1>Your Favorite Artists</h1>
+        <section>
+          <p className="error">{errorMessage}</p>
+        </section>
       </div>
-      <section>
-        {filteredArtists.map((x) => (
-          <ArtistComponent key={x._id} details={x} />
-        ))}
-      </section>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="FavoriteArtists">
+        <h1>Your Favorite Artists</h1>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search concerts"
+            value={searchQuery}
+            onChange={handleInputChange}
+            className="search-input"
+          />
+        </div>
+        <section>
+          {filteredArtists.map((x) => (
+            <ArtistComponent key={x._id} details={x} />
+          ))}
+        </section>
+      </div>
+    );
+  }
 };
 
 export default FavoriteArtists;

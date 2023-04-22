@@ -8,6 +8,7 @@ const Profile = (props) => {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [user, setUser] = useState({});
+  const [errorMessage, setErrorMessage] = useState(``);
 
   useEffect(() => {
     async function fetchData() {
@@ -19,8 +20,11 @@ const Profile = (props) => {
           return <Navigate to="/login?error=protected" />;
         }
         const data = await response.json();
-        console.log(data);
-        setUser(data);
+        if (!data.success) {
+          setErrorMessage(data.message);
+        } else {
+          setUser(data);
+        }
       } catch (err) {
         // throw an error
         console.error(err);
@@ -34,14 +38,22 @@ const Profile = (props) => {
     return <Navigate to="/login?error=protected" />;
   }
 
-  return (
-    <div className="Profile">
-      <User details={user} />
+  if (errorMessage) {
+    return (
+      <div className="Profile">
+        <p className="error">{errorMessage}</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="Profile">
+        <User details={user} />
 
-      <FavArtistsMini details={user} />
-      <SavedConcertsMini details={user} />
-    </div>
-  );
+        <FavArtistsMini details={user} />
+        <SavedConcertsMini details={user} />
+      </div>
+    );
+  }
 };
 
 export default Profile;

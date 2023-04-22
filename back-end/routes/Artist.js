@@ -18,16 +18,12 @@ ArtistRouter.get('/:id', passport.authenticate('jwt', { session: false }), async
 
     res.json(artist);
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.log(err);
-    const exampleArtist = [
-      {
-        id: 1,
-        name: 'John Smith',
-      },
-    ];
-
-    res.json(exampleArtist);
+    return res.status(500).json({
+      success: false,
+      message: 'Error finding artist data.',
+      error: err,
+    });
   }
 });
 

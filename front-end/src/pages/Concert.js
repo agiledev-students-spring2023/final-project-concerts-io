@@ -7,7 +7,7 @@ function Concert(props) {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [concert, setConcert] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(``); // will contain any error message that explains why the user was redirected to this page.
+  const [errorMessage, setErrorMessage] = useState(``);
 
   const id = window.location.pathname.substring(10);
   useEffect(() => {
@@ -21,7 +21,11 @@ function Concert(props) {
         return res.json();
       })
       .then((data) => {
-        setConcert(data);
+        if (data.error) {
+          setErrorMessage(data.message);
+        } else {
+          setConcert(data);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -52,24 +56,33 @@ function Concert(props) {
     return <Navigate to="/login?error=protected" />;
   }
 
-  return (
-    <div className="Concert">
-      {errorMessage ? <p className="error">{errorMessage}</p> : ''}
-      <h1 className="Concert-header">Concerts.io</h1>
-      <h2>{concert.name}</h2>
-      <img src={concert.image} alt={concert.artist} />
-      <p>
-        {concert.date} at {concert.location}
-      </p>
-      <p>Example Concert Info</p>
-      <a href={concert.ticketLink} className="Concert-link">
-        Buy Tickets
-      </a>
-      <button onClick={handleClick} className="Concert-button">
-        Add to Favorites
-      </button>
-    </div>
-  );
+  if (errorMessage) {
+    return (
+      <div className="Concert">
+        <p className="error">{errorMessage}</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="Concert">
+        <h1 className="Concert-header">Concerts.io</h1>
+        <h2>{concert.name}</h2>
+        <img src={concert.image} alt={concert.artist} />
+        <p>
+          {concert.date} at {concert.location}
+        </p>
+        <section>
+          <p>{concert.description}</p>
+        </section>
+        <a href={concert.ticketLink} className="Concert-link">
+          Buy Tickets
+        </a>
+        <button onClick={handleClick} className="Concert-button">
+          Add to Favorites
+        </button>
+      </div>
+    );
+  }
 }
 
 export default Concert;
