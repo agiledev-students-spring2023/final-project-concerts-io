@@ -7,14 +7,11 @@ EditProfileRouter.post('/', passport.authenticate('jwt', { session: false }), as
   const { username } = req.body;
   const { email } = req.body;
 
-  if (username.length < 1 || email.length < 1) {
+  if (!username || !email) {
     // no username or password received in the POST body... send an error
-    res.status(406).json({ success: false, message: `No username or email supplied.` });
+    res.status(406).json({ success: false, message: `Error: No username or email supplied.` });
   } else {
-    console.log(req.body);
-
     try {
-      console.log('test');
       req.user.username = req.body.username;
       req.user.email = req.body.email;
       if (req.body.password.length > 1) {
@@ -25,13 +22,10 @@ EditProfileRouter.post('/', passport.authenticate('jwt', { session: false }), as
     } catch (err) {
       // throw an error
       console.error(err);
-      const backupUser = {
-        email: 'backupEmail',
-        username: 'backupUser',
-        password: 'backupPass',
-        success: 1,
-      };
-      res.json(backupUser);
+      res.status(500).json({
+        success: false,
+        message: `Error saving profile details.`,
+      });
     }
   }
 });

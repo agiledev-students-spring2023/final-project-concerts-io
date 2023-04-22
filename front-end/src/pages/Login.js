@@ -45,7 +45,12 @@ const Login = (props) => {
       // store the response data into the data state variable
       const data = await response.json(); //data returned will not be the original login info provided by user
       console.log(data);
-      setStatus(data);
+
+      if (!data.success) {
+        setErrorMessage(data.message);
+      } else {
+        setStatus(data);
+      }
     } catch (err) {
       // throw an error
       console.error(err);

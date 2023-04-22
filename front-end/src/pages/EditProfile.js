@@ -57,8 +57,8 @@ const EditProfile = (props) => {
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
-      } else if (response.status === 406) {
-        setErrorMessage('Invalid entries, please try again ');
+      } else if (!response.success) {
+        setErrorMessage(response.message);
       } else {
         setSubmit({ success: 1 });
       }
