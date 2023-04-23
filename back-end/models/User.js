@@ -22,6 +22,7 @@ const UserSchema = new Schema({
   },
   favoriteArtists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }],
   savedConcerts: [{ type: Schema.Types.ObjectId, ref: 'Concert' }],
+  reccomendations: [{ type: Schema.Types.ObjectId, ref: 'Concert' }]
 });
 
 // hash the password before the user is saved

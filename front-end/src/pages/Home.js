@@ -38,6 +38,8 @@ const Home = (props) => {
     }
     fetchData();
   }, []);
+  
+  
 
   // if the user is not logged in, redirect them to the login route
 
