@@ -6,6 +6,10 @@ const axios = require('axios');
 const morgan = require('morgan');
 const passport = require('passport');
 
+const User = require('../models/User');
+const Artist = require('../models/Artist');
+const Concert = require('../models/Concert');
+
 TicketmasterSearchRouter.get(
   '/:artist',
   passport.authenticate('jwt', { session: false }),
@@ -13,7 +17,6 @@ TicketmasterSearchRouter.get(
     try {
       // Extract search criteria from URL parameter
       const { artist } = req.params;
-
       // Call the Ticketmaster API with search criteria
       const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
         params: {
@@ -21,23 +24,32 @@ TicketmasterSearchRouter.get(
           keyword: artist,
         },
       });
-
+      
       // Filter and format API response
-      const { events } = response.data._embedded;
+      console.log(response)
+      let events = null
+      if(response.data._embedded !== undefined){
+        events = response.data._embedded.events
+        if (events !== null){
+          const formattedEvents = events.map((concert) => ({
+          ticketMasterId: concert.id ?? ' ',
+          name: concert.name ?? ' ',
+          artist: concert.name ?? ' ',
+          date: concert.dates.start.localDate ?? ' ',
+          description: concert.info ?? ' ',
+          location: concert._embedded.venues[0].city.name ?? ' ',
+          image: concert.images !== null ? concert.images[0].url : ' ',
+          ticketLink: concert.events !== null ? concert.url : ' ',
+          }));
+          console.log(formattedEvents)
+          res.json(formattedEvents);
+        }
 
-      const formattedEvents = events.map((concert) => ({
-        id: concert.id ?? ' ',
-        name: concert.name ?? ' ',
-        artist: concert.name ?? ' ',
-        date: concert.dates.start.localDate ?? ' ',
-        description: concert.info ?? ' ',
-        location: concert._embedded.venues[0].city.name ?? ' ',
-        image: concert.images !== null ? concert.images[0].url : ' ',
-        ticketLink: concert.events !== null ? concert.url : ' ',
-      }));
-
+      }
+      else{
+        res.json()
+      }
       // Send formatted search results to the client
-      res.json(formattedEvents);
     } catch (err) {
       console.error(err);
       return res.status(500).json({
