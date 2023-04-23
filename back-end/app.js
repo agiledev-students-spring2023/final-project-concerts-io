@@ -58,7 +58,7 @@ app.use('/static', express.static('public'));
 
 app.use('/ticketmaster', TicketMasterRouter);
 app.use('/ticketmastermany', TicketMasterManyRouter);
-app.use('/Reccomended', ReccomendedRouter);
+app.use('/Recommended', RecommendedRouter);
 app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/SaveConcert', SaveConcertRouter);
 app.use('/connection', ConnectionRoute);

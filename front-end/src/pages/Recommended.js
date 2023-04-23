@@ -8,12 +8,12 @@ const Recommended = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [recommendedConcerts, setRecommendedConcerts] = useState([]);
   const [errorMessage, setErrorMessage] = useState(``);
-  const [loading, setLoading] = useState(false);    
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:3000/Reccomended/', {
+        const response = await fetch('http://localhost:3000/Recommended/', {
           headers: { Authorization: `JWT ${jwtToken}` },
         });
         if (response.status === 401) {
@@ -61,7 +61,7 @@ const Recommended = (props) => {
         <div className="Recommended-header">
           <h1>Concerts.io</h1>
           <h2>Recommended Concerts</h2>
-          {loading && (<p>waiting for reccomendations!</p>)}
+          {loading && <p>waiting for recommendations!</p>}
         </div>
         <div className="concerts-container">
           <div className="recommendedConcerts-container">
