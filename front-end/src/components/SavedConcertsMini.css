@@ -1,4 +1,6 @@
 .saved-Concerts-mini-container{
     width: 50%;
     margin: auto;
+    max-height: 300px;
+    overflow-y: scroll;
 }
