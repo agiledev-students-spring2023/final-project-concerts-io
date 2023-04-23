@@ -11,7 +11,7 @@ const ConcertComponent = (props) => {
           <h3>{props.details.artist}</h3>
           <p>{props.details.date}</p>
           <p>{props.details.location}</p>
-          <Link to={`/concerts/${props.details.ticketmasterID}`}>Link</Link>
+          <Link to={`/concerts/${props.details.ticketMasterId}`}>Link</Link>
         </div>
       </div>
     </div>

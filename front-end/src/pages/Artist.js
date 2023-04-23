@@ -38,6 +38,20 @@ const Artist = (props) => {
             console.log(data)
             setConcerts(data);
           });
+        setArtist(data);
+        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              setIsLoggedIn(false);
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data)
+            setConcerts(data);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -49,23 +63,32 @@ const Artist = (props) => {
     return <Navigate to="/login?error=protected" />;
   }
 
-  return (
-    <div className="Artist">
-      <h1>{artist.name}</h1>
-      <h2>Upcoming Concerts</h2>
-      <div className="concerts-container">
-        <div className="artistConcerts-container">
-        <div className="savedConcerts-container">
+  if (errorMessage) {
+    return (
+      <div className="Artist">
+        <p className="error">{errorMessage}</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="Artist">
+        <h1>{artist.name}</h1>
+        <h2>Upcoming Concerts</h2>
+        <div className="concerts-container">
+          <div className="artistConcerts-container">
+          <div className="savedConcerts-container">
           {concerts.map((concert) => (
-          <div key={concert.ticketmasterID} className="saved-concert">
-            <ConcertComponent key={concert.ticketmasterID} details={concert}/>
+          <div className="saved-concert">
+            <ConcertComponent key={concert.id} details={concert}/>
+            {console.log(concert)}
           </div>
         ))}
-      </div>
+        </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Artist;
