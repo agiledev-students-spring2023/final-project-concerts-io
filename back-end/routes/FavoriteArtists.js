@@ -7,17 +7,6 @@ const Concert = require('../models/Concert');
 
 const FavoriteArtistsRouter = express.Router();
 
-const backupData = [
-  {
-    id: 1,
-    name: 'Josh Minksy',
-  },
-  {
-    id: 2,
-    name: 'Mindy Wu',
-  },
-];
-
 FavoriteArtistsRouter.get(
   '/',
   passport.authenticate('jwt', { session: false }),
@@ -27,9 +16,13 @@ FavoriteArtistsRouter.get(
       await user.populate('favoriteArtists'); // populate favoriteArtists with actual artist docs
       console.log(user.favoriteArtists);
       res.status(200).json(user.favoriteArtists);
-    } catch (error) {
-      console.error('Database Error: ', error.message);
-      res.status(500).json(backupData);
+    } catch (err) {
+      console.error('Database Error: ', err.message);
+      return res.status(500).json({
+        success: false,
+        message: 'Error finding favorite artists data.',
+        error: err,
+      });
     }
   }
 );

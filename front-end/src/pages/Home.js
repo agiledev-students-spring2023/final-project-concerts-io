@@ -9,6 +9,7 @@ const Home = (props) => {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [recommendedConcerts, setRecommendedConcerts] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(``);
 
   useEffect(() => {
     async function fetchData() {
@@ -18,10 +19,13 @@ const Home = (props) => {
         });
         if (response.status === 401) {
           setIsLoggedIn(false);
+        } else if (response.status === 500) {
+          const data = await response.json();
+          setErrorMessage(data.message);
+        } else {
+          const data = await response.json();
+          setRecommendedConcerts(data);
         }
-        const data = await response.json();
-        console.log(data);
-        setRecommendedConcerts(data);
       } catch (err) {
         // throw an error
         console.error(err);
@@ -36,25 +40,43 @@ const Home = (props) => {
     return <Navigate to="/login?error=protected" />;
   }
 
-  return (
-    <div className="Home">
-      <div className="home-header">
-        <img src={logo} alt="logo" />
-        <Link to="/recommended">
-          <h1>Recommended Concerts</h1>
-        </Link>
-      </div>
-      <div className="concerts-container">
-        <div className="recommendedConcerts-container">
-          {recommendedConcerts.map((concert) => (
-            <div key={concert.id} className="recommended-concert">
-              <ConcertComponent key={concert.id} details={concert} />
-            </div>
-          ))}
+  if (errorMessage) {
+    return (
+      <div className="Home">
+        <div className="home-header">
+          <img src={logo} alt="logo" />
+          <Link to="/recommended">
+            <h1>Recommended Concerts</h1>
+          </Link>
+        </div>
+        <div className="concerts-container">
+          <div className="recommendedConcerts-container">
+            <p className="error">{errorMessage}</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="Home">
+        <div className="home-header">
+          <img src={logo} alt="logo" />
+          <Link to="/recommended">
+            <h1>Recommended Concerts</h1>
+          </Link>
+        </div>
+        <div className="concerts-container">
+          <div className="recommendedConcerts-container">
+            {recommendedConcerts.map((concert) => (
+              <div key={concert.id} className="recommended-concert">
+                <ConcertComponent key={concert.id} details={concert} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Home;

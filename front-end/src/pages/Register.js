@@ -5,6 +5,7 @@ import './Register.css';
 const Register = (props) => {
   // create state variables to hold username and password
   const [status, setStatus] = useState({}); // the API will return an object indicating the login status in a success field of the response object
+  const [errorMessage, setErrorMessage] = useState(``);
 
   // if the user's logged-in status changes, call the setuser function that was passed to this component from the PrimaryNav component.
   useEffect(() => {
@@ -23,6 +24,7 @@ const Register = (props) => {
       username: e.target.username.value,
       password: e.target.password.value,
     };
+    console.log(formData);
 
     try {
       // send the request to the server api to authenticate
@@ -36,7 +38,11 @@ const Register = (props) => {
       // store the response data into the data state variable
       const data = await response.json(); //data returned will not be the original login info provided by user
       console.log(data);
-      setStatus(data);
+      if (!data.success) {
+        setErrorMessage(data.message);
+      } else {
+        setStatus(data);
+      }
     } catch (err) {
       // throw an error
       console.error(err);
@@ -48,6 +54,7 @@ const Register = (props) => {
     return (
       <div className="Login">
         <h1>Register</h1>
+        {errorMessage ? <p className="error">{errorMessage}</p> : ''}
         <section className="register">
           <form onSubmit={handleSubmit}>
             <label>Email: </label>

@@ -33,19 +33,11 @@ TicketMasterRouter.get(
 
       res.json(concert);
     } catch (err) {
-      console.error(err);
-      const backupData = {
-        tickermasterID: 1,
-        name: 'John Smith live at the Purple Lounge',
-        artist: 'John Smith',
-        date: 'September 22, 2040',
-        description: 'John Smith debuts his new record for the first time live',
-        location: 'Example Venue',
-        image: 'https://example.com/image.jpg',
-        ticketLink: 'https://example.com/tickets',
-      };
-
-      res.json(backupData);
+      return res.status(500).json({
+        success: false,
+        message: 'Error finding concert data.',
+        error: err,
+      });
     }
   }
 );
