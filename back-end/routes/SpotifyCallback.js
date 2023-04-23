@@ -1,6 +1,11 @@
 const express = require('express');
-const helpers = require('../spotifyHelperFunctions');
 const passport = require('passport');
+const mongoose = require('mongoose')
+
+const helpers = require('../spotifyHelperFunctions');
+const Artist = require('../models/Artist')
+const User = require('../models/User')
+
 
 const SpotifyCallbackRouter = express.Router();
 
@@ -30,11 +35,25 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
       'https://api.spotify.com/v1/me/top/artists',
       access_token
     );
-    console.log(response)
+    console.log(response.items);
+    console.log(state)
+    const favArtists = response.items.slice(0,10);
+    // use userid from state to find user and then add favartists to user
+    const artistDocuments = favArtists.map((artist) => {
+      const value = new Artist({
+        name: artist.name,
+      });
+      value.save();
+      return value;
+    });
 
-    const favArtists = response.items;
-    console.log(favArtists);
-    res.redirect(`http://localhost:3001/profile`);
+    const user = await User.findOne({ _id: new mongoose.Types.ObjectId(state) });
+    user.favoriteArtists = artistDocuments;
+    await user.save();
+
+    res.redirect(
+      `http://localhost:3001/profile`
+    );
   }
 });
 
