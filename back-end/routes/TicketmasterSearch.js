@@ -24,30 +24,28 @@ TicketmasterSearchRouter.get(
           keyword: artist,
         },
       });
-      
+
       // Filter and format API response
-      console.log(response)
-      let events = null
-      if(response.data._embedded !== undefined){
-        events = response.data._embedded.events
-        if (events !== null){
+      console.log(response);
+      let events = null;
+      if (response.data._embedded !== undefined) {
+        events = response.data._embedded.events;
+        if (events !== null) {
           const formattedEvents = events.map((concert) => ({
-          ticketMasterId: concert.id ?? ' ',
-          name: concert.name ?? ' ',
-          artist: concert.name ?? ' ',
-          date: concert.dates.start.localDate ?? ' ',
-          description: concert.info ?? ' ',
-          location: concert._embedded.venues[0].city.name ?? ' ',
-          image: concert.images !== null ? concert.images[0].url : ' ',
-          ticketLink: concert.events !== null ? concert.url : ' ',
+            ticketMasterID: concert.id ?? ' ',
+            name: concert.name ?? ' ',
+            artist: concert.name ?? ' ',
+            date: concert.dates.start.localDate ?? ' ',
+            description: concert.info ?? ' ',
+            location: concert._embedded.venues[0].city.name ?? ' ',
+            image: concert.images !== null ? concert.images[0].url : ' ',
+            ticketLink: concert.events !== null ? concert.url : ' ',
           }));
-          console.log(formattedEvents)
+          console.log(formattedEvents);
           res.json(formattedEvents);
         }
-
-      }
-      else{
-        res.json()
+      } else {
+        res.json();
       }
       // Send formatted search results to the client
     } catch (err) {
