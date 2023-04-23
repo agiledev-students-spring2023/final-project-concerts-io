@@ -25,6 +25,7 @@ EditProfileRouter.post('/', passport.authenticate('jwt', { session: false }), as
       res.status(500).json({
         success: false,
         message: `Error saving profile details.`,
+        error: err,
       });
     }
   }
