@@ -32,7 +32,7 @@ TicketmasterSearchRouter.get(
         events = response.data._embedded.events;
         if (events !== null) {
           const formattedEvents = events.map((concert) => ({
-            ticketMasterID: concert.id ?? ' ',
+            ticketmasterID: concert.id ?? ' ',
             name: concert.name ?? ' ',
             artist: concert.name ?? ' ',
             date: concert.dates.start.localDate ?? ' ',

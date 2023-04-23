@@ -57,10 +57,10 @@ const EditProfile = (props) => {
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
-      } else if (response.error) {
-        setErrorMessage(response.message);
+      } else if (response.status === 406) {
+        const data = await response.json();
+        setErrorMessage(data.message);
       } else {
-        console.log('sucess');
         setSubmit({ success: 1 });
       }
     } catch (err) {

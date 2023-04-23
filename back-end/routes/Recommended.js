@@ -16,7 +16,7 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
     // Extract search criteria from URL parameter
     const { user } = req;
     await user.populate('recommendations');
-    if (user.recommendations === []) {
+    if (user.recommendations === undefined || user.recommendations.length === 0) {
       await user.populate('favoriteArtists'); // populate favoriteArtists with actual artist docs
       const { favoriteArtists } = user;
       const artists = favoriteArtists;

@@ -9,7 +9,9 @@ EditProfileRouter.post('/', passport.authenticate('jwt', { session: false }), as
 
   if (!username || !email) {
     // no username or password received in the POST body... send an error
-    res.status(406).json({ success: false, message: `Error: No username or email supplied.` });
+    res
+      .status(406)
+      .json({ success: false, message: `Error: No username or email supplied.`, error: 'Error' });
   } else {
     try {
       req.user.username = req.body.username;

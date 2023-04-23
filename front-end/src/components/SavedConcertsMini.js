@@ -46,8 +46,8 @@ const SavedConcertsMini = (props) => {
         <div id="concerts-container">
           <div id="saved-Concerts-mini-containerr">
             {savedConcerts.map((concert) => (
-              <div key={concert._id} className="mini-concert">
-                <Link to="/concerts/:1">{concert.name}</Link>
+              <div key={concert.ticketmasterID} className="mini-concert">
+                <Link to={`/concerts/${concert.ticketmasterID}`}>{concert.name}</Link>
               </div>
             ))}
           </div>
