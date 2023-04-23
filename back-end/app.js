@@ -41,6 +41,7 @@ const AuthenticationRouter = require('./routes/Authentication');
 const User = require('./models/User');
 const Artist = require('./models/Artist');
 const Concert = require('./models/Concert');
+const ReccomendedRouter = require('./routes/Recommended');
 
 // Middleware
 app.use(passport.initialize());
@@ -57,7 +58,7 @@ app.use('/static', express.static('public'));
 
 app.use('/ticketmaster', TicketMasterRouter);
 app.use('/ticketmastermany', TicketMasterManyRouter);
-
+app.use('/Reccomended', ReccomendedRouter);
 app.use('/SavedConcerts', SavedConcertsRoute);
 app.use('/SaveConcert', SaveConcertRouter);
 app.use('/connection', ConnectionRoute);

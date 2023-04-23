@@ -12,7 +12,7 @@ const Recommended = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/ticketmastermany/', {
+        const response = await fetch('http://localhost:3000/Reccomended/', {
           headers: { Authorization: `JWT ${jwtToken}` },
         });
         if (response.status === 401) {
