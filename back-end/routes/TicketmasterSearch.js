@@ -38,9 +38,13 @@ TicketmasterSearchRouter.get(
 
       // Send formatted search results to the client
       res.json(formattedEvents);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Server error');
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({
+        success: false,
+        message: 'Error finding artist data.',
+        error: err,
+      });
     }
   }
 );

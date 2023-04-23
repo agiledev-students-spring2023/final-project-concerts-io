@@ -8,18 +8,18 @@ ProfileRouter.get('/', passport.authenticate('jwt', { session: false }), async (
     email: req.user.email,
     username: req.user.username,
     access_token: req.query.access_token || null,
-    refresh_token: req.query.refresh_token || null
+    refresh_token: req.query.refresh_token || null,
+    success: 1,
   };
   try {
     res.json(profileInfo);
   } catch (err) {
     // throw an error
     console.error(err);
-    const backupUser = {
-      email: 'backupEmail',
-      username: 'backupUser',
-    };
-    res.json(backupUser);
+    res.status(500).json({
+      success: false,
+      message: `Error finding profile data.`,
+    });
   }
 });
 

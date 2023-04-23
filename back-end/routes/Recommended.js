@@ -14,36 +14,6 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
     res.json(data);
   } catch (err) {
     console.error(err);
-    const backupData = [
-      {
-        id: 1,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://dummyimage.com/250x100',
-        link: 'http://localhost:3000/concerts/1',
-      },
-      {
-        id: 2,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://dummyimage.com/250x100',
-        link: 'http://localhost:3000/concerts/2',
-      },
-      {
-        id: 3,
-        name: 'Example Concert',
-        artist: 'Example Artist',
-        date: 'Example Date',
-        location: 'Example Venue',
-        image: 'https://dummyimage.com/250x100',
-        link: 'http://localhost:3000/concerts/3',
-      },
-    ];
-    res.json(backupData);
   }
 });
 

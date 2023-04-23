@@ -7,6 +7,8 @@ const SavedConcerts = (props) => {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [savedConcerts, setSavedConcerts] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(``);
+
   const filterConcerts = (concerts, query) => {
     const filtered = concerts.filter(
       (concert) =>
@@ -26,8 +28,12 @@ const SavedConcerts = (props) => {
         return res.json();
       })
       .then((data) => {
-        setSavedConcerts(data);
-        filterConcerts(data, searchQuery);
+        if (data.error) {
+          setErrorMessage(data.message);
+        } else {
+          setSavedConcerts(data);
+          filterConcerts(data, searchQuery);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -50,30 +56,44 @@ const SavedConcerts = (props) => {
     return <Navigate to="/login?error=protected" />;
   }
 
-  return (
-    <div className="SavedConcerts">
-      <header className="header">
-        <h1 className="savedConcerts-header">Concerts.io</h1>
-        <h2>Saved Concerts</h2>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search concerts"
-            value={searchQuery}
-            onChange={handleInputChange}
-            className="search-input"
-          />
+  if (errorMessage) {
+    return (
+      <div className="SavedConcerts">
+        <header className="header">
+          <h1 className="savedConcerts-header">Concerts.io</h1>
+          <h2>Saved Concerts</h2>
+        </header>
+        <div className="savedConcerts-container">
+          <p className="error">{errorMessage}</p>
         </div>
-      </header>
-      <div className="savedConcerts-container">
-        {filteredConcerts.map((concert) => (
-          <div key={concert._id} className="saved-concert">
-            <ConcertComponent key={concert.ticketmasterID} details={concert} />
-          </div>
-        ))}
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="SavedConcerts">
+        <header className="header">
+          <h1 className="savedConcerts-header">Concerts.io</h1>
+          <h2>Saved Concerts</h2>
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search concerts"
+              value={searchQuery}
+              onChange={handleInputChange}
+              className="search-input"
+            />
+          </div>
+        </header>
+        <div className="savedConcerts-container">
+          {filteredConcerts.map((concert) => (
+            <div key={concert._id} className="saved-concert">
+              <ConcertComponent key={concert.ticketmasterID} details={concert} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 };
 
 export default SavedConcerts;
