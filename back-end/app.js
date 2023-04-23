@@ -41,7 +41,6 @@ const AuthenticationRouter = require('./routes/Authentication');
 const User = require('./models/User');
 const Artist = require('./models/Artist');
 const Concert = require('./models/Concert');
-const ReccomendedRouter = require('./routes/Recommended');
 
 // Middleware
 app.use(passport.initialize());
