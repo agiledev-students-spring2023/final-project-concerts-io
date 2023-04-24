@@ -19,7 +19,7 @@ const FavoriteArtists = (props) => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:3000/FavoriteArtists', {
+    fetch(`${process.env.REACT_APP_BACKEND}/FavoriteArtists`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => {

@@ -12,7 +12,7 @@ const EditProfile = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/profile', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/profile`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         });
         if (response.status === 401) {
@@ -46,7 +46,7 @@ const EditProfile = (props) => {
         password: e.target.password.value,
       };
       // send the request to the backend
-      const response = await fetch('http://localhost:3000/edit-profile', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/edit-profile`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${jwtToken}`,

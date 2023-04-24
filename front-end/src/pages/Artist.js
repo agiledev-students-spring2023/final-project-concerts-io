@@ -14,7 +14,7 @@ const Artist = (props) => {
   const { artistId } = useParams(); // get any params passed to this component from the router
 
   useEffect(() => {
-    fetch(`http://localhost:3000/artist/${artistId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/artist/${artistId}`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => {
@@ -25,7 +25,7 @@ const Artist = (props) => {
       })
       .then((data) => {
         setArtist(data);
-        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/TicketmasterSearch/${data.name}`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         })
           .then((res) => {
@@ -38,7 +38,7 @@ const Artist = (props) => {
             setConcerts(data);
           });
         setArtist(data);
-        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/TicketmasterSearch/${data.name}`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         })
           .then((res) => {

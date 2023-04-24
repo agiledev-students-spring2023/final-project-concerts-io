@@ -12,7 +12,7 @@ const Connection = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/connection', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/connection`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         });
         if (response.status === 401) {
@@ -40,11 +40,14 @@ const Connection = (props) => {
       {errorMessage ? <p className="error">{errorMessage}</p> : ''}
       <div className="platform">
         <h2>Spotify</h2>
-        <a href={`http://localhost:3000/spotifyconnect/?userid=${user.id}`}> Connect Spotify</a>
+        <a href={`${process.env.REACT_APP_BACKEND}/spotifyconnect/?userid=${user.id}`}>
+          {' '}
+          Connect Spotify
+        </a>
       </div>
       <div className="platform">
         <h2>Last Fm</h2>
-        <a href={`http://localhost:3000/lastfmconnect/?userid=${user.id}`}> Last Fm</a>
+        <a href={`${process.env.REACT_APP_BACKEND}/lastfmconnect/?userid=${user.id}`}> Last Fm</a>
       </div>
     </div>
   );

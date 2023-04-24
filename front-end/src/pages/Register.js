@@ -27,7 +27,7 @@ const Register = (props) => {
 
     try {
       // send the request to the server api to authenticate
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

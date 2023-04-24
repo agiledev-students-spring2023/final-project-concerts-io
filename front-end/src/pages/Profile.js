@@ -13,7 +13,7 @@ const Profile = (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3000/profile', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/profile`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         });
         if (response.status === 401) {
