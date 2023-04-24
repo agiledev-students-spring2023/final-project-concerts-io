@@ -193,7 +193,7 @@ describe('POST request to /edit-profile route', () => {
       });
   });
 });
-*/
+
 
 describe('GET request to /recommended route', () => {
   beforeEach(() => {
@@ -339,6 +339,7 @@ describe('GET request to /concert/:id route', () => {
       });
   });
 });
+*/
 
 describe('GET request to /ticketmaster/:id route', () => {
   beforeEach(() => {

@@ -35,7 +35,6 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
-            console.log(data)
             setConcerts(data);
           });
         setArtist(data);
@@ -49,7 +48,6 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
-            console.log(data)
             setConcerts(data);
           });
       })
@@ -76,14 +74,14 @@ const Artist = (props) => {
         <h2>Upcoming Concerts</h2>
         <div className="concerts-container">
           <div className="artistConcerts-container">
-          <div className="savedConcerts-container">
-          {concerts.map((concert) => (
-          <div className="saved-concert">
-            <ConcertComponent key={concert.id} details={concert}/>
-            {console.log(concert)}
-          </div>
-        ))}
-        </div>
+            <div className="savedConcerts-container">
+              {concerts.map((concert) => (
+                <div className="saved-concert">
+                  <ConcertComponent key={concert.id} details={concert} />
+                  {console.log(concert)}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

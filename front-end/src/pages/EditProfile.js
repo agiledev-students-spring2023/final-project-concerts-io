@@ -19,7 +19,6 @@ const EditProfile = (props) => {
           return <Navigate to="/login?error=protected" />;
         } else {
           const data = await response.json();
-          console.log(data);
           setUser(data);
         }
       } catch (err) {

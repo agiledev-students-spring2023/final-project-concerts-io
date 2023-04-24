@@ -9,7 +9,6 @@ const Connection = (props) => {
   const [errorMessage, setErrorMessage] = useState(``); // will contain any error message that explains why the user was redirected to this page.
   const [user, setUser] = useState({});
 
-  console.log(localStorage);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -20,7 +19,6 @@ const Connection = (props) => {
           return <Navigate to="/login?error=protected" />;
         }
         const data = await response.json();
-        console.log(data);
         setUser(data);
       } catch (err) {
         // throw an error

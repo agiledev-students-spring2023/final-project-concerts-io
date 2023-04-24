@@ -15,7 +15,6 @@ const jwtStrategy = require('./config/jwt-config.js');
 // import setup options for using JWT in passport
 passport.use(jwtStrategy);
 const helpers = require('./spotifyHelperFunctions');
-const ConcertRouter = require('./routes/Concert');
 const TicketMasterRouter = require('./routes/TicketMaster');
 const TicketMasterManyRouter = require('./routes/TicketMasterMany');
 
@@ -69,7 +68,6 @@ app.use('/spotifymiddleroute', SpotifyCallbackRouter);
 app.use('/ticketmastersearch', TicketmasterSearchRouter);
 app.use('/profile', ProfileRouter);
 app.use('/edit-profile', EditProfileRouter);
-app.use('/concert', ConcertRouter);
 app.use('/artist', ArtistRouter);
 app.use('/recommended', RecommendedRouter);
 app.use('/lastfmconnect', LastFmConnectRouter);
