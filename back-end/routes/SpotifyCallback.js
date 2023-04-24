@@ -1,11 +1,10 @@
 const express = require('express');
 const passport = require('passport');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const helpers = require('../spotifyHelperFunctions');
-const Artist = require('../models/Artist')
-const User = require('../models/User')
-
+const Artist = require('../models/Artist');
+const User = require('../models/User');
 
 const SpotifyCallbackRouter = express.Router();
 
@@ -17,7 +16,7 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
   if (state === null) {
     res.redirect(
       401,
-      `http://localhost:3001/connection?${new URLSearchParams({
+      `${process.env.FRONT_END_DOMAIN}/connection?${new URLSearchParams({
         error: 'authentication',
       }).toString()}`
     );
@@ -36,8 +35,8 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
       access_token
     );
     console.log(response.items);
-    console.log(state)
-    const favArtists = response.items.slice(0,10);
+    console.log(state);
+    const favArtists = response.items.slice(0, 10);
     // use userid from state to find user and then add favartists to user
     const artistDocuments = favArtists.map((artist) => {
       const value = new Artist({
@@ -51,9 +50,7 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
     user.favoriteArtists = artistDocuments;
     await user.save();
 
-    res.redirect(
-      `http://localhost:3001/profile`
-    );
+    res.redirect(`${process.env.FRONT_END_DOMAIN}/profile`);
   }
 });
 
