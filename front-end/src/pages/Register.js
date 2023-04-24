@@ -24,11 +24,10 @@ const Register = (props) => {
       username: e.target.username.value,
       password: e.target.password.value,
     };
-    console.log(formData);
 
     try {
       // send the request to the server api to authenticate
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +36,6 @@ const Register = (props) => {
       });
       // store the response data into the data state variable
       const data = await response.json(); //data returned will not be the original login info provided by user
-      console.log(data);
       if (!data.success) {
         setErrorMessage(data.message);
       } else {

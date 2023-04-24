@@ -16,7 +16,7 @@ const Home = (props) => {
     async function fetchData() {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:3000/Recommended', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/Recommended`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         });
         if (response.status === 401) {

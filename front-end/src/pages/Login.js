@@ -35,7 +35,7 @@ const Login = (props) => {
 
     try {
       // send the request to the server api to authenticate
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,6 @@ const Login = (props) => {
       });
       // store the response data into the data state variable
       const data = await response.json(); //data returned will not be the original login info provided by user
-      console.log(data);
 
       if (!data.success) {
         setErrorMessage(data.message);

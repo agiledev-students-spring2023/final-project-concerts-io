@@ -11,7 +11,7 @@ function Concert(props) {
 
   const id = window.location.pathname.substring(10);
   useEffect(() => {
-    fetch(`http://localhost:3000/ticketmaster/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/ticketmaster/${id}`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => {
@@ -35,7 +35,7 @@ function Concert(props) {
   const handleClick = async () => {
     try {
       // send the request to the backend
-      const response = await fetch('http://localhost:3000/SaveConcert', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/SaveConcert`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${jwtToken}`,

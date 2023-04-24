@@ -14,7 +14,7 @@ const Artist = (props) => {
   const { artistId } = useParams(); // get any params passed to this component from the router
 
   useEffect(() => {
-    fetch(`http://localhost:3000/artist/${artistId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/artist/${artistId}`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => {
@@ -25,7 +25,7 @@ const Artist = (props) => {
       })
       .then((data) => {
         setArtist(data);
-        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/TicketmasterSearch/${data.name}`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         })
           .then((res) => {
@@ -35,11 +35,10 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
-            console.log(data)
             setConcerts(data);
           });
         setArtist(data);
-        fetch(`http://localhost:3000/TicketmasterSearch/${data.name}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/TicketmasterSearch/${data.name}`, {
           headers: { Authorization: `JWT ${jwtToken}` },
         })
           .then((res) => {
@@ -49,7 +48,6 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
-            console.log(data)
             setConcerts(data);
           });
       })
@@ -76,14 +74,14 @@ const Artist = (props) => {
         <h2>Upcoming Concerts</h2>
         <div className="concerts-container">
           <div className="artistConcerts-container">
-          <div className="savedConcerts-container">
-          {concerts.map((concert) => (
-          <div className="saved-concert">
-            <ConcertComponent key={concert.id} details={concert}/>
-            {console.log(concert)}
-          </div>
-        ))}
-        </div>
+            <div className="savedConcerts-container">
+              {concerts.map((concert) => (
+                <div className="saved-concert">
+                  <ConcertComponent key={concert.id} details={concert} />
+                  {console.log(concert)}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
