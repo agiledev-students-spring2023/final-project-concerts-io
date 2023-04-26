@@ -20,6 +20,10 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
+  location: {
+    type: String,
+    required: true,
+  },
   favoriteArtists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }],
   savedConcerts: [{ type: Schema.Types.ObjectId, ref: 'Concert' }],
   recommendations: [{ type: Schema.Types.ObjectId, ref: 'Concert' }],

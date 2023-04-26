@@ -23,6 +23,7 @@ const Register = (props) => {
       email: e.target.email.value,
       username: e.target.username.value,
       password: e.target.password.value,
+      location: e.target.location.value,
     };
 
     try {
@@ -65,6 +66,15 @@ const Register = (props) => {
             <br />
             <label>Password: </label>
             <input type="password" name="password" placeholder="password" />
+            <br />
+            <br />
+            <label htmlFor="location">Choose a location:</label>
+            <select id="location" name="location">
+              <option value="NYC">New York</option>
+              <option value="LA">Los Angeles</option>
+              <option value="Chicago">Chicago</option>
+              <option value="Austin">Austin</option>
+            </select>
             <br />
             <br />
             <input type="submit" value="Register" />
