@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Form, Navigate } from 'react-router-dom';
 import './EditProfile.css';
 
 const EditProfile = (props) => {
@@ -40,20 +40,14 @@ const EditProfile = (props) => {
     e.preventDefault();
 
     try {
-      const formData = {
-        email: e.target.email.value,
-        username: e.target.username.value,
-        password: e.target.password.value,
-        location: e.target.location.value,
-      };
+      const formData = new FormData(e.target);
       // send the request to the backend
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/edit-profile`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${jwtToken}`,
-          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: formData,
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
@@ -124,6 +118,10 @@ const EditProfile = (props) => {
                 <option value="Austin">Austin</option>
               )}
             </select>
+            <br />
+            <br />
+            <label>Upload a profile picture:</label>
+            <input type="file" id="profilePic" name="profilePic" accept="image/*" />
             <br />
             <br />
             <input type="submit" value="Save Changes" />

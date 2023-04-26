@@ -24,6 +24,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  profilePic: { type: String },
   favoriteArtists: [{ type: Schema.Types.ObjectId, ref: 'Artist' }],
   savedConcerts: [{ type: Schema.Types.ObjectId, ref: 'Concert' }],
   recommendations: [{ type: Schema.Types.ObjectId, ref: 'Concert' }],

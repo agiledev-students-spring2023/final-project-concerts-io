@@ -20,6 +20,7 @@ const Profile = (props) => {
           return <Navigate to="/login?error=protected" />;
         }
         const data = await response.json();
+
         if (!data.success) {
           setErrorMessage(data.message);
         } else {
