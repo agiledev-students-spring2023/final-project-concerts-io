@@ -12,6 +12,7 @@ const User = (props) => {
       </div>
       <div id="details">
         <h3>Email: {props.details.email}</h3>
+        <h3>Location: {props.details.location}</h3>
         <div className="logOut">
           <Link to="/logout">Logout</Link>
           <br />

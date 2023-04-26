@@ -7,6 +7,7 @@ ProfileRouter.get('/', passport.authenticate('jwt', { session: false }), async (
   const profileInfo = {
     email: req.user.email,
     username: req.user.username,
+    location: req.user.location,
     access_token: req.query.access_token || null,
     refresh_token: req.query.refresh_token || null,
     success: 1,

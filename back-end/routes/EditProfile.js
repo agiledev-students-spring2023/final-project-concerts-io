@@ -6,6 +6,7 @@ const EditProfileRouter = express.Router();
 EditProfileRouter.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   const { username } = req.body;
   const { email } = req.body;
+  const { location } = req.body;
 
   if (!username || !email) {
     // no username or password received in the POST body... send an error
@@ -16,6 +17,7 @@ EditProfileRouter.post('/', passport.authenticate('jwt', { session: false }), as
     try {
       req.user.username = req.body.username;
       req.user.email = req.body.email;
+      req.user.location = req.body.location;
       if (req.body.password.length > 1) {
         req.user.password = req.body.password;
       }

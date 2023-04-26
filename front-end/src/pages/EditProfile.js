@@ -44,6 +44,7 @@ const EditProfile = (props) => {
         email: e.target.email.value,
         username: e.target.username.value,
         password: e.target.password.value,
+        location: e.target.location.value,
       };
       // send the request to the backend
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/edit-profile`, {
@@ -90,6 +91,39 @@ const EditProfile = (props) => {
             <br />
             <label>Password: </label>
             <input type="password" name="password" placeholder="password" />
+            <br />
+            <br />
+            <label htmlFor="location">Choose a location:</label>
+            <select id="location" name="location">
+              {user.location == 'NYC' ? (
+                <option value="NYC" selected>
+                  New York
+                </option>
+              ) : (
+                <option value="NYC">New York</option>
+              )}
+              {user.location == 'LA' ? (
+                <option value="LA" selected>
+                  Los Angeles
+                </option>
+              ) : (
+                <option value="LA">Los Angeles</option>
+              )}
+              {user.location == 'Chicago' ? (
+                <option value="Chicago" selected>
+                  Chicago
+                </option>
+              ) : (
+                <option value="Chicago">Chicago</option>
+              )}
+              {user.location == 'Austin' ? (
+                <option value="Austin" selected>
+                  Austin
+                </option>
+              ) : (
+                <option value="Austin">Austin</option>
+              )}
+            </select>
             <br />
             <br />
             <input type="submit" value="Save Changes" />
