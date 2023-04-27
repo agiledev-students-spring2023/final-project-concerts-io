@@ -39,6 +39,35 @@ const Home = (props) => {
     fetchData();
   }, []);
 
+  const handleClick = async () => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/Recommended/update`, {
+          headers: { Authorization: `JWT ${jwtToken}` },
+        });
+        if (response.status === 401) {
+          setIsLoggedIn(false);
+        } else if (response.status === 500) {
+          const data = await response.json();
+          setErrorMessage(data.message);
+          setLoading(false);
+        } else {
+          const data = await response.json();
+          setRecommendedConcerts(data);
+          setLoading(false);
+         
+        }
+      } catch (err) {
+        // throw an error
+        console.error(err);
+        setLoading(false);
+      }
+    }
+    fetchData();
+    window.location.reload(); 
+  }
+
   // if the user is not logged in, redirect them to the login route
 
   if (!isLoggedIn) {
@@ -53,6 +82,7 @@ const Home = (props) => {
           <Link to="/recommended">
             <h1>Recommended Concerts</h1>
           </Link>
+          
         </div>
         <div className="concerts-container">
           <div className="recommendedConcerts-container">
@@ -69,6 +99,9 @@ const Home = (props) => {
           <Link to="/recommended">
             <h1>Recommended Concerts</h1>
           </Link>
+          <button onClick={handleClick} className="update-button">
+          Update
+        </button>
           {loading && <p>waiting for recommendations!</p>}
         </div>
         <div className="concerts-container">
