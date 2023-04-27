@@ -36,7 +36,7 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
     );
     console.log(response.items);
     console.log(state);
-    const favArtists = response.items;
+    const favArtists = response.items.slice(0, 10);
     // use userid from state to find user and then add favartists to user
     const artistDocuments = favArtists.map((artist) => {
       const value = new Artist({

@@ -32,7 +32,7 @@ LastFmCallbackRouter.get('/', async (req, res, next) => {
         format: 'json',
       },
     });
-    const topartists = response.data.topartists.artist;
+    const topartists = response.data.topartists.artist.slice(0, 10);
     const artistDocuments = topartists.map((artist) => {
       const value = new Artist({
         name: artist.name,
