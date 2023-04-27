@@ -29,6 +29,7 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
             params: {
               apikey: process.env.TICKETMASTER_API_KEY,
               keyword: items[index].name,
+              city: req.user.location
             },
           });
           if (resp.data._embedded !== undefined) {
