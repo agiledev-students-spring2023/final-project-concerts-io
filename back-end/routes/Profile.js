@@ -4,13 +4,21 @@ const passport = require('passport');
 const ProfileRouter = express.Router();
 
 ProfileRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  let picPath;
+  if (req.user.profilePic) {
+    picPath = `http://localhost:3000/static/uploads/${req.user.profilePic}`;
+  }
+
   const profileInfo = {
     email: req.user.email,
     username: req.user.username,
+    location: req.user.location,
+    profilePic: picPath,
     access_token: req.query.access_token || null,
     refresh_token: req.query.refresh_token || null,
     success: 1,
   };
+
   try {
     res.json(profileInfo);
   } catch (err) {

@@ -10,8 +10,9 @@ const authenticationRouter = () => {
     const { username } = req.body;
     const { password } = req.body;
     const { email } = req.body;
+    const { location } = req.body;
 
-    if (!username || !password || !email) {
+    if (!username || !password || !email || !location) {
       // no username or password received in the POST body... send an error
       res.status(401).json({
         success: false,
@@ -20,7 +21,7 @@ const authenticationRouter = () => {
     } else {
       // create a new user
       try {
-        const user = await new User({ username, password, email }).save();
+        const user = await new User({ username, password, email, location }).save();
         // user saved successfully... send a success response
         console.log(`New user: ${user}`);
         const token = user.generateJWT(); // generate a signed token

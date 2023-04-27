@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Form, Navigate } from 'react-router-dom';
 import './EditProfile.css';
 
 const EditProfile = (props) => {
@@ -40,19 +40,14 @@ const EditProfile = (props) => {
     e.preventDefault();
 
     try {
-      const formData = {
-        email: e.target.email.value,
-        username: e.target.username.value,
-        password: e.target.password.value,
-      };
+      const formData = new FormData(e.target);
       // send the request to the backend
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/edit-profile`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${jwtToken}`,
-          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: formData,
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
@@ -90,6 +85,43 @@ const EditProfile = (props) => {
             <br />
             <label>Password: </label>
             <input type="password" name="password" placeholder="password" />
+            <br />
+            <br />
+            <label htmlFor="location">Choose a location:</label>
+            <select id="location" name="location">
+              {user.location == 'NYC' ? (
+                <option value="NYC" selected>
+                  New York
+                </option>
+              ) : (
+                <option value="NYC">New York</option>
+              )}
+              {user.location == 'LA' ? (
+                <option value="LA" selected>
+                  Los Angeles
+                </option>
+              ) : (
+                <option value="LA">Los Angeles</option>
+              )}
+              {user.location == 'Chicago' ? (
+                <option value="Chicago" selected>
+                  Chicago
+                </option>
+              ) : (
+                <option value="Chicago">Chicago</option>
+              )}
+              {user.location == 'Austin' ? (
+                <option value="Austin" selected>
+                  Austin
+                </option>
+              ) : (
+                <option value="Austin">Austin</option>
+              )}
+            </select>
+            <br />
+            <br />
+            <label>Upload a profile picture:</label>
+            <input type="file" id="profilePic" name="profilePic" accept="image/*" />
             <br />
             <br />
             <input type="submit" value="Save Changes" />
