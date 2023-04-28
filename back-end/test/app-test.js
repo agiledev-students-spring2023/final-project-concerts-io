@@ -17,6 +17,8 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 const User = require('../models/User');
+const Artist = require('../models/Artist');
+const Concert = require('../models/Concert');
 
 let getTokenStub;
 let useAccessTokenStub;
@@ -433,5 +435,57 @@ describe('GET request to /SavedConcerts route', () => {
         res.should.have.status(401);
         done();
       });
+  });
+});
+
+describe('FavoriteArtistsRouter', () => {
+  let user;
+  let token;
+
+  let userCounter = 1;
+
+  beforeEach(async () => {
+    user = new User({
+      username: `testUser${userCounter}`,
+      email: `testEmail${userCounter}@example.com`,
+      password: 'testPassword',
+      location: 'test',
+      favoriteArtists: [],
+    });
+    await user.save();
+
+    token = user.generateJWT();
+    userCounter += 1;
+  });
+
+  afterEach(async () => {
+    if (mongoose.connection.readyState === 1) {
+      await User.deleteMany({});
+    }
+  });
+
+  describe('GET request to /FavoriteArtists route', () => {
+    it('should respond with JSON data of favorite artists', (done) => {
+      chai
+        .request(server)
+        .get('/FavoriteArtists')
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          expect(res).to.be.json;
+          done();
+        });
+    });
+
+    it('should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get('/FavoriteArtists')
+        .end((err, res) => {
+          expect(err).to.be.null;
+          res.should.have.status(401);
+          done();
+        });
+    });
   });
 });
