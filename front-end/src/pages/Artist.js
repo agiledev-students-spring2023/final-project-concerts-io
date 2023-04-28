@@ -35,6 +35,11 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
+            if (data.error) {
+              setErrorMessage(data.message);
+            } else {
+              setConcerts(data);
+            }
             setConcerts(data);
           });
         setArtist(data);
@@ -48,7 +53,11 @@ const Artist = (props) => {
             return res.json();
           })
           .then((data) => {
-            setConcerts(data);
+            if (data.error) {
+              setErrorMessage(data.message);
+            } else {
+              setConcerts(data);
+            }
           });
       })
       .catch((error) => {
