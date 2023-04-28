@@ -1,14 +1,13 @@
 .concerts-container {
-    position: fixed;
-    top: 10vh;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
+  top: 10vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .artistConcerts-container {
-    height: calc(100vh - 120px);
-    margin-top: 10vh;
-    overflow-y: scroll;
+  height: calc(100vh - 120px);
+  margin-top: 10vh;
+  overflow-y: scroll;
 }

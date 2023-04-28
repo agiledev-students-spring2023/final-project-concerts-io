@@ -42,23 +42,6 @@ const Artist = (props) => {
             }
             setConcerts(data);
           });
-        setArtist(data);
-        fetch(`${process.env.REACT_APP_BACKEND}/TicketmasterSearch/${data.name}`, {
-          headers: { Authorization: `JWT ${jwtToken}` },
-        })
-          .then((res) => {
-            if (res.status === 401) {
-              setIsLoggedIn(false);
-            }
-            return res.json();
-          })
-          .then((data) => {
-            if (data.error) {
-              setErrorMessage(data.message);
-            } else {
-              setConcerts(data);
-            }
-          });
       })
       .catch((error) => {
         console.log(error);

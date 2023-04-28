@@ -29,7 +29,7 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
             params: {
               apikey: process.env.TICKETMASTER_API_KEY,
               keyword: items[index].name,
-              stateCode: req.user.location
+              stateCode: req.user.location,
             },
           });
           if (resp.data._embedded !== undefined) {
@@ -92,7 +92,7 @@ RecommendedRouter.get(
             params: {
               apikey: process.env.TICKETMASTER_API_KEY,
               keyword: items[index].name,
-              stateCode: req.user.location
+              stateCode: req.user.location,
             },
           });
           if (resp.data._embedded !== undefined) {
@@ -121,7 +121,7 @@ RecommendedRouter.get(
 
       user.recommendations = flattenedArray;
       await user.save();
-      res.redirect("http://localhost:3001/");
+      res.redirect(`${process.env.FRONT_END_DOMIN}/`);
     } catch (err) {
       console.error(err);
       return res.status(500).json({
