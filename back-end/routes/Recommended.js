@@ -20,7 +20,7 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
       await user.populate('favoriteArtists'); // populate favoriteArtists with actual artist docs
       const { favoriteArtists } = user;
       const artists = favoriteArtists;
-      const delay = (ms = 100) => new Promise((r) => setTimeout(r, ms));
+      const delay = (ms = 300) => new Promise((r) => setTimeout(r, ms));
       const getAllArtists = async function (items) {
         const results = [];
         for (let index = 0; index < items.length; index++) {
@@ -29,6 +29,7 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
             params: {
               apikey: process.env.TICKETMASTER_API_KEY,
               keyword: items[index].name,
+              stateCode: req.user.location
             },
           });
           if (resp.data._embedded !== undefined) {
