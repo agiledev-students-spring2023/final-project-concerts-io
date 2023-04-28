@@ -1,16 +1,22 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const axios = require('axios');
+const mongoose = require('mongoose');
+
 // const sinon = require('sinon');
 const sandbox = require('sinon').createSandbox();
 const server = require('../app');
 const helpers = require('../spotifyHelperFunctions');
 require('dotenv').config({ silent: true });
 
+const { generateToken } = require('../config/jwt-config');
+
 const { assert } = chai;
 const { expect } = chai;
 const should = chai.should();
 chai.use(chaiHttp);
+
+const User = require('../models/User');
 
 let getTokenStub;
 let useAccessTokenStub;
@@ -377,6 +383,54 @@ describe('GET request to /ticketmaster/:id route', () => {
       .end((err, res) => {
         res.should.have.status(200);
         expect(res).to.be.json;
+        done();
+      });
+  });
+});
+
+describe('GET request to /SavedConcerts route', () => {
+  let user;
+  let token;
+
+  let userCounter = 1;
+
+  beforeEach(async () => {
+    user = new User({
+      username: `testUser${userCounter}`,
+      email: `testEmail${userCounter}@example.com`,
+      password: 'testPassword',
+      location: 'test',
+    });
+    await user.save();
+
+    token = user.generateJWT();
+    userCounter += 1;
+  });
+
+  afterEach(async () => {
+    if (mongoose.connection.readyState === 1) {
+      await User.deleteMany({});
+    }
+  });
+
+  it('it should respond with JSON data of saved concerts', (done) => {
+    chai
+      .request(server)
+      .get('/SavedConcerts')
+      .set('Authorization', `JWT ${token}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+
+  it('it should respond with a 401 status code when not authenticated', (done) => {
+    chai
+      .request(server)
+      .get('/SavedConcerts')
+      .end((err, res) => {
+        res.should.have.status(401);
         done();
       });
   });
