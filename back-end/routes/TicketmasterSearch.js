@@ -22,6 +22,7 @@ TicketmasterSearchRouter.get(
         params: {
           apikey: process.env.TICKETMASTER_API_KEY,
           keyword: artist,
+          stateCode: req.user.location
         },
       });
 

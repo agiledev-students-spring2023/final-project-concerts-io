@@ -89,33 +89,33 @@ const EditProfile = (props) => {
             <br />
             <label htmlFor="location">Choose a location:</label>
             <select id="location" name="location">
-              {user.location == 'NYC' ? (
-                <option value="NYC" selected>
+              {user.location == 'NY' ? (
+                <option value="NY" selected>
                   New York
                 </option>
               ) : (
-                <option value="NYC">New York</option>
+                <option value="NY">New York</option>
               )}
-              {user.location == 'LA' ? (
-                <option value="LA" selected>
-                  Los Angeles
+              {user.location == 'CA' ? (
+                <option value="CA" selected>
+                  California
                 </option>
               ) : (
-                <option value="LA">Los Angeles</option>
+                <option value="Los Angeles">Los Angeles</option>
               )}
-              {user.location == 'Chicago' ? (
-                <option value="Chicago" selected>
-                  Chicago
+              {user.location == 'IL' ? (
+                <option value="IL" selected>
+                  Illinois
                 </option>
               ) : (
-                <option value="Chicago">Chicago</option>
+                <option value="IL">Illinois</option>
               )}
-              {user.location == 'Austin' ? (
-                <option value="Austin" selected>
-                  Austin
+              {user.location == 'TX' ? (
+                <option value="TX" selected>
+                  Texas
                 </option>
               ) : (
-                <option value="Austin">Austin</option>
+                <option value="TX">Texas</option>
               )}
             </select>
             <br />

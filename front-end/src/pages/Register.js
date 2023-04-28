@@ -70,10 +70,10 @@ const Register = (props) => {
             <br />
             <label htmlFor="location">Choose a location:</label>
             <select id="location" name="location">
-              <option value="NYC">New York</option>
-              <option value="LA">Los Angeles</option>
-              <option value="Chicago">Chicago</option>
-              <option value="Austin">Austin</option>
+              <option value="NY">New York</option>
+              <option value="CA">California</option>
+              <option value="IL">Illinois</option>
+              <option value="TX">Texas</option>
             </select>
             <br />
             <br />
