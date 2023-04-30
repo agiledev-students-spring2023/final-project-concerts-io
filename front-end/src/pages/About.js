@@ -27,14 +27,22 @@ const About = props => {
           <p> This is a feedback form.</p>
           <h2>Help Us Make Concert.io Better</h2>
           <form id= "form">
+            <div>
             <label for="name">Name</label>
             <input name ="name " type="text" id = "name" />
+            </div>
+            <div>
             <label for="email">Name</label>
             <input name ="email" type="text" id = "email" />
+            </div>
+            <div>
             <label for="designation">Name</label>
             <input name ="designation" type="text" id = "designation" />
+            </div>
+            <div>
             <label for="feedback">Name</label>
             <textarea name ="feedback" type="text" id = "feedback"></textarea>
+            </div>
             <button type="submit">SUBMIT</button>
 
           </form>
