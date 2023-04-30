@@ -6,10 +6,20 @@
 .Concert-header {
     background-color: #282c34;
     height: 10vh;
-    display: flex;
+    display:flex;
     justify-content: center;
     align-items: center;
     color: white;
+
+}
+
+.Concert-name{
+    height: 10vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:#282c34;
+    margin: 0% 5% 0% 25%;
 }
 
 
@@ -18,9 +28,10 @@
 }
 
 .Concert-button {
-    margin: 20px;
+    margin: 15px;
 }
 
 img{
-    max-width: 500px;
+    max-width: 600px;
+    padding: 5%;
 }

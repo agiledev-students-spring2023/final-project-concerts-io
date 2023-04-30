@@ -66,7 +66,7 @@ function Concert(props) {
     return (
       <div className="Concert">
         <h1 className="Concert-header">Concerts.io</h1>
-        <h2>{concert.name}</h2>
+        <h2 className="Concert-name">{concert.name}</h2>
         <img src={concert.image} alt={concert.artist} />
         <p>
           {concert.date} at {concert.location}
