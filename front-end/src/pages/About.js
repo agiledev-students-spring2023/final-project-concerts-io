@@ -23,7 +23,38 @@ const About = props => {
           <p className="paragraph">
             please email concert_io@nyu.edu
           </p>
+        <div className="feedback">
+          <p> This is a feedback form.</p>
+          <h2>Help Us Make Concert.io Better</h2>
+          <form id= "form">
+            <label for="name">Name</label>
+            <input name ="name " type="text" id = "name" />
+            <label for="email">Name</label>
+            <input name ="email" type="text" id = "email" />
+            <label for="designation">Name</label>
+            <input name ="designation" type="text" id = "designation" />
+            <label for="feedback">Name</label>
+            <textarea name ="feedback" type="text" id = "feedback"></textarea>
+            <button type="submit">SUBMIT</button>
+
+          </form>
+        </div>
+        <div id="loading">
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+
+        <div id="status">
+
+        </div>
+
       </div>
+
+
     )
   }
   
