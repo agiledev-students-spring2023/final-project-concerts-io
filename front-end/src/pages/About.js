@@ -32,15 +32,15 @@ const About = props => {
             <input name ="name " type="text" id = "name" />
             </div>
             <div>
-            <label for="email">Name</label>
+            <label for="email">Email</label>
             <input name ="email" type="text" id = "email" />
             </div>
             <div>
-            <label for="designation">Name</label>
+            <label for="designation">Designation</label>
             <input name ="designation" type="text" id = "designation" />
             </div>
             <div>
-            <label for="feedback">Name</label>
+            <label for="feedback">Feedback</label>
             <textarea name ="feedback" type="text" id = "feedback"></textarea>
             </div>
             <button type="submit">SUBMIT</button>
