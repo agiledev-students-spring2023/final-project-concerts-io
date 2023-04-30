@@ -489,3 +489,85 @@ describe('FavoriteArtistsRouter', () => {
     });
   });
 });
+
+describe('GET request to /concerts/:id route', () => {
+  beforeEach(() => {
+    axiosStub = sandbox.stub(axios, 'get');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('should respond with JSON data of a single concert', (done) => {
+    const concertId = 'G5dZZ9Nx_yOzI';
+
+    const stubResponse = {
+      status: 200,
+      statusText: 'OK',
+      data: {
+        _embedded: {
+          events: [{
+            id: concertId,
+            name: 'testConcert',
+            dates: {
+              start: {
+                localDate: '2023-05-01',
+              },
+            },
+            info: 'test description',
+            _embedded: {
+              venues: [{
+                city: {
+                  name: 'testCity',
+                },
+              }],
+            },
+            images: [{
+              url: 'https://test.com/image.jpg',
+            }],
+            url: 'https://test.com/tickets',
+          }],
+        },
+      },
+    };
+
+    axiosStub
+      .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${concertId}`)
+      .returns(Promise.resolve(stubResponse));
+
+    chai
+      .request(server)
+      .get(`/concert/${concertId}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body.ticketmasterID).to.equal('123');
+        expect(res.body.name).to.equal('testConcert');
+        expect(res.body.artist).to.equal('testConcert');
+        expect(res.body.date).to.equal('2023-05-01');
+        expect(res.body.description).to.equal('test description');
+        expect(res.body.location).to.equal('testCity');
+        expect(res.body.image).to.equal('https://test.com/image.jpg');
+        expect(res.body.ticketLink).to.equal('https://test.com/tickets');
+        done();
+      });
+  });
+
+  it('should respond with a 500 status code when an error occurs', (done) => {
+    axiosStub
+      .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=123`)
+      .throws(new Error());
+
+    chai
+      .request(server)
+      .get('/concert/123')
+      .end((err, res) => {
+        res.should.have.status(500);
+        expect(res).to.be.json;
+        expect(res.body.success).to.be.false;
+        expect(res.body.message).to.equal('Error finding concert data.');
+        done();
+      });
+  });
+});
