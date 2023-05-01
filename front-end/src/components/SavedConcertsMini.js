@@ -8,7 +8,7 @@ const SavedConcertsMini = (props) => {
   const [errorMessage, setErrorMessage] = useState(``);
 
   useEffect(() => {
-    fetch('http://localhost:3000/SavedConcerts', {
+    fetch(`${process.env.REACT_APP_BACKEND}/SavedConcerts`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => res.json())

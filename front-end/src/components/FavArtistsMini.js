@@ -9,7 +9,7 @@ const FavArtistsMini = (props) => {
   const [favArtists, setFavArtists] = useState([]);
   const [errorMessage, setErrorMessage] = useState(``);
   useEffect(() => {
-    fetch('http://localhost:3000/FavoriteArtists', {
+    fetch(`${process.env.REACT_APP_BACKEND}/FavoriteArtists`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => res.json())
