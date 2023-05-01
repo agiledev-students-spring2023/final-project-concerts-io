@@ -53,7 +53,6 @@ const Recommended = (props) => {
           const data = await response.json();
           setRecommendedConcerts(data);
           setLoading(false);
-         
         }
       } catch (err) {
         // throw an error
@@ -62,8 +61,8 @@ const Recommended = (props) => {
       }
     }
     fetchData();
-    window.location.reload(); 
-  }
+    window.location.reload();
+  };
   // if the user is not logged in, redirect them to the login route
 
   if (!isLoggedIn) {
@@ -86,22 +85,20 @@ const Recommended = (props) => {
   } else {
     return (
       <div className="Recommended">
-        <div className="Recommended-header">
+        <div className="recommended-header">
           <h1>Concerts.io</h1>
           <h2>Recommended Concerts</h2>
           {loading && <p>waiting for recommendations!</p>}
           <button onClick={handleClick} className="update-button">
-          Update
-        </button>
+            Update
+          </button>
         </div>
-        <div className="concerts-container">
-          <div className="recommendedConcerts-container">
-            {recommendedConcerts.map((concert) => (
-              <div key={concert.ticketmasterID} className="recommended-concert">
-                <ConcertComponent key={concert.ticketmasterID} details={concert} />
-              </div>
-            ))}
-          </div>
+        <div className="recommendedConcerts-container">
+          {recommendedConcerts.map((concert) => (
+            <div key={concert.ticketmasterID} className="recommended-concert">
+              <ConcertComponent key={concert.ticketmasterID} details={concert} />
+            </div>
+          ))}
         </div>
       </div>
     );

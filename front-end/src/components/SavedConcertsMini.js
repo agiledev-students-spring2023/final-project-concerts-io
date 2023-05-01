@@ -39,18 +39,16 @@ const SavedConcertsMini = (props) => {
     );
   } else {
     return (
-      <div>
-        <Link to="/saved-concerts">
-          <h2>{props.details.username}'s' Saved Concerts</h2>
+      <div className="savedConcertsMini">
+        <Link to="/saved-concerts" className="savedConcerts">
+          <h3>Saved Concerts</h3>
         </Link>
-        <div id="concerts-container">
-          <div id="saved-Concerts-mini-containerr">
-            {savedConcerts.map((concert) => (
-              <div key={concert.ticketmasterID} className="mini-concert">
-                <Link to={`/concerts/${concert.ticketmasterID}`}>{concert.name}</Link>
-              </div>
-            ))}
-          </div>
+        <div className="saved-Concerts-mini-container">
+          {savedConcerts.map((concert) => (
+            <div key={concert.ticketmasterID} className="mini-concert">
+              <Link to={`/concerts/${concert.ticketmasterID}`}>{concert.name}</Link>
+            </div>
+          ))}
         </div>
       </div>
     );

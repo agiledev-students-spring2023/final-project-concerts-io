@@ -5,28 +5,15 @@
   right: 0;
   z-index: 1;
   margin-bottom: 100px;
-}
-
-.concerts-container {
-  top: 10vh;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  margin-top: 10vh;
+  background-color: white;
 }
 
 .recommendedConcerts-container {
-  height: calc(100vh - 120px);
-  margin-top: 10vh;
-  overflow-y: scroll;
+  margin-top: 150px;
+  margin-bottom: 50px;
 }
 
 .recommended-concert {
-  display: grid;
-  grid-template-columns: 30vh 30vh 1fr;
-  align-items: center;
-  margin-bottom: 5vh;
 }
 
 .recommended-concert img {

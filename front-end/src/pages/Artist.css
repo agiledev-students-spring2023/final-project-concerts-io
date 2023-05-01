@@ -7,7 +7,12 @@
 }
 
 .artistConcerts-container {
-  height: calc(100vh - 120px);
-  margin-top: 10vh;
-  overflow-y: scroll;
+  margin-bottom: 75px;
+}
+
+@media screen and (min-width: 600px) {
+  .artistConcerts-container{
+    width: 50%;
+    margin: auto;
+  }
 }

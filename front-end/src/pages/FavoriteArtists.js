@@ -76,7 +76,7 @@ const FavoriteArtists = (props) => {
             className="search-input"
           />
         </div>
-        <section>
+        <section className="favoriteArtists">
           {filteredArtists.map((x) => (
             <ArtistComponent key={x._id} details={x} />
           ))}
