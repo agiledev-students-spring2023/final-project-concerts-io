@@ -30,3 +30,9 @@
 
 img {
 }
+@media screen and (min-width: 600px) {
+  .Concert{
+    width: 25%;
+    margin: auto;
+  }
+}

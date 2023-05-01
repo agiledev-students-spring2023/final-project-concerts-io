@@ -42,3 +42,10 @@
 .concert-details a {
   margin-top: auto;
 }
+
+@media screen and (min-width: 600px) {
+  .recommendedConcerts-container{
+    width: 50%;
+    margin: auto;
+  }
+}

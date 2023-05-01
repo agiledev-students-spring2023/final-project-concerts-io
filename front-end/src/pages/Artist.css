@@ -9,3 +9,10 @@
 .artistConcerts-container {
   margin-bottom: 75px;
 }
+
+@media screen and (min-width: 600px) {
+  .artistConcerts-container{
+    width: 50%;
+    margin: auto;
+  }
+}
