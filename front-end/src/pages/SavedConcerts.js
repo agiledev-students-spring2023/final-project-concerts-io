@@ -61,8 +61,8 @@ const SavedConcerts = (props) => {
   if (errorMessage) {
     return (
       <div className="SavedConcerts">
-        <header className="header">
-          <h1 className="savedConcerts-header">Concerts.io</h1>
+        <header className="savedConcerts-header">
+          <h1>Concerts.io</h1>
           <h2>Saved Concerts</h2>
         </header>
         <div className="savedConcerts-container">
@@ -73,8 +73,8 @@ const SavedConcerts = (props) => {
   } else {
     return (
       <div className="SavedConcerts">
-        <header className="header">
-          <h1 className="savedConcerts-header">Concerts.io</h1>
+        <header className="savedConcerts-header">
+          <h1>Concerts.io</h1>
           <h2>Saved Concerts</h2>
           <div className="search-container">
             <input
