@@ -22,7 +22,7 @@ TicketmasterSearchRouter.get(
         params: {
           apikey: process.env.TICKETMASTER_API_KEY,
           keyword: artist,
-          stateCode: req.user.location
+          stateCode: req.user.location,
         },
       });
 
@@ -46,7 +46,11 @@ TicketmasterSearchRouter.get(
           res.json(formattedEvents);
         }
       } else {
-        res.json();
+        res.status(500).json({
+          success: false,
+          message: 'No upcoming concerts',
+          error: 'error',
+        });
       }
       // Send formatted search results to the client
     } catch (err) {
