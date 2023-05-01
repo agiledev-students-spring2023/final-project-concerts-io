@@ -1,29 +1,25 @@
 .concert {
-    display: grid;
-    grid-template-columns: 30vh 30vh 1fr;
-    align-items: center;
-    margin-bottom: 5vh;
+  padding: 50px;
 }
 
 .concert img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .concert-details {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .concert-details h3 {
-    margin: 0 0 1vh 0;
+  margin: 0 0 1vh 0;
 }
 
 .concert-details p {
-    margin: 0 0 0.5vh 0;
+  margin: 0 0 0.5vh 0;
 }
 
 .concert-details a {
-    margin-top: auto;
+  margin-top: auto;
 }
-  

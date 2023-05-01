@@ -56,7 +56,6 @@ const Home = (props) => {
           const data = await response.json();
           setRecommendedConcerts(data);
           setLoading(false);
-         
         }
       } catch (err) {
         // throw an error
@@ -65,8 +64,8 @@ const Home = (props) => {
       }
     }
     fetchData();
-    window.location.reload(); 
-  }
+    window.location.reload();
+  };
 
   // if the user is not logged in, redirect them to the login route
 
@@ -82,7 +81,6 @@ const Home = (props) => {
           <Link to="/recommended">
             <h1>Recommended Concerts</h1>
           </Link>
-          
         </div>
         <div className="concerts-container">
           <div className="recommendedConcerts-container">
@@ -100,18 +98,17 @@ const Home = (props) => {
             <h1>Recommended Concerts</h1>
           </Link>
           <button onClick={handleClick} className="update-button">
-          Update
-        </button>
+            Update
+          </button>
           {loading && <p>waiting for recommendations!</p>}
         </div>
-        <div className="concerts-container">
-          <div className="recommendedConcerts-container">
-            {recommendedConcerts.map((concert) => (
-              <div key={concert.id} className="recommended-concert">
-                <ConcertComponent key={concert.id} details={concert} />
-              </div>
-            ))}
-          </div>
+
+        <div className="recommendedConcerts-container">
+          {recommendedConcerts.map((concert) => (
+            <div key={concert.id} className="recommended-concert">
+              <ConcertComponent key={concert.id} details={concert} />
+            </div>
+          ))}
         </div>
       </div>
     );

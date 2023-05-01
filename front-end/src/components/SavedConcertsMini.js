@@ -43,14 +43,12 @@ const SavedConcertsMini = (props) => {
         <Link to="/saved-concerts">
           <h2>{props.details.username}'s' Saved Concerts</h2>
         </Link>
-        <div id="concerts-container">
-          <div id="saved-Concerts-mini-containerr">
-            {savedConcerts.map((concert) => (
-              <div key={concert.ticketmasterID} className="mini-concert">
-                <Link to={`/concerts/${concert.ticketmasterID}`}>{concert.name}</Link>
-              </div>
-            ))}
-          </div>
+        <div className="saved-Concerts-mini-container">
+          {savedConcerts.map((concert) => (
+            <div key={concert.ticketmasterID} className="mini-concert">
+              <Link to={`/concerts/${concert.ticketmasterID}`}>{concert.name}</Link>
+            </div>
+          ))}
         </div>
       </div>
     );

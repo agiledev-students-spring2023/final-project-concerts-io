@@ -1,6 +1,16 @@
-.saved-Concerts-mini-container{
-    width: 50%;
-    margin: auto;
-    max-height: 300px;
-    overflow-y: scroll;
+.saved-Concerts-mini-container {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  max-height: 300px;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 10px;
+  overflow-y: scroll;
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+
+.mini-concert {
+  padding: 10px;
+  margin: 10px;
 }

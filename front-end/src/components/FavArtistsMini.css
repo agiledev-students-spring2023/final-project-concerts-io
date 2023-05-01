@@ -1,13 +1,14 @@
-.favorite-artists{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    max-height: 300px;
-    margin: auto;
-    text-align: center;
-    padding-bottom: 10px;
-    overflow-y: scroll;
+.favorite-artists {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  max-height: 300px;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 10px;
+  overflow-y: scroll;
+  margin-top: 20px;
 }
 
-.ArtistComponent h1{
-   font-size: 1.2rem;
+.ArtistComponent h1 {
+  font-size: 1.2rem;
 }
