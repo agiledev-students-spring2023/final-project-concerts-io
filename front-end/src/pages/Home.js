@@ -95,7 +95,7 @@ const Home = (props) => {
         <div className="home-header">
           <img src={logo} alt="logo" />
           <Link to="/recommended">
-            <h1>Recommended Concerts</h1>
+            <h2>Recommended Concerts</h2>
           </Link>
           <button onClick={handleClick} className="update-button">
             Update

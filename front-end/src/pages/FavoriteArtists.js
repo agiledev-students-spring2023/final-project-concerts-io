@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import './FavoriteArtists.css';
 import ArtistComponent from '../components/ArtistComponent';
+import logo from '../img/SVG/logo.svg';
 
 const FavoriteArtists = (props) => {
   const jwtToken = localStorage.getItem('token');
@@ -57,16 +58,22 @@ const FavoriteArtists = (props) => {
   if (errorMessage) {
     return (
       <div className="FavoriteArtists">
-        <h1>Your Favorite Artists</h1>
-        <section>
-          <p className="error">{errorMessage}</p>
-        </section>
+        <header className="favoriteArtists-header">
+          <img src={logo} alt="logo" />
+          <h2>Favorite Artists</h2>
+          <section>
+            <p className="error">{errorMessage}</p>
+          </section>
+        </header>
       </div>
     );
   } else {
     return (
       <div className="FavoriteArtists">
-        <h1>Your Favorite Artists</h1>
+        <header className="favoriteArtists-header">
+          <img src={logo} alt="logo" />
+          <h2>Favorite Artists</h2>
+        </header>
         <div className="search-container">
           <input
             type="text"
