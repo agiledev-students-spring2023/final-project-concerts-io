@@ -1,16 +1,13 @@
-.platform *{
-    padding-right: 50px;
+.platform * {
+  padding-right: 50px;
 }
- 
+
 .platform {
-    /* width: 500px; */
-    margin-left: 40%;
-    text-align: left;
-    /* position: center; */
+  /* width: 500px; */
+  margin-left: 40%;
+  text-align: left;
+  /* position: center; */
 }
 
 h2 {
-    /* grid-template-columns: 30vh 30vh 1fr; */
-    display: inline-block;
-    width: 250px;
 }

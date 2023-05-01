@@ -41,12 +41,11 @@ const FavArtistsMini = (props) => {
     );
   } else {
     return (
-      <div className="favorite-artists">
-        <div className="FavoriteArtists">
-          <Link to="/favorite-artists">
-            {' '}
-            <h3>{props.details.username}'s' Favorite Artists</h3>
-          </Link>
+      <div>
+        <Link to="/favorite-artists">
+          <h3>Favorite Artists</h3>
+        </Link>
+        <div className="favorite-artists-container">
           <section>
             {favArtists.map((x) => (
               <ArtistComponent key={x._id} details={x} />

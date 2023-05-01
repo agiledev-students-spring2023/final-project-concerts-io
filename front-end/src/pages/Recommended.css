@@ -4,11 +4,8 @@
   left: 0;
   right: 0;
   z-index: 1;
-}
-
-.concerts-container {
-  top: 10vh;
-  justify-content: center;
+  margin-bottom: 100px;
+  background-color: white;
 }
 
 .recommendedConcerts-container {

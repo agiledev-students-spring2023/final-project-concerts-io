@@ -45,6 +45,7 @@ const Artist = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        setErrorMessage('Error loading artist data');
       });
   }, []); //will run only once
 
@@ -64,17 +65,13 @@ const Artist = (props) => {
       <div className="Artist">
         <h1>{artist.name}</h1>
         <h2>Upcoming Concerts</h2>
-        <div className="concerts-container">
-          <div className="artistConcerts-container">
-            <div className="savedConcerts-container">
-              {concerts.map((concert) => (
-                <div className="saved-concert">
-                  <ConcertComponent key={concert.id} details={concert} />
-                  {console.log(concert)}
-                </div>
-              ))}
+        <div className="artistConcerts-container">
+          {concerts.map((concert) => (
+            <div className="saved-concert">
+              <ConcertComponent key={concert.id} details={concert} />
+              {console.log(concert)}
             </div>
-          </div>
+          ))}
         </div>
       </div>
     );
