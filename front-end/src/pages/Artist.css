@@ -7,6 +7,5 @@
 }
 
 .artistConcerts-container {
-  height: calc(100vh - 120px);
-  margin-bottom: 200px;
+  margin-bottom: 75px;
 }

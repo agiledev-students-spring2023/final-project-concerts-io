@@ -36,7 +36,7 @@ const Connection = (props) => {
 
   return (
     <div className="Connection">
-      <h1>Connecting to my Music Account</h1>
+      <h1>Connect to your music platform</h1>
       {errorMessage ? <p className="error">{errorMessage}</p> : ''}
       <div className="platform">
         <h2>Spotify</h2>

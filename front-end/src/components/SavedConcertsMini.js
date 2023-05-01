@@ -39,8 +39,8 @@ const SavedConcertsMini = (props) => {
     );
   } else {
     return (
-      <div>
-        <Link to="/saved-concerts">
+      <div className="savedConcertsMini">
+        <Link to="/saved-concerts" className="savedConcerts">
           <h3>Saved Concerts</h3>
         </Link>
         <div className="saved-Concerts-mini-container">

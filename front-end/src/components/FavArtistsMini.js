@@ -41,11 +41,11 @@ const FavArtistsMini = (props) => {
     );
   } else {
     return (
-      <div>
-        <Link to="/favorite-artists">
+      <div className="favArtistsMini">
+        <Link to="/favorite-artists" className="favArtists">
           <h3>Favorite Artists</h3>
         </Link>
-        <div className="favorite-artists-container">
+        <div className="favorite-artists-mini-container">
           <section>
             {favArtists.map((x) => (
               <ArtistComponent key={x._id} details={x} />

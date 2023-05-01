@@ -1,5 +1,4 @@
-.favorite-artists-container {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+.favorite-artists-mini-container {
   max-width: 300px;
   max-height: 300px;
   margin: auto;
@@ -11,4 +10,15 @@
 
 .ArtistComponent h1 {
   font-size: 1.2rem;
+}
+
+.favArtistsMini {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+a.favArtists {
+  display: inline-block;
+  margin-bottom: -90px;
 }
