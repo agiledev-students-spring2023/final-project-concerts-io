@@ -6,29 +6,15 @@ const ManualEntry = () => {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [submit, setSubmit] = useState({});
+  const [artists, setArtists] = useState(Array(20).fill(""));
   const [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState(``);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/profile`, {
-          headers: { Authorization: `JWT ${jwtToken}` },
-        });
-        if (response.status === 401) {
-          return <Navigate to="/login?error=protected" />;
-        } else {
-          const data = await response.json();
-          setUser(data);
-        }
-      } catch (err) {
-        // throw an error
-        setErrorMessage('Invalid entries, please try again ');
-        console.error(err);
-      }
-    }
-    fetchData();
-  }, []);
+  const handleArtistChange = (index, event) => {
+    const newArtists = [...artists];
+    newArtists[index] = event.target.value;
+    setArtists(newArtists);
+  };
 
   useEffect(() => {
     if (submit.success) {
@@ -38,16 +24,16 @@ const ManualEntry = () => {
   const handleSubmit = async (e) => {
     // prevent the HTML form from actually submitting
     e.preventDefault();
-
+    console.log(artists)
     try {
-      const formData = new FormData(e.target);
       // send the request to the backend
-      const response = await fetch(`${process.env.REACT_APP_BACKEND}/manual-entry`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/ManualEntry`, {
         method: 'POST',
         headers: {
-          Authorization: `JWT ${jwtToken}`,
+          Authorization: `JWT ${jwtToken}`
+          
         },
-        body: formData,
+        body: {artists}
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
@@ -69,66 +55,23 @@ const ManualEntry = () => {
 
   // if the user is not logged in, show the login form
   if (!submit.success)
-    return (
-      <div className="EditProfile">
-        <h1>Edit Your Profile</h1>
-        {errorMessage ? <p className="error">{errorMessage}</p> : ''}
-        <section className="edit-profile">
-          <form onSubmit={handleSubmit}>
-            <label>Email: </label>
-            <input type="text" name="email" defaultValue={user.email} />
-            <br />
-            <br />
-            <label>Username: </label>
-            <input type="text" name="username" defaultValue={user.username} />
-            <br />
-            <br />
-            <label>Password: </label>
-            <input type="password" name="password" placeholder="password" />
-            <br />
-            <br />
-            <label htmlFor="location">Choose a location:</label>
-            <select id="location" name="location">
-              {user.location == 'NY' ? (
-                <option value="NY" selected>
-                  New York
-                </option>
-              ) : (
-                <option value="NY">New York</option>
-              )}
-              {user.location == 'CA' ? (
-                <option value="CA" selected>
-                  California
-                </option>
-              ) : (
-                <option value="Los Angeles">Los Angeles</option>
-              )}
-              {user.location == 'IL' ? (
-                <option value="IL" selected>
-                  Illinois
-                </option>
-              ) : (
-                <option value="IL">Illinois</option>
-              )}
-              {user.location == 'TX' ? (
-                <option value="TX" selected>
-                  Texas
-                </option>
-              ) : (
-                <option value="TX">Texas</option>
-              )}
-            </select>
-            <br />
-            <br />
-            <label>Upload a profile picture:</label>
-            <input type="file" id="profilePic" name="profilePic" accept="image/*" />
-            <br />
-            <br />
-            <input type="submit" value="Save Changes" />
-          </form>
-        </section>
-      </div>
-    );
+      return (
+    <form onSubmit={handleSubmit}>
+      <h2>Enter your top 20 favorite artists:</h2>
+      {artists.map((artist, index) => (
+        <div key={index}>
+          <label htmlFor={`artist${index + 1}`}>{`Artist ${index + 1}: `}</label>
+          <input
+            type="text"
+            id={`artist${index + 1}`}
+            value={artist}
+            onChange={(event) => handleArtistChange(index, event)}
+          />
+        </div>
+      ))}
+      <button type="submit">Submit</button>
+    </form>
+  );
   // return to profile after editing
   else return <Navigate to="/profile" />;
 };

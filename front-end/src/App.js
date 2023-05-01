@@ -15,6 +15,7 @@ import Logout from './/pages/Logout';
 import Register from './/pages/Register';
 import Menu from './/components/Menu';
 import Connection from './/pages/Connection';
+import ManualEntry from './/pages/ManualEntry';
 
 function App() {
   return (
@@ -50,6 +51,9 @@ function App() {
 
           {/* a route to the recommended concerts screen */}
           <Route path="/recommended" element={<Recommended />} />
+
+          {/* a route to a form to manually enter your top artists */}
+          <Route path="/manual-entry" element={<ManualEntry/>} />
 
           {/* a route to login*/}
           <Route path="/login" element={<Login />} />

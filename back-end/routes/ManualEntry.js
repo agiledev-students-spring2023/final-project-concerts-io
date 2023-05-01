@@ -10,7 +10,8 @@ ManualEntryRouter.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   async (req, res) => {
-    const { artists } = req.body;
+    const {artists} = req.body;
+    console.log(req)
 
     if (!artists) {
       res
