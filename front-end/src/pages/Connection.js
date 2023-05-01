@@ -49,6 +49,10 @@ const Connection = (props) => {
         <h2>Last Fm</h2>
         <a href={`${process.env.REACT_APP_BACKEND}/lastfmconnect/?userid=${user.id}`}> Last Fm</a>
       </div>
+      <div className="platform">
+        <h2>Manual Entry</h2>
+        <a href={'/manual-entry'}> Manual Entry</a>
+      </div>
     </div>
   );
 };
