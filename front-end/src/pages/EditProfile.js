@@ -71,7 +71,7 @@ const EditProfile = (props) => {
   if (!submit.success)
     return (
       <div className="EditProfile">
-        <h1>Edit Your Profile</h1>
+        <h2>Edit Your Profile</h2>
         {errorMessage ? <p className="error">{errorMessage}</p> : ''}
         <section className="edit-profile">
           <form onSubmit={handleSubmit}>
