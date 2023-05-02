@@ -23,6 +23,10 @@ const Concert = require('../models/Concert');
 let getTokenStub;
 let useAccessTokenStub;
 let axiosStub;
+let findOneStub;
+let execStub;
+let saveStub;
+let userStub;
 
 describe('GET request to /spotifyconnect route', () => {
   it('it should redirect to spotify login', (done) => {
@@ -84,52 +88,44 @@ describe('GET request to /spotifycallback route', () => {
   });
 });
 
-/*
-describe('POST request to /login route', () => {
+describe('POST request to /auth/login route', () => {
   beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
+    findOneStub = sandbox.stub(User, 'findOne');
+    execStub = sandbox.stub();
   });
 
   afterEach(() => {
     sandbox.restore();
   });
   it('it should respond with JSON data', (done) => {
-    const stubArgs = {
-      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
+    const findOneResponse = {
+      exec: execStub,
     };
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: { username: 'testUser', password: 'testPass' },
-    };
-    axiosStub
-      .withArgs('https://my.api.mockaroo.com/users.json', stubArgs)
-      .returns(Promise.resolve(stubResponse));
+    const execStubResponse = { username: 'fakeUser' };
+    execStubResponse.validPassword = () => true;
+    execStubResponse.generateJWT = () => 'fakeToken';
+    findOneStub.withArgs({ username: 'fakeUser' }).returns(findOneResponse);
+    execStub.resolves(execStubResponse);
 
     chai
       .request(server)
-      .post('/login')
+      .post('/auth/login')
       .set('content-type', 'application/json')
-      .send({ username: 'testUser', password: 'testPass' })
+      .send({ username: 'fakeUser', password: 'fakePass' })
       .end((err, res) => {
         res.should.have.status(200);
         expect(res).to.be.json;
         done();
       });
   });
-  it('it should respond with backup JSON data when an error occurs', (done) => {
-    const stubArgs = {
-      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
-    };
-    axiosStub.withArgs('https://my.api.mockaroo.com/users.json', stubArgs).throws(new TypeError());
-
+  it('it should respond with status code 500 when a user isnt found', (done) => {
     chai
       .request(server)
-      .post('/login')
+      .post('/auth/login')
       .set('content-type', 'application/json')
       .send({ username: 'testUser', password: 'testPass' })
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(500);
         expect(res).to.be.json;
         done();
       });
@@ -137,56 +133,20 @@ describe('POST request to /login route', () => {
 });
 
 describe('POST request to /register route', () => {
-  beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-  it('it should respond with JSON data', (done) => {
-    const stubArgs = {
-      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
-    };
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: { email: 'testEmail', username: 'testUser', password: 'testPass' },
-    };
-    axiosStub
-      .withArgs('https://my.api.mockaroo.com/users.json', stubArgs)
-      .returns(Promise.resolve(stubResponse));
-
+  it('it should respond with status 401 when invalid data is posted', (done) => {
     chai
       .request(server)
-      .post('/register')
+      .post('/auth/login')
       .set('content-type', 'application/json')
-      .send({ email: 'testEmail', username: 'testUser', password: 'testPass' })
+      .send({})
       .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-  it('it should respond with backup JSON data when an error occurs', (done) => {
-    const stubArgs = {
-      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
-    };
-    axiosStub.withArgs('https://my.api.mockaroo.com/users.json', stubArgs).throws(new TypeError());
-
-    chai
-      .request(server)
-      .post('/login')
-      .set('content-type', 'application/json')
-      .send({ username: 'testUser', password: 'testPass' })
-      .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res).to.be.json;
         done();
       });
   });
 });
-
+/*
 describe('POST request to /edit-profile route', () => {
   it('it should respond with JSON data', (done) => {
     chai
