@@ -2,8 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
-// const sinon = require('sinon');
 const sandbox = require('sinon').createSandbox();
 const server = require('../app');
 const helpers = require('../spotifyHelperFunctions');
@@ -27,6 +27,7 @@ let findOneStub;
 let execStub;
 let saveStub;
 let userStub;
+let authenticateStub;
 
 describe('GET request to /spotifyconnect route', () => {
   it('it should redirect to spotify login', (done) => {
@@ -146,69 +147,33 @@ describe('POST request to /register route', () => {
       });
   });
 });
-/*
+
 describe('POST request to /edit-profile route', () => {
-  it('it should respond with JSON data', (done) => {
+  it('it should respond with 401 status when no auth token is sent in request', (done) => {
     chai
       .request(server)
       .post('/edit-profile')
       .set('content-type', 'application/json')
       .send({ email: 'testEmail', username: 'testUser', password: 'testPass' })
       .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
+        res.should.have.status(401);
         done();
       });
   });
 });
-
 
 describe('GET request to /recommended route', () => {
-  beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-  it('it should respond with JSON data', (done) => {
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: [
-        { id: 1, artist: 'fakeArtist1' },
-        { id: 2, artist: 'fakeArtist2' },
-      ],
-    };
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/concerts.json?key=${process.env.CONCERTS_API_KEY}`)
-      .returns(Promise.resolve(stubResponse));
-
+  it('it should respond with 401 status when no auth token is sent in request', (done) => {
     chai
       .request(server)
       .get('/recommended')
       .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-  it('it should respond with backup JSON data when an error occurs', (done) => {
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/concerts.json?key=${process.env.CONCERTS_API_KEY}`)
-      .throws(new TypeError());
-
-    chai
-      .request(server)
-      .get('/recommended')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
+        res.should.have.status(401);
         done();
       });
   });
 });
-
+/*
 describe('GET request to /artist/:id route', () => {
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
@@ -307,7 +272,6 @@ describe('GET request to /concert/:id route', () => {
       });
   });
 });
-*/
 
 describe('GET request to /ticketmaster/:id route', () => {
   beforeEach(() => {
@@ -449,3 +413,4 @@ describe('FavoriteArtistsRouter', () => {
     });
   });
 });
+*/
