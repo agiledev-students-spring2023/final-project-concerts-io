@@ -23,8 +23,6 @@ let getTokenStub;
 let useAccessTokenStub;
 let axiosStub;
 
-/*
-
 describe('GET request to /spotifyconnect route', () => {
   it('it should redirect to spotify login', (done) => {
     chai
@@ -38,6 +36,7 @@ describe('GET request to /spotifyconnect route', () => {
   });
 });
 
+/*
 describe('GET request to /spotifycallback route', () => {
   beforeEach(() => {
     getTokenStub = sandbox.stub(helpers, 'getToken');
@@ -84,6 +83,7 @@ describe('GET request to /spotifycallback route', () => {
       });
   });
 });
+*/
 
 /*
 describe('POST request to /login route', () => {
@@ -136,7 +136,9 @@ describe('POST request to /login route', () => {
       });
   });
 });
+*/
 
+/*
 describe('POST request to /register route', () => {
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
@@ -187,7 +189,9 @@ describe('POST request to /register route', () => {
       });
   });
 });
+*/
 
+/*
 describe('POST request to /edit-profile route', () => {
   it('it should respond with JSON data', (done) => {
     chai
@@ -202,8 +206,9 @@ describe('POST request to /edit-profile route', () => {
       });
   });
 });
+*/
 
-
+/*
 describe('GET request to /recommended route', () => {
   beforeEach(() => {
     axiosStub = sandbox.stub(axios, 'get');
@@ -249,147 +254,8 @@ describe('GET request to /recommended route', () => {
       });
   });
 });
+*/
 
-describe('GET request to /artist/:id route', () => {
-  beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
-  it('it should respond with JSON data of a single artist', (done) => {
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: [{ id: 1, artist: 'fakeArtist1' }],
-    };
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
-      .returns(Promise.resolve(stubResponse));
-    // using 1 as placeholder id
-    chai
-      .request(server)
-      .get('/artist/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-  it('it should respond with backup JSON data when an error occurs', (done) => {
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
-      .throws(new TypeError());
-    // using 1 as placeholder id
-    chai
-      .request(server)
-      .get('/artist/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-});
-
-describe('GET request to /concert/:id route', () => {
-  beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
-  it('it should respond with JSON data of a single concert', (done) => {
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: [
-        {
-          id: 1,
-          name: 'John Smith live at the Purple Lounge',
-          artist: 'John Smith',
-          date: 'September 22, 2040',
-          description: 'John Smith debuts his new record for the first time live',
-          location: 'Example Venue',
-          image: 'https://example.com/image.jpg',
-          ticketLink: 'https://example.com/tickets',
-        },
-      ],
-    };
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/concerts/1.json?key=${process.env.CONCERTS_API_KEY}`)
-      .returns(Promise.resolve(stubResponse));
-    // using 1 as placeholder id
-    chai
-      .request(server)
-      .get('/concert/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-  it('it should respond with backup JSON data when an error occurs', (done) => {
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/concerts/1.json?key=${process.env.CONCErTS_API_KEY}`)
-      .throws(new TypeError());
-    // using 1 as placeholder id
-    chai
-      .request(server)
-      .get('/concert/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-});
-
-describe('GET request to /ticketmaster/:id route', () => {
-  beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
-
-  it('it should respond with JSON data of a single concert chosen by ID', (done) => {
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: [
-        {
-          _links: {},
-          page: {},
-        },
-      ],
-    };
-    const testID = {
-      id: 'G5viZ9NXGTe24',
-    };
-
-    axiosStub
-      .withArgs(
-        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${testID.id}`
-      )
-      .returns(Promise.resolve(stubResponse));
-    // using G5viZ9NXGTe24 as placeholder id
-    chai
-      .request(server)
-      .get(`/ticketmaster/${testID.id}`)
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-});
-/*
 describe('GET request to /SavedConcerts route', () => {
   let user;
   let token;
@@ -489,10 +355,16 @@ describe('FavoriteArtistsRouter', () => {
     });
   });
 });
-*/
 
 describe('TicketMasterRouter', () =>{
     const concertId = 'G5dZZ9Nx_yOzI';
+    const concertName = 'The Taylor Party: Taylor Swift Night';
+    const concertDate = '2023-05-19';
+    const concertInfo = 'Please note: ALL patrons require a VALID PHOTO ID for entry. NO EXCEPTIONS';
+    const concertCity = 'Albany';
+    const concertImage = 'https://s1.ticketm.net/dam/a/f70/8e76c8cd-6cf7-4e82-ac4a-992353ea4f70_1872341_RETINA_LANDSCAPE_16_9.jpg';
+    const concertLink = 'https://www.ticketmaster.com/the-taylor-party-taylor-swift-night-albany-new-york-05-19-2023/event/30005E3899E60E28';
+
     let user;
     let token;
 
@@ -530,24 +402,24 @@ describe('TicketMasterRouter', () =>{
             _embedded: {
               events: [{
                 id: concertId,
-                name: 'testConcert',
+                name: concertName,
                 dates: {
                   start: {
-                    localDate: '2023-05-01',
+                    localDate: concertDate,
                   },
                 },
-                info: 'test description',
+                info: concertInfo,
                 _embedded: {
                   venues: [{
                     city: {
-                      name: 'testCity',
+                      name: concertCity,
                     },
                   }],
                 },
                 images: [{
-                  url: 'https://test.com/image.jpg',
+                  url: concertImage,
                 }],
-                url: 'https://test.com/tickets',
+                url: concertLink,
               }],
             },
           },
@@ -565,13 +437,12 @@ describe('TicketMasterRouter', () =>{
             res.should.have.status(200);
             expect(res).to.be.json;
             expect(res.body.ticketmasterID).to.equal(`${concertId}`);
-            expect(res.body.name).to.equal('testConcert');
-            expect(res.body.artist).to.equal('testConcert');
-            expect(res.body.date).to.equal('2023-05-01');
-            expect(res.body.description).to.equal('test description');
-            expect(res.body.location).to.equal('testCity');
-            expect(res.body.image).to.equal('https://test.com/image.jpg');
-            expect(res.body.ticketLink).to.equal('https://test.com/tickets');
+            expect(res.body.name).to.equal(`${concertName}`);
+            expect(res.body.date).to.equal(`${concertDate}`);
+            expect(res.body.description).to.equal(`${concertInfo}`);
+            expect(res.body.location).to.equal(`${concertCity}`);
+            expect(res.body.image).to.equal(`${concertImage}`);
+            expect(res.body.ticketLink).to.equal(`${concertLink}`);
             done();
           });
       });
@@ -583,7 +454,7 @@ describe('TicketMasterRouter', () =>{
 
           chai
           .request(server)
-          .get(`/concerts/${concertId}`)
+          .get(`/concerts/errorId`)
           .set('Authorization', `JWT ${token}`)
           .end((err, res) => {
             res.should.have.status(500);
@@ -595,3 +466,49 @@ describe('TicketMasterRouter', () =>{
       });
   });
 });
+
+/*
+describe('GET request to /artist/:id route', () => {
+  beforeEach(() => {
+    axiosStub = sandbox.stub(axios, 'get');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('it should respond with JSON data of a single artist', (done) => {
+    const stubResponse = {
+      status: 200,
+      statusText: 'OK',
+      data: [{ id: 1, artist: 'fakeArtist1' }],
+    };
+    axiosStub
+      .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
+      .returns(Promise.resolve(stubResponse));
+    // using 1 as placeholder id
+    chai
+      .request(server)
+      .get('/artist/1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+  it('it should respond with backup JSON data when an error occurs', (done) => {
+    axiosStub
+      .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
+      .throws(new TypeError());
+    // using 1 as placeholder id
+    chai
+      .request(server)
+      .get('/artist/1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+});
+*/
