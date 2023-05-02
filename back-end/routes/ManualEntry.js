@@ -19,9 +19,10 @@ ManualEntryRouter.post(
         .json({ success: false, message: `Error: No artists supplied.`, error: 'Error' });
     } else {
       try {
-        const artistDocuments = artists.map((artist) => {
+        const filteredArtists = artists.filter((x) => x !== '')
+        const artistDocuments = filteredArtists.map((artist) => {
             const value = new Artist({
-              name: artist.name,
+              name: artist,
             });
             value.save();
             return value;

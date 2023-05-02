@@ -24,16 +24,15 @@ const ManualEntry = () => {
   const handleSubmit = async (e) => {
     // prevent the HTML form from actually submitting
     e.preventDefault();
-    console.log(artists)
     try {
       // send the request to the backend
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/ManualEntry`, {
         method: 'POST',
         headers: {
-          Authorization: `JWT ${jwtToken}`
-          
+          Authorization: `JWT ${jwtToken}`,
+          'Content-Type': 'application/json'
         },
-        body: {artists}
+        body: JSON.stringify({ "artists": artists}),
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
@@ -57,7 +56,7 @@ const ManualEntry = () => {
   if (!submit.success)
       return (
     <form onSubmit={handleSubmit}>
-      <h2>Enter your top 20 favorite artists:</h2>
+      <h2>Enter up to 20 favorite artists:</h2>
       {artists.map((artist, index) => (
         <div key={index}>
           <label htmlFor={`artist${index + 1}`}>{`Artist ${index + 1}: `}</label>
