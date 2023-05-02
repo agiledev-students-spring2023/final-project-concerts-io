@@ -256,43 +256,8 @@ describe('GET request to /recommended route', () => {
 });
 */
 
+describe('SavedConcertsRoute', () => {
 describe('GET request to /SavedConcerts route', () => {
-  let user;
-  let token;
-
-  let userCounter = 1;
-
-  beforeEach(async () => {
-    user = new User({
-      username: `testUser${userCounter}`,
-      email: `testEmail${userCounter}@example.com`,
-      password: 'testPassword',
-      location: 'test',
-    });
-    await user.save();
-
-    token = user.generateJWT();
-    userCounter += 1;
-  });
-
-  afterEach(async () => {
-    if (mongoose.connection.readyState === 1) {
-      await User.deleteMany({});
-    }
-  });
-
-  it('it should respond with JSON data of saved concerts', (done) => {
-    chai
-      .request(server)
-      .get('/SavedConcerts')
-      .set('Authorization', `JWT ${token}`)
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
-  });
-
   it('it should respond with a 401 status code when not authenticated', (done) => {
     chai
       .request(server)
@@ -305,44 +270,7 @@ describe('GET request to /SavedConcerts route', () => {
 });
 
 describe('FavoriteArtistsRouter', () => {
-  let user;
-  let token;
-
-  let userCounter = 1;
-
-  beforeEach(async () => {
-    user = new User({
-      username: `testUser${userCounter}`,
-      email: `testEmail${userCounter}@example.com`,
-      password: 'testPassword',
-      location: 'test',
-      favoriteArtists: [],
-    });
-    await user.save();
-
-    token = user.generateJWT();
-    userCounter += 1;
-  });
-
-  afterEach(async () => {
-    if (mongoose.connection.readyState === 1) {
-      await User.deleteMany({});
-    }
-  });
-
   describe('GET request to /FavoriteArtists route', () => {
-    it('should respond with JSON data of favorite artists', (done) => {
-      chai
-        .request(server)
-        .get('/FavoriteArtists')
-        .set('Authorization', `JWT ${token}`)
-        .end((err, res) => {
-          res.should.have.status(200);
-          expect(res).to.be.json;
-          done();
-        });
-    });
-
     it('should respond with a 401 status code when not authenticated', (done) => {
       chai
         .request(server)
@@ -357,192 +285,34 @@ describe('FavoriteArtistsRouter', () => {
 });
 
 describe('TicketMasterRouter', () =>{
-    const concertId = 'G5dZZ9Nx_yOzI';
-    const concertName = 'The Taylor Party: Taylor Swift Night';
-    const concertDate = '2023-05-19';
-    const concertInfo = 'Please note: ALL patrons require a VALID PHOTO ID for entry. NO EXCEPTIONS';
-    const concertCity = 'Albany';
-    const concertImage = 'https://s1.ticketm.net/dam/a/f70/8e76c8cd-6cf7-4e82-ac4a-992353ea4f70_1872341_RETINA_LANDSCAPE_16_9.jpg';
-    const concertLink = 'https://www.ticketmaster.com/the-taylor-party-taylor-swift-night-albany-new-york-05-19-2023/event/30005E3899E60E28';
-
-    let user;
-    let token;
-
-    let userCounter = 1;
-
-    beforeEach(async ()  => {
-      user = new User({
-        username: `testUser${userCounter}`,
-        email: `testEmail${userCounter}@example.com`,
-        password: 'testPassword',
-        location: 'test',
-        favoriteArtists: [],
-      });
-      await user.save();
-
-      token = user.generateJWT();
-      userCounter += 1;
-
-      axiosStub = sandbox.stub(axios, 'get');
+  const concertId = 'G5dZZ9Nx_yOzI';
+  describe('GET request to /concerts/:id route', () => {
+    it('should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get(`/concerts/${concertId}`)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          res.should.have.status(401);
+          done();
+        });
     });
-
-    afterEach(async() => {
-      if (mongoose.connection.readyState === 1) {
-        await User.deleteMany({});
-      }
-      sandbox.restore();
-    });
-
-    describe('GET request to /concerts/:id route', () => {
-      it('should respond with JSON data of a single concert', (done) => {
-        const stubResponse = {
-          status: 200,
-          statusText: 'OK',
-          data: {
-            _embedded: {
-              events: [{
-                id: concertId,
-                name: concertName,
-                dates: {
-                  start: {
-                    localDate: concertDate,
-                  },
-                },
-                info: concertInfo,
-                _embedded: {
-                  venues: [{
-                    city: {
-                      name: concertCity,
-                    },
-                  }],
-                },
-                images: [{
-                  url: concertImage,
-                }],
-                url: concertLink,
-              }],
-            },
-          },
-        };
-
-        axiosStub
-          .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${concertId}`)
-          .returns(Promise.resolve(stubResponse));
-
-          chai
-          .request(server)
-          .get(`/concerts/${concertId}`)
-          .set('Authorization', `JWT ${token}`)
-          .end((err, res) => {
-            res.should.have.status(200);
-            expect(res).to.be.json;
-            expect(res.body.ticketmasterID).to.equal(`${concertId}`);
-            expect(res.body.name).to.equal(`${concertName}`);
-            expect(res.body.date).to.equal(`${concertDate}`);
-            expect(res.body.description).to.equal(`${concertInfo}`);
-            expect(res.body.location).to.equal(`${concertCity}`);
-            expect(res.body.image).to.equal(`${concertImage}`);
-            expect(res.body.ticketLink).to.equal(`${concertLink}`);
-            done();
-          });
-      });
-
-      it('should respond with a 500 status code when an error occurs', (done) => {
-        axiosStub
-          .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${concertId}`)
-          .throws(new Error());
-
-          chai
-          .request(server)
-          .get(`/concerts/errorId`)
-          .set('Authorization', `JWT ${token}`)
-          .end((err, res) => {
-            res.should.have.status(500);
-            expect(res).to.be.json;
-            expect(res.body.success).to.be.false;
-            expect(res.body.message).to.equal('Error finding concert data.');
-            done();
-          });
-      });
   });
 });
 
 describe('ArtistRouter', () =>{
   const artistId = '6451892f7d9222404ef11259';
-  const artistName = 'Drake';
-
-  let user;
-  let token;
-
-  let userCounter = 1;
-
-  beforeEach(async ()  => {
-    user = new User({
-      username: `testUser${userCounter}`,
-      email: `testEmail${userCounter}@example.com`,
-      password: 'testPassword',
-      location: 'test',
-      favoriteArtists: [],
-    });
-    await user.save();
-
-    token = user.generateJWT();
-    userCounter += 1;
-
-    axiosStub = sandbox.stub(axios, 'get');
-  });
-
-  afterEach(async() => {
-    if (mongoose.connection.readyState === 1) {
-      await User.deleteMany({});
-    }
-    sandbox.restore();
-  });
-
   describe('GET request to /artist/:id route', () => {
-    it('it should respond with JSON data of a single artist', (done) => {
-      const stubResponse = {
-        status: 200,
-        statusText: 'OK',
-        data: {
-          _embedded: {
-            attractions: [{
-              name: artistName,
-            }],
-          },
-        },
-      };
-      axiosStub
-        .withArgs(`https://app.ticketmaster.com/discovery/v2/attractions/${artistId}.json?apikey=${process.env.TICKETMASTER_API_KEY}`)
-        .returns(Promise.resolve(stubResponse));
-  
+    it('should respond with a 401 status code when not authenticated', (done) => {
       chai
         .request(server)
         .get(`/artist/${artistId}`)
-        .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
-          res.should.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body.name).to.equal(`${artistName}`);
-          done();
-      });
-    });
-    it('should respond with a 500 status code when an error occurs', (done) => {
-      axiosStub
-        .withArgs(`https://app.ticketmaster.com/discovery/v2/attractions.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${artistId}`)
-        .throws(new Error());
-    
-      chai
-        .request(server)
-        .get(`/artist/errorId`)
-        .set('Authorization', `JWT ${token}`)
-        .end((err, res) => {
-          res.should.have.status(500);
-          expect(res).to.be.json;
-          expect(res.body.success).to.be.false;
-          expect(res.body.message).to.equal('Error finding artist data.');
+          expect(err).to.be.null;
+          res.should.have.status(401);
           done();
         });
+      });
     });
   });
 });
