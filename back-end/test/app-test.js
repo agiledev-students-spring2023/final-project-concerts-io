@@ -467,48 +467,82 @@ describe('TicketMasterRouter', () =>{
   });
 });
 
-/*
-describe('GET request to /artist/:id route', () => {
-  beforeEach(() => {
+describe('ArtistRouter', () =>{
+  const artistId = '6451892f7d9222404ef11259';
+  const artistName = 'Drake';
+
+  let user;
+  let token;
+
+  let userCounter = 1;
+
+  beforeEach(async ()  => {
+    user = new User({
+      username: `testUser${userCounter}`,
+      email: `testEmail${userCounter}@example.com`,
+      password: 'testPassword',
+      location: 'test',
+      favoriteArtists: [],
+    });
+    await user.save();
+
+    token = user.generateJWT();
+    userCounter += 1;
+
     axiosStub = sandbox.stub(axios, 'get');
   });
 
-  afterEach(() => {
+  afterEach(async() => {
+    if (mongoose.connection.readyState === 1) {
+      await User.deleteMany({});
+    }
     sandbox.restore();
   });
 
-  it('it should respond with JSON data of a single artist', (done) => {
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: [{ id: 1, artist: 'fakeArtist1' }],
-    };
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
-      .returns(Promise.resolve(stubResponse));
-    // using 1 as placeholder id
-    chai
-      .request(server)
-      .get('/artist/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
+  describe('GET request to /artist/:id route', () => {
+    it('it should respond with JSON data of a single artist', (done) => {
+      const stubResponse = {
+        status: 200,
+        statusText: 'OK',
+        data: {
+          _embedded: {
+            attractions: [{
+              name: artistName,
+            }],
+          },
+        },
+      };
+      axiosStub
+        .withArgs(`https://app.ticketmaster.com/discovery/v2/attractions/${artistId}.json?apikey=${process.env.TICKETMASTER_API_KEY}`)
+        .returns(Promise.resolve(stubResponse));
+  
+      chai
+        .request(server)
+        .get(`/artist/${artistId}`)
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          res.should.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body.name).to.equal(`${artistName}`);
+          done();
       });
-  });
-  it('it should respond with backup JSON data when an error occurs', (done) => {
-    axiosStub
-      .withArgs(`https://my.api.mockaroo.com/artists/1.json?key=${process.env.ARTISTS_API_KEY}`)
-      .throws(new TypeError());
-    // using 1 as placeholder id
-    chai
-      .request(server)
-      .get('/artist/1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        done();
-      });
+    });
+    it('should respond with a 500 status code when an error occurs', (done) => {
+      axiosStub
+        .withArgs(`https://app.ticketmaster.com/discovery/v2/attractions.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${artistId}`)
+        .throws(new Error());
+    
+      chai
+        .request(server)
+        .get(`/artist/errorId`)
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          res.should.have.status(500);
+          expect(res).to.be.json;
+          expect(res.body.success).to.be.false;
+          expect(res.body.message).to.equal('Error finding artist data.');
+          done();
+        });
+    });
   });
 });
-*/
