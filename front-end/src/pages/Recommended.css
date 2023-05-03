@@ -51,4 +51,9 @@
     width: 50%;
     margin: auto;
   }
+  .recommended-header{
+      width: 50%;
+      margin: auto;
+      position: relative;
+  }
 }
