@@ -55,7 +55,7 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 // make 'public' directory publicly readable with static content
 app.use('/static', express.static('public'));
 
-app.use('/ticketmaster', TicketMasterRouter);
+app.use('/concerts', TicketMasterRouter);
 app.use('/ticketmastermany', TicketMasterManyRouter);
 app.use('/Recommended', RecommendedRouter);
 app.use('/SavedConcerts', SavedConcertsRoute);

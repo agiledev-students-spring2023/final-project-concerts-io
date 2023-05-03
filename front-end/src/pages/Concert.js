@@ -11,7 +11,7 @@ function Concert(props) {
 
   const id = window.location.pathname.substring(10);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND}/ticketmaster/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/concerts/${id}`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => {

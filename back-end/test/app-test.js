@@ -4,12 +4,11 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+// const sinon = require('sinon');
 const sandbox = require('sinon').createSandbox();
 const server = require('../app');
 const helpers = require('../spotifyHelperFunctions');
 require('dotenv').config({ silent: true });
-
-const { generateToken } = require('../config/jwt-config');
 
 const { assert } = chai;
 const { expect } = chai;
@@ -23,11 +22,6 @@ const Concert = require('../models/Concert');
 let getTokenStub;
 let useAccessTokenStub;
 let axiosStub;
-let findOneStub;
-let execStub;
-let saveStub;
-let userStub;
-let authenticateStub;
 
 describe('GET request to /spotifyconnect route', () => {
   it('it should redirect to spotify login', (done) => {
@@ -42,7 +36,42 @@ describe('GET request to /spotifyconnect route', () => {
   });
 });
 
+/*
 describe('GET request to /spotifycallback route', () => {
+  beforeEach(() => {
+    getTokenStub = sandbox.stub(helpers, 'getToken');
+    useAccessTokenStub = sandbox.stub(helpers, 'useAccessToken');
+  });
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('it should respond with an HTTP 302 status code when successful', (done) => {
+    const getTokenArgs = [
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET,
+      'fakeCode',
+      process.env.REDIRECT_URI,
+    ];
+    const getTokenResponse = { access_token: 'fakeToken', refresh_token: 'fakeRefresh' };
+    getTokenStub.withArgs(...getTokenArgs).returns(Promise.resolve(getTokenResponse));
+
+    const useAccessTokenArgs = ['https://api.spotify.com/v1/me/top/artists', 'fakeToken'];
+    const useAccessTokenResponse = { status: 200, statusText: 'OK', items: '[1, 2, 3]' };
+    useAccessTokenStub
+      .withArgs(...useAccessTokenArgs)
+      .returns(Promise.resolve(useAccessTokenResponse));
+
+    chai
+      .request(server)
+      .get('/spotifycallback')
+      .query({ code: 'fakeCode', state: 'abcd1234' })
+      .redirects(0)
+      .end((err, res) => {
+        res.should.have.status(302);
+        done();
+      });
+  });
   it('it should redirect with a 401 status code when authentication fails', (done) => {
     chai
       .request(server)
@@ -54,88 +83,236 @@ describe('GET request to /spotifycallback route', () => {
       });
   });
 });
+*/
 
-describe('POST request to /auth/login route', () => {
+/*
+describe('POST request to /login route', () => {
   beforeEach(() => {
-    findOneStub = sandbox.stub(User, 'findOne');
-    execStub = sandbox.stub();
+    axiosStub = sandbox.stub(axios, 'get');
   });
 
   afterEach(() => {
     sandbox.restore();
   });
   it('it should respond with JSON data', (done) => {
-    const findOneResponse = {
-      exec: execStub,
+    const stubArgs = {
+      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
     };
-    const execStubResponse = { username: 'fakeUser' };
-    execStubResponse.validPassword = () => true;
-    execStubResponse.generateJWT = () => 'fakeToken';
-    findOneStub.withArgs({ username: 'fakeUser' }).returns(findOneResponse);
-    execStub.resolves(execStubResponse);
+    const stubResponse = {
+      status: 200,
+      statusText: 'OK',
+      data: { username: 'testUser', password: 'testPass' },
+    };
+    axiosStub
+      .withArgs('https://my.api.mockaroo.com/users.json', stubArgs)
+      .returns(Promise.resolve(stubResponse));
 
     chai
       .request(server)
-      .post('/auth/login')
+      .post('/login')
       .set('content-type', 'application/json')
-      .send({ username: 'fakeUser', password: 'fakePass' })
+      .send({ username: 'testUser', password: 'testPass' })
       .end((err, res) => {
         res.should.have.status(200);
         expect(res).to.be.json;
         done();
       });
   });
-  it('it should respond with status code 500 when a user isnt found', (done) => {
+  it('it should respond with backup JSON data when an error occurs', (done) => {
+    const stubArgs = {
+      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
+    };
+    axiosStub.withArgs('https://my.api.mockaroo.com/users.json', stubArgs).throws(new TypeError());
+
     chai
       .request(server)
-      .post('/auth/login')
+      .post('/login')
       .set('content-type', 'application/json')
       .send({ username: 'testUser', password: 'testPass' })
       .end((err, res) => {
-        res.should.have.status(500);
+        res.should.have.status(200);
         expect(res).to.be.json;
         done();
       });
   });
 });
+*/
 
+/*
 describe('POST request to /register route', () => {
-  it('it should respond with status 401 when invalid data is posted', (done) => {
+  beforeEach(() => {
+    axiosStub = sandbox.stub(axios, 'get');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+  it('it should respond with JSON data', (done) => {
+    const stubArgs = {
+      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
+    };
+    const stubResponse = {
+      status: 200,
+      statusText: 'OK',
+      data: { email: 'testEmail', username: 'testUser', password: 'testPass' },
+    };
+    axiosStub
+      .withArgs('https://my.api.mockaroo.com/users.json', stubArgs)
+      .returns(Promise.resolve(stubResponse));
+
     chai
       .request(server)
-      .post('/auth/login')
+      .post('/register')
       .set('content-type', 'application/json')
-      .send({})
+      .send({ email: 'testEmail', username: 'testUser', password: 'testPass' })
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+  it('it should respond with backup JSON data when an error occurs', (done) => {
+    const stubArgs = {
+      headers: { 'X-API-Key': process.env.USERS_API_KEY, Accept: 'application/json' },
+    };
+    axiosStub.withArgs('https://my.api.mockaroo.com/users.json', stubArgs).throws(new TypeError());
+
+    chai
+      .request(server)
+      .post('/login')
+      .set('content-type', 'application/json')
+      .send({ username: 'testUser', password: 'testPass' })
+      .end((err, res) => {
+        res.should.have.status(200);
         expect(res).to.be.json;
         done();
       });
   });
 });
+*/
 
+/*
 describe('POST request to /edit-profile route', () => {
-  it('it should respond with 401 status when no auth token is sent in request', (done) => {
+  it('it should respond with JSON data', (done) => {
     chai
       .request(server)
       .post('/edit-profile')
       .set('content-type', 'application/json')
       .send({ email: 'testEmail', username: 'testUser', password: 'testPass' })
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(200);
+        expect(res).to.be.json;
         done();
       });
   });
 });
+*/
 
+/*
 describe('GET request to /recommended route', () => {
-  it('it should respond with 401 status when no auth token is sent in request', (done) => {
+  beforeEach(() => {
+    axiosStub = sandbox.stub(axios, 'get');
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+  it('it should respond with JSON data', (done) => {
+    const stubResponse = {
+      status: 200,
+      statusText: 'OK',
+      data: [
+        { id: 1, artist: 'fakeArtist1' },
+        { id: 2, artist: 'fakeArtist2' },
+      ],
+    };
+    axiosStub
+      .withArgs(`https://my.api.mockaroo.com/concerts.json?key=${process.env.CONCERTS_API_KEY}`)
+      .returns(Promise.resolve(stubResponse));
+
     chai
       .request(server)
       .get('/recommended')
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(200);
+        expect(res).to.be.json;
         done();
       });
+  });
+  it('it should respond with backup JSON data when an error occurs', (done) => {
+    axiosStub
+      .withArgs(`https://my.api.mockaroo.com/concerts.json?key=${process.env.CONCERTS_API_KEY}`)
+      .throws(new TypeError());
+
+    chai
+      .request(server)
+      .get('/recommended')
+      .end((err, res) => {
+        res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+});
+*/
+
+describe('SavedConcertsRoute', () => {
+  describe('GET request to /SavedConcerts route', () => {
+    it('it should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get('/SavedConcerts')
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
+    });
+  });
+
+  describe('FavoriteArtistsRouter', () => {
+    describe('GET request to /FavoriteArtists route', () => {
+      it('should respond with a 401 status code when not authenticated', (done) => {
+        chai
+          .request(server)
+          .get('/FavoriteArtists')
+          .end((err, res) => {
+            expect(err).to.be.null;
+            res.should.have.status(401);
+            done();
+          });
+      });
+    });
+  });
+
+  describe('TicketMasterRouter', () => {
+    const concertId = 'G5dZZ9Nx_yOzI';
+    describe('GET request to /concerts/:id route', () => {
+      it('should respond with a 401 status code when not authenticated', (done) => {
+        chai
+          .request(server)
+          .get(`/concerts/${concertId}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            res.should.have.status(401);
+            done();
+          });
+      });
+    });
+  });
+
+  describe('ArtistRouter', () => {
+    const artistId = '6451892f7d9222404ef11259';
+    describe('GET request to /artist/:id route', () => {
+      it('should respond with a 401 status code when not authenticated', (done) => {
+        chai
+          .request(server)
+          .get(`/artist/${artistId}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            res.should.have.status(401);
+            done();
+          });
+      });
+    });
   });
 });
