@@ -13,8 +13,10 @@
 }
 
 .savedConcerts-container {
-  margin-top: 150px;
+  margin-top: 200px;
   margin-bottom: 50px;
+  padding-top: 20%;
+  padding-bottom: 80px;
 }
 
 .saved-concert {
