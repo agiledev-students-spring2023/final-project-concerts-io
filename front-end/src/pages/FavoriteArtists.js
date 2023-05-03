@@ -73,16 +73,17 @@ const FavoriteArtists = (props) => {
         <header className="favoriteArtists-header">
           <img src={logo} alt="logo" />
           <h2>Favorite Artists</h2>
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search Artists"
+              value={searchQuery}
+              onChange={handleInputChange}
+              className="search-input"
+            />
+          </div>
         </header>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search concerts"
-            value={searchQuery}
-            onChange={handleInputChange}
-            className="search-input"
-          />
-        </div>
+
         <section className="favoriteArtists">
           {filteredArtists.map((x) => (
             <ArtistComponent key={x._id} details={x} />
