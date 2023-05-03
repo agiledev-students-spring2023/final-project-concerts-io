@@ -47,3 +47,10 @@ a {
   text-decoration: underline;
   text-decoration-color: red;
 }
+@media screen and (min-width: 600px) {
+  .home-header {
+    width: 50%;
+    margin: auto;
+    position: relative;
+  }
+}
