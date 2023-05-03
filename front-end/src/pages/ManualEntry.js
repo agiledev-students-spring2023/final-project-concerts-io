@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Navigate } from 'react-router-dom';
-import './EditProfile.css';
+import './ManualEntry.css';
 
 const ManualEntry = () => {
   const jwtToken = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
   const [submit, setSubmit] = useState({});
-  const [artists, setArtists] = useState(Array(20).fill(""));
+  const [artists, setArtists] = useState(Array(20).fill(''));
   const [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState(``);
 
@@ -30,9 +30,9 @@ const ManualEntry = () => {
         method: 'POST',
         headers: {
           Authorization: `JWT ${jwtToken}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ "artists": artists}),
+        body: JSON.stringify({ artists: artists }),
       });
       if (response.status === 401) {
         setIsLoggedIn(false);
@@ -54,23 +54,28 @@ const ManualEntry = () => {
 
   // if the user is not logged in, show the login form
   if (!submit.success)
-      return (
-    <form onSubmit={handleSubmit}>
-      <h2>Enter up to 20 favorite artists:</h2>
-      {artists.map((artist, index) => (
-        <div key={index}>
-          <label htmlFor={`artist${index + 1}`}>{`Artist ${index + 1}: `}</label>
-          <input
-            type="text"
-            id={`artist${index + 1}`}
-            value={artist}
-            onChange={(event) => handleArtistChange(index, event)}
-          />
-        </div>
-      ))}
-      <button type="submit">Submit</button>
-    </form>
-  );
+    return (
+      <div className="manualEntry">
+        <h2>Enter up to 20 favorite artists:</h2>
+        {errorMessage ? <p className="error">{errorMessage}</p> : ''}
+        <section>
+          <form onSubmit={handleSubmit}>
+            {artists.map((artist, index) => (
+              <div key={index}>
+                <label htmlFor={`artist${index + 1}`}>{`Artist ${index + 1}: `}</label>
+                <input
+                  type="text"
+                  id={`artist${index + 1}`}
+                  value={artist}
+                  onChange={(event) => handleArtistChange(index, event)}
+                />
+              </div>
+            ))}
+            <button type="submit">Submit</button>
+          </form>
+        </section>
+      </div>
+    );
   // return to profile after editing
   else return <Navigate to="/profile" />;
 };

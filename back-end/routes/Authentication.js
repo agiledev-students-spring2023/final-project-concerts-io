@@ -16,7 +16,7 @@ const authenticationRouter = () => {
       // no username or password received in the POST body... send an error
       res.status(401).json({
         success: false,
-        message: `Error: No username or password or email supplied.`,
+        message: `Error: No username or password or email or location supplied.`,
       });
     } else {
       // create a new user
@@ -47,7 +47,6 @@ const authenticationRouter = () => {
   router.post('/login', async (req, res) => {
     const { username } = req.body;
     const { password } = req.body;
-    // console.log(`${username}, ${password}`)
 
     if (!username || !password) {
       // no username or password received in the POST body... send an error
