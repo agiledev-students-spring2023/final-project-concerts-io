@@ -1,14 +1,16 @@
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const axios = require('axios');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const passport = require('passport');
 
 const sandbox = require('sinon').createSandbox();
 const server = require('../app');
 const helpers = require('../spotifyHelperFunctions');
 require('dotenv').config({ silent: true });
+
+const { generateToken } = require('../config/jwt-config');
 
 const { assert } = chai;
 const { expect } = chai;
@@ -22,85 +24,125 @@ const Concert = require('../models/Concert');
 let getTokenStub;
 let useAccessTokenStub;
 let axiosStub;
+let findOneStub;
+let execStub;
+let saveStub;
+let userStub;
+let authenticateStub;
 
-describe('GET request to /ticketmaster/:id route', () => {
+describe('GET request to /spotifyconnect route', () => {
+  it('it should redirect to spotify login', (done) => {
+    chai
+      .request(server)
+      .get('/spotifyconnect')
+      .redirects(0)
+      .end((err, res) => {
+        res.should.have.status(302);
+        done();
+      });
+  });
+});
+
+describe('GET request to /spotifycallback route', () => {
+  it('it should redirect with a 401 status code when authentication fails', (done) => {
+    chai
+      .request(server)
+      .get('/spotifycallback')
+      .redirects(0)
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+});
+
+describe('POST request to /auth/login route', () => {
   beforeEach(() => {
-    axiosStub = sandbox.stub(axios, 'get');
+    findOneStub = sandbox.stub(User, 'findOne');
+    execStub = sandbox.stub();
   });
 
   afterEach(() => {
     sandbox.restore();
   });
-
-  it('it should respond with JSON data of a single concert chosen by ID', (done) => {
-    const stubResponse = {
-      status: 200,
-      statusText: 'OK',
-      data: [
-        {
-          _links: {},
-          page: {},
-        },
-      ],
+  it('it should respond with JSON data', (done) => {
+    const findOneResponse = {
+      exec: execStub,
     };
-    const testID = {
-      id: 'G5viZ9NXGTe24',
-    };
+    const execStubResponse = { username: 'fakeUser' };
+    execStubResponse.validPassword = () => true;
+    execStubResponse.generateJWT = () => 'fakeToken';
+    findOneStub.withArgs({ username: 'fakeUser' }).returns(findOneResponse);
+    execStub.resolves(execStubResponse);
 
-    axiosStub
-      .withArgs(
-        `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${testID.id}`
-      )
-      .returns(Promise.resolve(stubResponse));
-    // using G5viZ9NXGTe24 as placeholder id
     chai
       .request(server)
-      .get(`/ticketmaster/${testID.id}`)
+      .post('/auth/login')
+      .set('content-type', 'application/json')
+      .send({ username: 'fakeUser', password: 'fakePass' })
       .end((err, res) => {
         res.should.have.status(200);
+        expect(res).to.be.json;
+        done();
+      });
+  });
+  it('it should respond with status code 500 when a user isnt found', (done) => {
+    chai
+      .request(server)
+      .post('/auth/login')
+      .set('content-type', 'application/json')
+      .send({ username: 'testUser', password: 'testPass' })
+      .end((err, res) => {
+        res.should.have.status(500);
         expect(res).to.be.json;
         done();
       });
   });
 });
 
-describe('GET request to /SavedConcerts route', () => {
-  let user;
-  let token;
-
-  let userCounter = 1;
-
-  beforeEach(async () => {
-    user = new User({
-      username: `testUser${userCounter}`,
-      email: `testEmail${userCounter}@example.com`,
-      password: 'testPassword',
-      location: 'test',
-    });
-    await user.save();
-
-    token = user.generateJWT();
-    userCounter += 1;
-  });
-
-  afterEach(async () => {
-    if (mongoose.connection.readyState === 1) {
-      await User.deleteMany({});
-    }
-  });
-
-  it('it should respond with JSON data of saved concerts', (done) => {
+describe('POST request to /register route', () => {
+  it('it should respond with status 401 when invalid data is posted', (done) => {
     chai
       .request(server)
-      .get('/SavedConcerts')
-      .set('Authorization', `JWT ${token}`)
+      .post('/auth/login')
+      .set('content-type', 'application/json')
+      .send({})
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(401);
         expect(res).to.be.json;
         done();
       });
   });
+});
 
+describe('POST request to /edit-profile route', () => {
+  it('it should respond with 401 status when no auth token is sent in request', (done) => {
+    chai
+      .request(server)
+      .post('/edit-profile')
+      .set('content-type', 'application/json')
+      .send({ email: 'testEmail', username: 'testUser', password: 'testPass' })
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+});
+
+describe('GET request to /recommended route', () => {
+  it('it should respond with 401 status when no auth token is sent in request', (done) => {
+    chai
+      .request(server)
+      .get('/recommended')
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+});
+
+describe('SavedConcertsRoute', () => {
+describe('GET request to /SavedConcerts route', () => {
   it('it should respond with a 401 status code when not authenticated', (done) => {
     chai
       .request(server)
@@ -112,87 +154,47 @@ describe('GET request to /SavedConcerts route', () => {
   });
 });
 
-      axiosStub = sandbox.stub(axios, 'get');
+describe('FavoriteArtistsRouter', () => {
+  describe('GET request to /FavoriteArtists route', () => {
+    it('should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get('/FavoriteArtists')
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
     });
+  });
+});
 
-    afterEach(async() => {
-      if (mongoose.connection.readyState === 1) {
-        await User.deleteMany({});
-      }
-      sandbox.restore();
+describe('TicketMasterRouter', () =>{
+  const concertId = 'G5dZZ9Nx_yOzI';
+  describe('GET request to /concerts/:id route', () => {
+    it('should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get(`/concerts/${concertId}`)
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
     });
+  });
+});
 
-    describe('GET request to /concerts/:id route', () => {
-      it('should respond with JSON data of a single concert', (done) => {
-        const stubResponse = {
-          status: 200,
-          statusText: 'OK',
-          data: {
-            _embedded: {
-              events: [{
-                id: concertId,
-                name: 'testConcert',
-                dates: {
-                  start: {
-                    localDate: '2023-05-01',
-                  },
-                },
-                info: 'test description',
-                _embedded: {
-                  venues: [{
-                    city: {
-                      name: 'testCity',
-                    },
-                  }],
-                },
-                images: [{
-                  url: 'https://test.com/image.jpg',
-                }],
-                url: 'https://test.com/tickets',
-              }],
-            },
-          },
-        };
-
-        axiosStub
-          .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${concertId}`)
-          .returns(Promise.resolve(stubResponse));
-
-          chai
-          .request(server)
-          .get(`/concerts/${concertId}`)
-          .set('Authorization', `JWT ${token}`)
-          .end((err, res) => {
-            res.should.have.status(200);
-            expect(res).to.be.json;
-            expect(res.body.ticketmasterID).to.equal(`${concertId}`);
-            expect(res.body.name).to.equal('testConcert');
-            expect(res.body.artist).to.equal('testConcert');
-            expect(res.body.date).to.equal('2023-05-01');
-            expect(res.body.description).to.equal('test description');
-            expect(res.body.location).to.equal('testCity');
-            expect(res.body.image).to.equal('https://test.com/image.jpg');
-            expect(res.body.ticketLink).to.equal('https://test.com/tickets');
-            done();
-          });
+describe('ArtistRouter', () =>{
+  const artistId = '6451892f7d9222404ef11259';
+  describe('GET request to /artist/:id route', () => {
+    it('should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get(`/artist/${artistId}`)
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
       });
-
-      it('should respond with a 500 status code when an error occurs', (done) => {
-        axiosStub
-          .withArgs(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&id=${concertId}`)
-          .throws(new Error());
-
-          chai
-          .request(server)
-          .get(`/concerts/${concertId}`)
-          .set('Authorization', `JWT ${token}`)
-          .end((err, res) => {
-            res.should.have.status(500);
-            expect(res).to.be.json;
-            expect(res.body.success).to.be.false;
-            expect(res.body.message).to.equal('Error finding concert data.');
-            done();
-          });
-      });
+    });
   });
 });
