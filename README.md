@@ -18,3 +18,9 @@ Continous deployment of the project is sourced through the digital ocean app pla
 
 ## Additional Resources
 [Concert.io Proposal](https://github.com/agiledev-students-spring-2023/project-proposal-team1234)
+
+
+# Running App
+- run npm install in main directory, back-end, and front-end
+- See front-end and back-end md for .env requirements
+- run back-end and front-end 
