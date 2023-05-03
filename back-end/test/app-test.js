@@ -139,3 +139,61 @@ describe('GET request to /recommended route', () => {
       });
   });
 });
+
+describe('SavedConcertsRoute', () => {
+  describe('GET request to /SavedConcerts route', () => {
+    it('it should respond with a 401 status code when not authenticated', (done) => {
+      chai
+        .request(server)
+        .get('/SavedConcerts')
+        .end((err, res) => {
+          res.should.have.status(401);
+          done();
+        });
+    });
+  });
+
+  describe('FavoriteArtistsRouter', () => {
+    describe('GET request to /FavoriteArtists route', () => {
+      it('should respond with a 401 status code when not authenticated', (done) => {
+        chai
+          .request(server)
+          .get('/FavoriteArtists')
+          .end((err, res) => {
+            res.should.have.status(401);
+            done();
+          });
+      });
+    });
+  });
+
+  describe('TicketMasterRouter', () => {
+    const concertId = 'G5dZZ9Nx_yOzI';
+    describe('GET request to /concerts/:id route', () => {
+      it('should respond with a 401 status code when not authenticated', (done) => {
+        chai
+          .request(server)
+          .get(`/ticketmaster/${concertId}`)
+          .end((err, res) => {
+            res.should.have.status(401);
+            done();
+          });
+      });
+    });
+  });
+
+  describe('ArtistRouter', () => {
+    const artistId = '6451892f7d9222404ef11259';
+    describe('GET request to /artist/:id route', () => {
+      it('should respond with a 401 status code when not authenticated', (done) => {
+        chai
+          .request(server)
+          .get(`/artist/${artistId}`)
+          .end((err, res) => {
+            res.should.have.status(401);
+            done();
+          });
+      });
+    });
+  });
+});
