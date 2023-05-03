@@ -41,3 +41,9 @@
 .home-header img {
   width: 50%;
 }
+
+a {
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: red;
+}
