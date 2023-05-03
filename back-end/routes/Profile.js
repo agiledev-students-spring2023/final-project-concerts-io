@@ -6,7 +6,7 @@ const ProfileRouter = express.Router();
 ProfileRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   let picPath;
   if (req.user.profilePic) {
-    picPath = `http://localhost:3000/static/uploads/${req.user.profilePic}`;
+    picPath = `https://stingray-app-f5ntu.ondigitalocean.app/static/uploads/${req.user.profilePic}`;
   }
 
   const profileInfo = {
