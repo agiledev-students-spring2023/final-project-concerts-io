@@ -1,3 +1,16 @@
 section.favoriteArtists {
   margin-bottom: 100px;
 }
+.favoriteArtists-header img {
+  width: 50%;
+}
+
+.favoriteArtists-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin-bottom: 100px;
+  background-color: white;
+}

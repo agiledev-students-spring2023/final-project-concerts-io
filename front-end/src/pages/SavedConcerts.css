@@ -24,6 +24,9 @@
   width: 100%;
   height: auto;
 }
+.savedConcerts-header img {
+  width: 50%;
+}
 
 .concert-details {
   display: flex;

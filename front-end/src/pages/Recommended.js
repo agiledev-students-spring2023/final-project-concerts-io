@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import ConcertComponent from '../components/ConcertComponent';
 import './Recommended.css';
+import logo from '../img/SVG/logo.svg';
 
 const Recommended = (props) => {
   const jwtToken = localStorage.getItem('token');
@@ -72,7 +73,7 @@ const Recommended = (props) => {
     return (
       <div className="Recommended">
         <div className="Recommended-header">
-          <h1>Concerts.io</h1>
+          <img src={logo} alt="logo" />
           <h2>Recommended Concerts</h2>
         </div>
         <div className="concerts-container">
@@ -86,7 +87,7 @@ const Recommended = (props) => {
     return (
       <div className="Recommended">
         <div className="recommended-header">
-          <h1>Concerts.io</h1>
+          <img src={logo} alt="logo" />
           <h2>Recommended Concerts</h2>
           {loading && <p>waiting for recommendations!</p>}
           <button onClick={handleClick} className="update-button">

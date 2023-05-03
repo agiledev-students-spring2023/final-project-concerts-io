@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import './SavedConcerts.css';
 import ConcertComponent from '../components/ConcertComponent';
+import logo from '../img/SVG/logo.svg';
 
 const SavedConcerts = (props) => {
   const jwtToken = localStorage.getItem('token');
@@ -62,7 +63,7 @@ const SavedConcerts = (props) => {
     return (
       <div className="SavedConcerts">
         <header className="savedConcerts-header">
-          <h1>Concerts.io</h1>
+          <img src={logo} alt="logo" />
           <h2>Saved Concerts</h2>
         </header>
         <div className="savedConcerts-container">
@@ -74,7 +75,7 @@ const SavedConcerts = (props) => {
     return (
       <div className="SavedConcerts">
         <header className="savedConcerts-header">
-          <h1>Concerts.io</h1>
+          <img src={logo} alt="logo" />
           <h2>Saved Concerts</h2>
           <div className="search-container">
             <input
