@@ -76,7 +76,7 @@ function Concert(props) {
           <h2 className="Concert-name">{concert.name}</h2>
           <img src={concert.image} alt={concert.artist} />
           <p>
-            {concert.date} at {concert.location}
+            {concert.date} in {concert.location}
           </p>
           <section>
             <p>{concert.description}</p>
