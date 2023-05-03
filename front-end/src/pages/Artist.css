@@ -7,8 +7,10 @@
 }
 
 .artistConcerts-container {
-  margin-top: 175px;
-  margin-bottom: 75px;
+  margin-top: 200px;
+  margin-bottom: 50px;
+  padding-top: 30%;
+  padding-bottom: 80px;
 }
 
 @media screen and (min-width: 600px) {
