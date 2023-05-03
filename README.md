@@ -13,6 +13,9 @@
 ## History of the Project
 Concerts.io is a website that shows you nearby concerts based on your music taste. This app was developed throughout the semester as a course project. It reached deployment on Digital Ocean May 1st. The web app consists of an express backend server, a react frontend server, and communicates with a mongodb atlas cluster for storing user data. It gathers user listener data through communication with the spotify and last fm apis, and currently sources it's concert reccomendations from the ticketmaster discovery API. 
 
+## Hosting
+The current version of concerts.io can be found at [https://seashell-app-spdzk.ondigitalocean.app/](https://seashell-app-spdzk.ondigitalocean.app/) !Note the spotify functionality can only be used by registered users due to development limitations by spotify, so authentication will not be allowed for non-registered users
+
 ## Continous Deployment
 Continous deployment of the project is sourced through the digital ocean app platform, such that any pushes made to the master branch are then deployed onto the servers. The most up to date code in github is the app that will be served to users.
 
@@ -24,3 +27,5 @@ Continous deployment of the project is sourced through the digital ocean app pla
 - run npm install in main directory, back-end, and front-end
 - See front-end and back-end md for .env requirements
 - run back-end and front-end 
+
+
