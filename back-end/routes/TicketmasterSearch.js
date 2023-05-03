@@ -42,7 +42,6 @@ TicketmasterSearchRouter.get(
             image: concert.images !== null ? concert.images[0].url : ' ',
             ticketLink: concert.events !== null ? concert.url : ' ',
           }));
-          console.log(formattedEvents);
           res.json(formattedEvents);
         }
       } else {

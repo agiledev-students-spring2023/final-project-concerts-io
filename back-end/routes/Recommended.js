@@ -34,7 +34,6 @@ RecommendedRouter.get('/', passport.authenticate('jwt', { session: false }), asy
           });
           if (resp.data._embedded !== undefined) {
             const mapped = resp.data._embedded.events.map((concert) => {
-              console.log(concert.id);
               const value = new Concert({
                 ticketmasterID: concert.id ?? ' ',
                 name: concert.name ?? ' ',
@@ -97,7 +96,6 @@ RecommendedRouter.get(
           });
           if (resp.data._embedded !== undefined) {
             const mapped = resp.data._embedded.events.map((concert) => {
-              console.log(concert.id);
               const value = new Concert({
                 ticketmasterID: concert.id ?? ' ',
                 name: concert.name ?? ' ',

@@ -10,7 +10,6 @@ FavoriteArtistsRouter.get(
     const { user } = req; // get user
     try {
       await user.populate('favoriteArtists'); // populate favoriteArtists with actual artist docs
-      console.log(user.favoriteArtists);
       res.status(200).json(user.favoriteArtists);
     } catch (err) {
       console.error('Database Error: ', err.message);
