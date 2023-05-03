@@ -1,19 +1,31 @@
-# Project Repository
+# Concerts.io
 
-This repository will be used for team projects.
+## Product Vision Statement
+- Concerts.io: A web application to provide users with concert information in their area relevant to their music listening habits. 
+- Concerts.io intends to streamline the process of finding relveant concerts for music enjoyers to attend based on their listening habits by comparing the artists they listen to to the artists performing in the area
 
-Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
+## Team Members
+- [Harry Minsky](https://github.com/hminsky2002)
+- [Joshua Forlenza](https://github.com/joshforlenza)
+- [Mindy Wu](https://github.com/mindyjwu)
+- [Lianna Poblete](https://github.com/liannnaa)
 
-1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+## History of the Project
+Concerts.io is a website that shows you nearby concerts based on your music taste. This app was developed throughout the semester as a course project. It reached deployment on Digital Ocean May 1st. The web app consists of an express backend server, a react frontend server, and communicates with a mongodb atlas cluster for storing user data. It gathers user listener data through communication with the spotify and last fm apis, and currently sources it's concert reccomendations from the ticketmaster discovery API. 
 
-1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-0c-project-setup.md)
+## Hosting
+The current version of concerts.io can be found at [https://seashell-app-spdzk.ondigitalocean.app/](https://seashell-app-spdzk.ondigitalocean.app/) !Note the spotify functionality can only be used by registered users due to development limitations by spotify, so authentication will not be allowed for non-registered users
 
-1. See the [Sprint Planning instructions](instructions-0d-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
+## Continous Deployment
+Continous deployment of the project is sourced through the digital ocean app platform, such that any pushes made to the master branch are then deployed onto the servers. The most up to date code in github is the app that will be served to users.
 
-1. See the [Front-End Development instructions](./instructions-1-front-end.md) for the requirements of the initial Front-End Development.
+## Additional Resources
+[Concert.io Proposal](https://github.com/agiledev-students-spring-2023/project-proposal-team1234)
 
-1. See the [Back-End Development instructions](./instructions-2-back-end.md) for the requirements of the initial Back-End Development.
 
-1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
+# Running App
+- run npm install in main directory, back-end, and front-end
+- See front-end and back-end md for .env requirements
+- run back-end and front-end 
 
-1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+

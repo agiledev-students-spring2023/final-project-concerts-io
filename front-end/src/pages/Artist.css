@@ -1,0 +1,36 @@
+.concerts-container {
+  top: 10vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.artistConcerts-container {
+  margin-top: 175px;
+  margin-bottom: 75px;
+}
+
+@media screen and (min-width: 600px) {
+  .artistConcerts-container {
+    width: 50%;
+    margin: auto;
+  }
+}
+
+.Artist-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin-bottom: 100px;
+  background-color: white;
+}
+.Artist-header img {
+  width: 50%;
+}
+
+p.artistError {
+  margin-top: 150px;
+}
