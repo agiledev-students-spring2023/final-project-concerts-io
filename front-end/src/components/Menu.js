@@ -10,20 +10,20 @@ const Menu = (props) => {
     return (
       <div className="menu-wrapper">
         <div className="menu-box">
-          <img src={aboutIcon} alt="about" />
-          <Link to="/about">
+          <Link to="/about" className="full-size-link">
+            <img src={aboutIcon} alt="about" />
             <span>About</span>
           </Link>
         </div>
         <div className="menu-box">
-          <img src={homeIcon} alt="home" />
-          <Link to="/">
+          <Link to="/" className="full-size-link">
+            <img src={homeIcon} alt="home" />
             <span>Home</span>
           </Link>
         </div>
         <div className="menu-box">
-          <img src={profileIcon} alt="profile" />
-          <Link to="/profile">
+          <Link to="/profile" className="full-size-link">
+            <img src={profileIcon} alt="profile" />
             <span>Profile</span>
           </Link>
         </div>
@@ -33,17 +33,17 @@ const Menu = (props) => {
     return (
       <div className="menu-wrapper">
         <div className="menu-box">
-          <Link to="/about" style={{ textDecoration: 'none' }}>
+          <Link to="/about" className="full-size-link">
             <span>About</span>
           </Link>
         </div>
         <div className="menu-box">
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/" className="full-size-link">
             <span>Home</span>
           </Link>
         </div>
         <div className="menu-box">
-          <Link to="/login" style={{ textDecoration: 'none' }}>
+          <Link to="/login" className="full-size-link">
             <span>Login</span>
           </Link>
         </div>
