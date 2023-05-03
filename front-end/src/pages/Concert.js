@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../img/SVG/logo.svg';
 import './Concert.css';
 
 function Concert(props) {
@@ -59,29 +60,34 @@ function Concert(props) {
   if (errorMessage) {
     return (
       <div className="Concert">
+        <header className="Concert-header">
+          <img src={logo} alt="logo" />
+        </header>
         <p className="error">{errorMessage}</p>
       </div>
     );
   } else {
     return (
       <div>
-      <h1 className="Concert-header">Concerts.io</h1>
-      <div className="Concert">
-        <h2 className="Concert-name">{concert.name}</h2>
-        <img src={concert.image} alt={concert.artist} />
-        <p>
-          {concert.date} in {concert.location}
-        </p>
-        <section>
-          <p>{concert.description}</p>
-        </section>
-        <a href={concert.ticketLink} className="Concert-link">
-          Buy Tickets
-        </a>
-        <button onClick={handleClick} className="Concert-button">
-          Add to Favorites
-        </button>
-      </div>
+        <header className="Concert-header">
+          <img src={logo} alt="logo" />
+        </header>
+        <div className="Concert">
+          <h2 className="Concert-name">{concert.name}</h2>
+          <img src={concert.image} alt={concert.artist} />
+          <p>
+            {concert.date} in {concert.location}
+          </p>
+          <section>
+            <p>{concert.description}</p>
+          </section>
+          <a href={concert.ticketLink} className="Concert-link">
+            Buy Tickets
+          </a>
+          <button onClick={handleClick} className="Concert-button">
+            Add to Favorites
+          </button>
+        </div>
       </div>
     );
   }
