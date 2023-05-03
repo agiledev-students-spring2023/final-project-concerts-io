@@ -30,3 +30,7 @@
 .Artist-header img {
   width: 50%;
 }
+
+p.artistError {
+  margin-top: 150px;
+}

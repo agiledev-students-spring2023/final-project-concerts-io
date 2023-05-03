@@ -63,7 +63,7 @@ function Concert(props) {
         <header className="Concert-header">
           <img src={logo} alt="logo" />
         </header>
-        <p className="error">{errorMessage}</p>
+        <p className="concertError">{errorMessage}</p>
       </div>
     );
   } else {

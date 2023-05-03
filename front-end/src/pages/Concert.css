@@ -49,3 +49,7 @@ button {
   border-radius: 10px;
   border: 2px solid #eee;
 }
+
+p.concertError {
+  margin-top: 150px;
+}

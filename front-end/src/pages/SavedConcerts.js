@@ -67,7 +67,7 @@ const SavedConcerts = (props) => {
           <h2>Saved Concerts</h2>
         </header>
         <div className="savedConcerts-container">
-          <p className="error">{errorMessage}</p>
+          <p className="concertError">{errorMessage}</p>
         </div>
       </div>
     );
