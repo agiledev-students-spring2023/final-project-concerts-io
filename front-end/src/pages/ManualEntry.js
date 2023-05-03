@@ -58,7 +58,7 @@ const ManualEntry = () => {
       <div className="manualEntry">
         <h2>Enter up to 20 favorite artists:</h2>
         {errorMessage ? <p className="error">{errorMessage}</p> : ''}
-        <section>
+        <section className="manualEntry">
           <form onSubmit={handleSubmit}>
             {artists.map((artist, index) => (
               <div key={index}>

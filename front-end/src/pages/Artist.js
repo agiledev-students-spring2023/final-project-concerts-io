@@ -3,6 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import './Artist.css';
 import axios from 'axios';
 import ConcertComponent from '../components/ConcertComponent';
+import logo from '../img/SVG/logo.svg';
 
 const Artist = (props) => {
   const jwtToken = localStorage.getItem('token');
@@ -57,15 +58,22 @@ const Artist = (props) => {
   if (errorMessage) {
     return (
       <div className="Artist">
-        {artist.name ? <h1>{artist.name}</h1> : ''}
+        <header className="Artist-header">
+          <img src={logo} alt="logo" />
+          {artist.name ? <h1>{artist.name}</h1> : ''}
+        </header>
+
         <p className="error">{errorMessage}</p>
       </div>
     );
   } else {
     return (
       <div className="Artist">
-        <h1>{artist.name}</h1>
-        <h2>Upcoming Concerts</h2>
+        <header className="Artist-header">
+          <img src={logo} alt="logo" />
+          <h1>{artist.name}</h1>
+          <h2>Upcoming Concerts</h2>
+        </header>
         <div className="artistConcerts-container">
           {concerts.map((concert) => (
             <div className="saved-concert">
