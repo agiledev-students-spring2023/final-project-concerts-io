@@ -20,10 +20,6 @@ TicketMasterRouter.get(
         },
       });
 
-      if (req.params.id === 'errorId') {
-        throw new Error('Simulated error');
-      }
-
       const concert = {
         ticketmasterID: response.data._embedded.events[0].id,
         name: response.data._embedded.events[0].name,

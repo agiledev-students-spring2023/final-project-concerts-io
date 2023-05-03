@@ -173,7 +173,7 @@ describe('SavedConcertsRoute', () => {
       it('should respond with a 401 status code when not authenticated', (done) => {
         chai
           .request(server)
-          .get(`/concerts/${concertId}`)
+          .get(`/ticketmaster/${concertId}`)
           .end((err, res) => {
             res.should.have.status(401);
             done();

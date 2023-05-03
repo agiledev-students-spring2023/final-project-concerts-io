@@ -11,7 +11,7 @@ function Concert(props) {
 
   const id = window.location.pathname.substring(10);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND}/concerts/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/ticketmaster/${id}`, {
       headers: { Authorization: `JWT ${jwtToken}` },
     })
       .then((res) => {
@@ -65,23 +65,23 @@ function Concert(props) {
   } else {
     return (
       <div>
-      <h1 className="Concert-header">Concerts.io</h1>
-      <div className="Concert">
-        <h2 className="Concert-name">{concert.name}</h2>
-        <img src={concert.image} alt={concert.artist} />
-        <p>
-          {concert.date} at {concert.location}
-        </p>
-        <section>
-          <p>{concert.description}</p>
-        </section>
-        <a href={concert.ticketLink} className="Concert-link">
-          Buy Tickets
-        </a>
-        <button onClick={handleClick} className="Concert-button">
-          Add to Favorites
-        </button>
-      </div>
+        <h1 className="Concert-header">Concerts.io</h1>
+        <div className="Concert">
+          <h2 className="Concert-name">{concert.name}</h2>
+          <img src={concert.image} alt={concert.artist} />
+          <p>
+            {concert.date} at {concert.location}
+          </p>
+          <section>
+            <p>{concert.description}</p>
+          </section>
+          <a href={concert.ticketLink} className="Concert-link">
+            Buy Tickets
+          </a>
+          <button onClick={handleClick} className="Concert-button">
+            Add to Favorites
+          </button>
+        </div>
       </div>
     );
   }

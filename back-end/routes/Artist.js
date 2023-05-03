@@ -16,20 +16,21 @@ ArtistRouter.get('/:id', passport.authenticate('jwt', { session: false }), async
       return res.status(400).json({
         success: false,
         message: 'Artist not found',
-        error: 'Artist not found'
+        error: 'Artist not found',
       });
     }
 
-    if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid artist id',
-        error: 'Invalid artist id'
+        error: 'Invalid artist id',
       });
     }
 
     res.json(artist);
   } catch (err) {
+    console.error(err);
     return res.status(500).json({
       success: false,
       message: 'Error finding artist data.',
