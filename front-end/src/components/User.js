@@ -18,7 +18,7 @@ const User = (props) => {
           <br />
           <Link to="/edit-profile">Edit Profile</Link>
         </div>
-        <Link to="/connection" style={{ textDecoration: 'none' }}>
+        <Link to="/connection">
           <span>Connect Streaming Services</span>
         </Link>
       </div>

@@ -67,7 +67,7 @@ const SavedConcerts = (props) => {
           <h2>Saved Concerts</h2>
         </header>
         <div className="savedConcerts-container">
-          <p className="error">{errorMessage}</p>
+          <p className="concertError">{errorMessage}</p>
         </div>
       </div>
     );
@@ -80,7 +80,7 @@ const SavedConcerts = (props) => {
           <div className="search-container">
             <input
               type="text"
-              placeholder="Search concerts"
+              placeholder="Search Concerts"
               value={searchQuery}
               onChange={handleInputChange}
               className="search-input"

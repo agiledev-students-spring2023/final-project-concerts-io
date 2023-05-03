@@ -63,7 +63,7 @@ const Artist = (props) => {
           {artist.name ? <h1>{artist.name}</h1> : ''}
         </header>
 
-        <p className="error">{errorMessage}</p>
+        <p className="artistError">{errorMessage}</p>
       </div>
     );
   } else {

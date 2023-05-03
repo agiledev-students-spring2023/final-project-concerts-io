@@ -6,6 +6,7 @@ const Logout = (props) => {
   // we assume that a setuser function has been passed as a prop to this component
   useEffect(() => {
     localStorage.removeItem('token');
+    window.location.reload();
   }, []);
 
   // redirect the user to the home screen

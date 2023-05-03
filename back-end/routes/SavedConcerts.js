@@ -7,7 +7,6 @@ SavedConcertsRouter.get('/', passport.authenticate('jwt', { session: false }), a
   const { user } = req; // get user
   try {
     await user.populate('savedConcerts'); // populate favoriteArtists with actual artist docs
-    console.log(user.savedConcerts);
     res.status(200).json(user.savedConcerts);
   } catch (err) {
     console.error('Database Error: ', err.message);

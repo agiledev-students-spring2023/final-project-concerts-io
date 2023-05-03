@@ -10,7 +10,6 @@ ConnectionRouter.get('/',  passport.authenticate('jwt', { session: false }), asy
         username: req.user.username,
         id: req.user._id
       };
-    console.log(profileInfo)
     res.send(profileInfo)
 
 });

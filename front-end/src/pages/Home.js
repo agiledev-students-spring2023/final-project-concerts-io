@@ -78,7 +78,7 @@ const Home = (props) => {
       <div className="Home">
         <div className="home-header">
           <img src={logo} alt="logo" />
-          <Link to="/recommended">
+          <Link className={'link-styles'} to="/recommended">
             <h1>Recommended Concerts</h1>
           </Link>
         </div>

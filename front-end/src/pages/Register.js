@@ -13,6 +13,7 @@ const Register = (props) => {
     if (status.success) {
       console.log(`User successfully logged in: ${status.username}`);
       localStorage.setItem('token', status.token); // store the token into localStorage
+      window.location.reload();
     }
   }, [status]);
 
@@ -51,7 +52,7 @@ const Register = (props) => {
   // if the user is not logged in, show the register form
   if (!status.success)
     return (
-      <div className="Login">
+      <div className="Register">
         <h1>Register</h1>
         {errorMessage ? <p className="error">{errorMessage}</p> : ''}
         <section className="register">

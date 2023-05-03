@@ -21,6 +21,7 @@ const Login = (props) => {
     if (status.success && status.token) {
       console.log(`User successfully logged in: ${status.username}`);
       localStorage.setItem('token', status.token); // store the token into localStorage
+      window.location.reload();
     }
   }, [status]);
 

@@ -3,6 +3,7 @@
 This is an express-based backend for the concerts.io application. It currently provides the react front-end with concert and artist data sourced from a mockaroo api and the ticketmaster api. It also allows for users to link their spotify or last.fm accounts to acquire music listening data. Once this project reaches the database integration stage, concert data will be sourced from the ticketmaster api and our own database that will store saved concerts and artists for individual users.
 
 It requires a multitude of environment variables, including last fm, ticket master and spotify api keys
+
 ```
 # spotify credentials
 CLIENT_ID=__________
@@ -16,7 +17,7 @@ TICKETMASTER_API_SECRET=__________
 # LastFM API
 LASTFM_API_KEY=__________
 LASTFM_API_SECRET=__________
-LASTFM_CALLBACK=http://localhost:3000/lastfmcallback
+LASTFM_CALLBACK=_____
 
 # MongoDB
 MONGODB_CONNECTION=__________
@@ -26,7 +27,11 @@ JWT_SECRET=__________
 JWT_EXP_DAYS=__________
 
 #FRONT-END
-FRONT_END_DOMAIN=http://localhost:3001 
+FRONT_END_DOMAIN=_____
+
+#BACK-END
+BACK_END_DOMAIN=_____
+
 
 ```
 

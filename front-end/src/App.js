@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from './/pages/Home';
 import Profile from './/pages/Profile';
@@ -53,7 +53,7 @@ function App() {
           <Route path="/recommended" element={<Recommended />} />
 
           {/* a route to a form to manually enter your top artists */}
-          <Route path="/manual-entry" element={<ManualEntry/>} />
+          <Route path="/manual-entry" element={<ManualEntry />} />
 
           {/* a route to login*/}
           <Route path="/login" element={<Login />} />
