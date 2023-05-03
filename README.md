@@ -2,7 +2,7 @@
 
 ## Product Vision Statement
 - Concerts.io: A web application to provide users with concert information in their area relevant to their music listening habits. 
-- Concerts.io MVP will be a web application with a react front-end and express back-end communications with mongodb to compare a user-defined list of music artists to a locally defined database of concerts. It will require at minimum some communication with the Spotify API, Apple Music API, and Last.fm API. To start, users will have concerts recommended to them solely based on whether or not they have listened to them or if they follow the artist, and they will be able to save concerts and follow artists. 
+- Concerts.io intends to streamline the process of finding relveant concerts for music enjoyers to attend based on their listening habits by comparing the artists they listen to to the artists performing in the area
 
 ## Team Members
 - [Harry Minsky](https://github.com/hminsky2002)
@@ -11,7 +11,10 @@
 - [Lianna Poblete](https://github.com/liannnaa)
 
 ## History of the Project
-Concerts.io is a website that shows you nearby concerts based on your music taste. Users will receive weekly newsletter updates of shows happening nearby and also recently announced shows taking place in the future. Through the website, you will be able to see important details about each concert such as the date and time of the show, ticket prices, age requirement, and a link to purchase. Users will be able to save shows they want to go to and receive reminders of upcoming shows they have tickets for. Concerts.io makes the concert-going experience easy for all users, freeing them from the hassle and worry of missing out on their favorite band's show.
+Concerts.io is a website that shows you nearby concerts based on your music taste. This app was developed throughout the semester as a course project. It reached deployment on Digital Ocean May 1st. The web app consists of an express backend server, a react frontend server, and communicates with a mongodb atlas cluster for storing user data. It gathers user listener data through communication with the spotify and last fm apis, and currently sources it's concert reccomendations from the ticketmaster discovery API. 
+
+## Continous Deployment
+Continous deployment of the project is sourced through the digital ocean app platform, such that any pushes made to the master branch are then deployed onto the servers. The most up to date code in github is the app that will be served to users.
 
 ## Additional Resources
 [Concert.io Proposal](https://github.com/agiledev-students-spring-2023/project-proposal-team1234)
