@@ -1,3 +1,7 @@
 .manualEntry {
   white-space: normal;
 }
+
+section.manualEntry {
+  margin-bottom: 100px;
+}
