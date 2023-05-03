@@ -11,19 +11,19 @@ const Menu = (props) => {
       <div className="menu-wrapper">
         <div className="menu-box">
           <img src={aboutIcon} alt="about" />
-          <Link to="/about" style={{ textDecoration: 'none' }}>
+          <Link to="/about">
             <span>About</span>
           </Link>
         </div>
         <div className="menu-box">
           <img src={homeIcon} alt="home" />
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/">
             <span>Home</span>
           </Link>
         </div>
         <div className="menu-box">
           <img src={profileIcon} alt="profile" />
-          <Link to="/profile" style={{ textDecoration: 'none' }}>
+          <Link to="/profile">
             <span>Profile</span>
           </Link>
         </div>
