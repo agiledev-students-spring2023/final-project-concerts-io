@@ -2,8 +2,12 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+<<<<<<< HEAD
   font-family: 'Courier Prime', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+=======
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+>>>>>>> 59001336b27c52ec3938812df75a21109fe9d612
   white-space: normal;
   margin: 20px;
   margin-top: 70px;
@@ -24,14 +28,23 @@
 
 .Concert-name {
   color: #282c34;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+p.details {
+  margin: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .Concert-link {
-  margin: 20px;
+  text-decoration: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 15px;
 }
 
 .Concert-button {
-  margin: 15px;
+  margin: auto;
+  width:fit-content;
 }
 
 img {
