@@ -28,6 +28,10 @@ const Connection = (props) => {
     fetchData();
     const qsError = urlSearchParams.get('error'); // get any 'error' field in the URL query string
     if (qsError === 'authentication') setErrorMessage('Authentication failed, please try again');
+    if (qsError === 'notRegistered')
+      setErrorMessage(
+        'Authentication failed, please contact webstite admins to connect your Spotify account'
+      );
   }, []);
 
   if (!isLoggedIn) {

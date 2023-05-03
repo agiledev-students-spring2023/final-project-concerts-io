@@ -30,27 +30,43 @@ SpotifyCallbackRouter.get('/', async (req, res, next) => {
     const { access_token } = data;
     const { refresh_token } = data;
     // get favorite artists
-    const response = await helpers.useAccessToken(
-      'https://api.spotify.com/v1/me/top/artists',
-      access_token
-    );
-    console.log(response.items);
-    console.log(state);
-    const favArtists = response.items.slice(0, 20);
-    // use userid from state to find user and then add favartists to user
-    const artistDocuments = favArtists.map((artist) => {
-      const value = new Artist({
-        name: artist.name,
-      });
-      value.save();
-      return value;
-    });
+    try {
+      const response = await helpers.useAccessToken(
+        'https://api.spotify.com/v1/me/top/artists',
+        access_token
+      );
+      if (response == 'error') {
+        res.redirect(
+          401,
+          `${process.env.FRONT_END_DOMAIN}/connection?${new URLSearchParams({
+            error: 'notRegistered',
+          }).toString()}`
+        );
+      } else {
+        const favArtists = response.items.slice(0, 20);
+        const artistDocuments = favArtists.map((artist) => {
+          const value = new Artist({
+            name: artist.name,
+          });
+          value.save();
+          return value;
+        });
 
-    const user = await User.findOne({ _id: new mongoose.Types.ObjectId(state) });
-    user.favoriteArtists = artistDocuments;
-    await user.save();
+        const user = await User.findOne({ _id: new mongoose.Types.ObjectId(state) });
+        user.favoriteArtists = artistDocuments;
+        await user.save();
 
-    res.redirect(`${process.env.FRONT_END_DOMAIN}/profile`);
+        res.redirect(`${process.env.FRONT_END_DOMAIN}/profile`);
+      }
+    } catch (err) {
+      console.error(err);
+      res.redirect(
+        401,
+        `${process.env.FRONT_END_DOMAIN}/connection?${new URLSearchParams({
+          error: 'authentication',
+        }).toString()}`
+      );
+    }
   }
 });
 
