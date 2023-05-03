@@ -34,12 +34,16 @@
   margin: 15px;
 }
 
-img {
-}
+
 @media screen and (min-width: 600px) {
   .Concert {
     width: 25%;
     margin: auto;
+  }
+  .Concert-header{
+    width: 50%;
+    margin: auto;
+    position: relative;
   }
 }
 

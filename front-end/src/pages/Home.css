@@ -41,3 +41,10 @@
 .home-header img {
   width: 50%;
 }
+@media screen and (min-width: 600px) {
+  .home-header{
+      width: 50%;
+      margin: auto;
+      position: relative;
+  }
+}

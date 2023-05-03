@@ -9,8 +9,9 @@
 }
 
 .recommendedConcerts-container {
-  margin-top: 150px;
+  margin-top: 200px;
   margin-bottom: 50px;
+  padding-bottom: 80px;
 }
 
 .recommended-concert {
@@ -50,5 +51,10 @@
   .recommendedConcerts-container {
     width: 50%;
     margin: auto;
+  }
+  .recommended-header{
+      width: 50%;
+      margin: auto;
+      position: relative;
   }
 }

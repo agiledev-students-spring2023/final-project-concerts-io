@@ -60,9 +60,9 @@ function Concert(props) {
   if (errorMessage) {
     return (
       <div className="Concert">
-        <header className="Concert-header">
+        <div className="Concert-header">
           <img src={logo} alt="logo" />
-        </header>
+        </div>
         <p className="error">{errorMessage}</p>
       </div>
     );
